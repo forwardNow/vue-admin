@@ -4,6 +4,9 @@
   - [1. 介绍](#1-%E4%BB%8B%E7%BB%8D)
   - [2. 编撰](#2-%E7%BC%96%E6%92%B0)
   - [3. 使用](#3-%E4%BD%BF%E7%94%A8)
+    - [3.1. 环境](#31-%E7%8E%AF%E5%A2%83)
+    - [3.2. 设置代理](#32-%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86)
+    - [3.3. 启动 Vue UI](#33-%E5%90%AF%E5%8A%A8-vue-ui)
   - [4. 使用到的包](#4-%E4%BD%BF%E7%94%A8%E5%88%B0%E7%9A%84%E5%8C%85)
   - [5. 兼容性](#5-%E5%85%BC%E5%AE%B9%E6%80%A7)
   - [6. 项目结构](#6-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84)
@@ -39,10 +42,10 @@
 
 > 此项目使用 vue-cli 3.0.2 开发、测试、编译
 
-安装：
+### 3.1. 环境
 
 ```shell
-$ sudo npm install -g webpack
+$ sudo npm install -g webpack webpack-cli
 $ webpack -v
 4.18.0
 
@@ -53,11 +56,38 @@ $ vue --version
 $ sudo npm install -g @vue/cli-service-global
 ```
 
-可视化：
+### 3.2. 设置代理
+
+> 用于开发时启动的测试服务器（devServer）
+
+编辑 `/vue.config.js` 文件中 `"target"` 属性：
+
+```javascript
+module.exports = {
+  devServer: {
+    // 设置代理
+    proxy: {
+      '/api': {
+        // target: 'http://localhost:3000/', // 域名
+        target: 'http://192.168.10.226:1888/', // 域名
+        ws: true, // 是否启用websockets
+        /**
+         * 开启代理：在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，
+         * 这样服务端和服务端进行数据的交互就不会有跨域问题 
+         */
+        changOrigin: true,
+      },
+    },
+  },
+};
+```
+
+### 3.3. 启动 Vue UI
+
+>在命令行中执行 `vue ui` 命令，启动 web 服务器，选择该项目
 
 ```shell
 vue ui
-# 启动后需要选择 vue-cli 项目
 ```
 
 ## 4. 使用到的包
