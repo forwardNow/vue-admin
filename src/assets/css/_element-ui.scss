@@ -1,0 +1,25 @@
+.el-header,
+.el-main {
+  padding: 0;
+}
+
+.el-menu.el-menu--horizontal {
+  border-bottom: none 0;
+}
+
+.el-submenu__title i,
+.el-menu-item i {
+  color: inherit;
+}
+
+.el-breadcrumb__inner a,
+.el-breadcrumb__inner.is-link {
+  font-weight: normal;
+  // color: #0786e9;
+  color: #fff;
+}
+
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  // color: #606266;
+  color: darken($color: #fff, $amount: 20%);
+}
