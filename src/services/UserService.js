@@ -10,7 +10,7 @@ const UserService = {};
 /**
  * 按条件获取用户列表（模糊查询）
  * @param {string} clientName
- * @param {object} pager
+ * @param {{pageSize: number, currentPage: number}} pager
  * @returns {Promise} res.result 是一个 User 数组
  */
 UserService.getUserList = (clientName, pager) => axios.post(UserAPI.LIST, { clientName, pager });

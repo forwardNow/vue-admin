@@ -102,32 +102,13 @@ export default {
     return {
       loading: false,
       pager: {
-        pageSizes: [1, 10, 20, 50, 100],
-        pageSize: 1,
-        total: 10,
+        pageSizes: [10, 20, 50, 100],
+        pageSize: 10,
+        total: null,
         currentPage: 1,
       },
       loginNameKeyword: '',
-      tableData: [{
-        // clientTrueName: '超级管理员',
-        // clientUserSex: -1,
-        // allowLogin: 1,
-        // clientUserIdCard: '',
-        // clientUserPhoneNum: '',
-        // clientUserEmail: '',
-        // createuserid: '',
-        // createusername: '',
-        // modifieduserid: '',
-        // modifiedusername: '',
-        // isdeleted: 0,
-        // _id: '5b9f0dfaf5843213c81ad74d',
-        // clientId: '1',
-        // clientName: 'admin',
-        // clientPassword: '7410',
-        // createtime: '2018-09-17T02:14:18.523Z',
-        // modifiedtime: '2018-09-17T02:14:18.523Z',
-        // __v: 0,
-      }],
+      tableData: [],
     };
   },
   methods: {
@@ -149,12 +130,24 @@ export default {
 
       this.loading = true;
 
-      UserService.getUserList(this.loginNameKeyword, this.pager).then((res) => {
+      const { pageSize, currentPage } = this.pager;
+
+      UserService.getUserList(this.loginNameKeyword, { pageSize, currentPage }).then((res) => {
         if (res.errorCode === 0) {
-          this.tableData = res.result.items;
-          this.pager.pageSize = res.result.pager.pageSize;
-          this.pager.currentPage = res.result.pager.currentPage;
-          this.pager.total = res.result.pager.total;
+          const {
+            result: {
+              items,
+              pager: {
+                pageSize: newPageSize,
+                currentPage: newCurrentPage,
+                total,
+              },
+            },
+          } = res;
+          this.tableData = items;
+          this.pager.pageSize = newPageSize;
+          this.pager.currentPage = newCurrentPage;
+          this.pager.total = total;
         }
         this.loading = false;
       }).catch(() => {

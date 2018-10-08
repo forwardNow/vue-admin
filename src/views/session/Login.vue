@@ -7,12 +7,12 @@
         <div class="panel__body">
           <el-form :model="userForm" :rules="rules" ref="userForm" class="demo-userForm">
             <el-form-item prop="username">
-              <el-input v-model="userForm.username" v-focus>
+              <el-input v-model="userForm.username" v-focus placeholder="admin">
                 <template slot="prepend">用户</template>
               </el-input>
             </el-form-item>
             <el-form-item prop="password">
-              <el-input type="password" v-model="userForm.password"
+              <el-input type="password" v-model="userForm.password" placeholder="7410"
               @keyup.enter.native="onSubmit('userForm')">
                 <template slot="prepend">密码</template>
               </el-input>
