@@ -7,20 +7,20 @@
         <div class="panel__body">
           <el-form :model="userForm" :rules="rules" ref="userForm" class="demo-userForm">
             <el-form-item prop="username">
-              <el-input v-model="userForm.username" v-focus placeholder="admin">
+              <el-input v-model="userForm.username" placeholder="admin" v-focus>
                 <template slot="prepend">用户</template>
               </el-input>
             </el-form-item>
             <el-form-item prop="password">
               <el-input type="password" v-model="userForm.password" placeholder="7410"
-              @keyup.enter.native="onSubmit('userForm')">
+                        @keyup.enter.native="onSubmit('userForm')">
                 <template slot="prepend">密码</template>
               </el-input>
             </el-form-item>
             <el-form-item>
               <el-button class="btn_submit" type="primary"
-              @click="onSubmit('userForm')"
-              :plain="true" :loading="isLoading">登陆</el-button>
+                         @click="onSubmit('userForm')"
+                         :plain="true" :loading="isLoading">登陆</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -101,50 +101,49 @@ export default {
 
 <style scoped>
 
-.login {
-  position: relative;
-  min-height: 100%;
-  padding-bottom: 100px;
-  background: url("../../assets/images/login_bg.jpg");
-  background-size: cover;
-}
+  .login {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 100px;
+    background: url("../../assets/images/login_bg.jpg");
+    background-size: cover;
+  }
 
-.login__header {
-  margin: 80px auto 0 auto;
-  font-size: 36px;
-  color: #20a0ff;
-  text-align: center;
-}
+  .login__header {
+    margin: 80px auto 0 auto;
+    font-size: 36px;
+    color: #20a0ff;
+    text-align: center;
+  }
 
-.panel {
-  width: 300px;
-  margin: 48px auto 0 auto;
-  background-color: #fff;
-  border-radius: 4px;
-}
+  .panel {
+    width: 300px;
+    margin: 48px auto 0 auto;
+    background-color: #fff;
+    border-radius: 4px;
+  }
 
-.panel__heading {
-  margin-top: 48px;
-  font-size: 26px;
-  color: #20a0ff;
-  text-align: center;
-}
+  .panel__heading {
+    margin-top: 48px;
+    font-size: 26px;
+    color: #20a0ff;
+    text-align: center;
+  }
 
-.panel__body {
-  padding: 32px 24px;
-}
+  .panel__body {
+    padding: 32px 24px;
+  }
 
-.btn_submit {
-  width: 100%;
-}
+  .btn_submit {
+    width: 100%;
+  }
 
-.login__footer {
-  position: absolute;
-  bottom: 24px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
+  .login__footer {
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
 
 </style>
-
