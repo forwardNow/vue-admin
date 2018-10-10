@@ -1,7 +1,7 @@
 <template>
   <div class="login clearfix">
-    <header class="login__header">系统管理平台</header>
     <main class="login__main clearfix">
+      <div class="page-title">基础支撑库平台</div>
       <div class="panel clearfix">
         <div class="panel__heading">用户登录</div>
         <div class="panel__body">
@@ -22,13 +22,21 @@
                          @click="onSubmit('userForm')"
                          :plain="true" :loading="isLoading">登陆</el-button>
             </el-form-item>
+            <div class="login-links">
+              <a class="link" href="#">忘记密码</a>
+              <a class="link" href="#">免费注册</a>
+            </div>
           </el-form>
+        </div>
+        <div class="panel__footer">
+          其他方式登录：
+          <a class="oauth-link" href="#"><span class="iconfont icon-qq1"></span></a>
+          <a class="oauth-link" href="#"><span class="iconfont icon-weixin"></span></a>
         </div>
       </div>
     </main>
     <footer class="login__footer">
-      <div>湖北省卫生和计划生育委员会</div>
-      <div>武汉开普伟业科技有限公司 技术支持</div>
+      Copyright   2008-2018 版权所有：武汉开普伟业科技有限公司
     </footer>
   </div>
 </template>
@@ -100,38 +108,79 @@ export default {
 </script>
 
 <style scoped>
-
   .login {
     position: relative;
     min-height: 100%;
-    padding-bottom: 100px;
-    background: url("../../assets/images/login_bg.jpg");
-    background-size: cover;
+    padding-bottom: 48px;
+    background: #c7e8ff;
   }
 
-  .login__header {
-    margin: 80px auto 0 auto;
-    font-size: 36px;
-    color: #20a0ff;
+  .login__main {
+    position: relative;
+    width: 860px;
+    min-height: 600px;
+    margin: 0 auto;
+    padding-top: 120px;
+    background: url("../../assets/images/login_bg.png") 0 200px no-repeat;
+  }
+
+  .page-title {
+    float: left;
+    margin-left: 136px;
+    color: #3d86ec;
+    font-size: 44px;
+    font-weight: 500;
     text-align: center;
+    letter-spacing: 5px;
   }
-
   .panel {
-    width: 300px;
-    margin: 48px auto 0 auto;
+    float: right;
+    width: 320px;
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 5px;
+    border: 1px solid #d2d2d2;
   }
 
   .panel__heading {
-    margin-top: 48px;
-    font-size: 26px;
-    color: #20a0ff;
+    line-height: 68px;
+    font-size: 28px;
     text-align: center;
+    color: #3d86ec;
+    border-bottom: 1px solid #f1f1f1;
   }
 
   .panel__body {
-    padding: 32px 24px;
+    padding: 32px 24px 6px 24px;
+  }
+
+  .panel__footer {
+    height: 48px;
+    padding: 0 24px;
+    line-height: 48px;
+    border-top: 1px solid #f1f1f1;
+    color: #666;
+  }
+
+  .oauth-link {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 24px;
+    vertical-align: middle;
+  }
+  .iconfont {
+    font-size: inherit;
+  }
+
+  .login-links {
+    text-align: right;
+  }
+
+  .link {
+    margin-left: 12px;
+    color: #9b9ea0;
+  }
+  .link:hover {
+    color: #108cee;
   }
 
   .btn_submit {
@@ -140,10 +189,13 @@ export default {
 
   .login__footer {
     position: absolute;
-    bottom: 24px;
+    bottom: 0;
     left: 0;
     width: 100%;
     text-align: center;
+    line-height: 48px;
+    background-color: #ffffff;
+    color: #8b8b8b;
   }
 
 </style>

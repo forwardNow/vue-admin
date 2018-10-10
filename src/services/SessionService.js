@@ -17,8 +17,8 @@ let TOKEN = null;
  */
 SessionService.login = (username, password) => {
   const data = {
-    clientName: username,
-    clientPassword: password,
+    ExternalIdentifier: username,
+    ExternalCredential: password,
   };
   return axios.post(SessionAPI.LOGIN, data);
 };
