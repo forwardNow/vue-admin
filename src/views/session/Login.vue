@@ -6,8 +6,8 @@
         <div class="panel__heading">用户登录</div>
         <div class="panel__body">
           <el-form :model="userForm" :rules="rules" ref="userForm" class="demo-userForm">
-            <el-form-item prop="username">
-              <el-input v-model="userForm.username" placeholder="admin" v-focus>
+            <el-form-item prop="loginName">
+              <el-input v-model="userForm.loginName" placeholder="admin" v-focus>
                 <template slot="prepend">用户</template>
               </el-input>
             </el-form-item>
@@ -49,11 +49,11 @@ export default {
     return {
       isLoading: false,
       userForm: {
-        username: '',
+        loginName: '',
         password: '',
       },
       rules: {
-        username: [
+        loginName: [
           { required: true, message: '请输入用户名', trigger: ['blur', 'change'] },
         ],
         password: [
@@ -72,9 +72,9 @@ export default {
 
         this.isLoading = true;
 
-        const { username, password } = this.userForm;
+        const { loginName, password } = this.userForm;
 
-        return SessionService.login(username, password).then((res) => {
+        return SessionService.login(loginName, password).then((res) => {
           if (res.errorCode === 0) {
             this.$message({
               type: 'success',
@@ -87,7 +87,7 @@ export default {
             if (this.$route.query.status === 401) {
               this.$router.go(-1);
             } else {
-              this.$router.push({ name: 'system' });
+              this.$router.push({ path: '/' });
             }
           } else {
             this.$message({

@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import {
-//  Pagination,
-//  Dialog,
-//  Autocomplete,
-//  Dropdown,
-//  DropdownMenu,
-//  DropdownItem,
+  Pagination,
+  //  Dialog,
+  //  Autocomplete,
+  //  Dropdown,
+  //  DropdownMenu,
+  //  DropdownItem,
   Menu,
   Submenu,
   MenuItem,
@@ -24,15 +24,15 @@ import {
   //  OptionGroup,
   Button,
   //  ButtonGroup,
-  //  Table,
-  //  TableColumn,
+  Table,
+  TableColumn,
   //  DatePicker,
   //  TimeSelect,
   //  TimePicker,
   //  Popover,
   //  Tooltip,
-  //  Breadcrumb,
-  //  BreadcrumbItem,
+  Breadcrumb,
+  BreadcrumbItem,
   Form,
   FormItem,
   //  Tabs,
@@ -60,16 +60,16 @@ import {
   //  Transfer,
   Container,
   Header,
-  //  Aside,
+  Aside,
   Main,
   //  Footer,
-  //  Loading,
+  Loading,
   //  MessageBox,
   Message,
 //  Notification,
 } from 'element-ui';
 
-// Vue.use(Pagination);
+Vue.use(Pagination);
 // Vue.use(Dialog);
 // Vue.use(Autocomplete);
 // Vue.use(Dropdown);
@@ -93,15 +93,15 @@ Vue.use(Input);
 // Vue.use(OptionGroup);
 Vue.use(Button);
 // Vue.use(ButtonGroup);
-// Vue.use(Table);
-// Vue.use(TableColumn);
+Vue.use(Table);
+Vue.use(TableColumn);
 // Vue.use(DatePicker);
 // Vue.use(TimeSelect);
 // Vue.use(TimePicker);
 // Vue.use(Popover);
 // Vue.use(Tooltip);
-// Vue.use(Breadcrumb);
-// Vue.use(BreadcrumbItem);
+Vue.use(Breadcrumb);
+Vue.use(BreadcrumbItem);
 Vue.use(Form);
 Vue.use(FormItem);
 // Vue.use(Tabs);
@@ -129,11 +129,11 @@ Vue.use(FormItem);
 // Vue.use(Transfer);
 Vue.use(Container);
 Vue.use(Header);
-// Vue.use(Aside);
+Vue.use(Aside);
 Vue.use(Main);
 // Vue.use(Footer);
 
-// Vue.use(Loading.directive);
+Vue.use(Loading.directive);
 
 // Vue.prototype.$loading = Loading.service;
 // Vue.prototype.$msgbox = MessageBox;

@@ -9,18 +9,20 @@ const UserService = {};
 
 /**
  * 按条件获取用户列表（模糊查询）
- * @param {string} clientName
+ * @param {string} UserTrueName
  * @param {{pageSize: number, currentPage: number}} pager
  * @returns {Promise} res.result 是一个 User 数组
  */
-UserService.getUserList = (clientName, pager) => axios.post(UserAPI.LIST, { clientName, pager });
+UserService.getUserList = (UserTrueName, pager) => axios.post(UserAPI.LIST, {
+  UserTrueName, pager,
+});
 
 /**
  * 根据 id 获取用户
- * @param {string} clientId 主键 ID
+ * @param {string} UserId 主键 ID
  * @returns {Promise} res.result 是一个 User 对象
  */
-UserService.getUserById = clientId => axios.post(UserAPI.FIND_BY_ID, { clientId });
+UserService.getUserById = UserId => axios.post(UserAPI.FIND_BY_ID, { UserId });
 
 /**
  * 根据 id 删除用户

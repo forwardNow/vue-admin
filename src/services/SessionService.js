@@ -11,13 +11,13 @@ let TOKEN = null;
 
 /**
  * 登陆
- * @param {string} username
+ * @param {string} loginName
  * @param {string} password
  * @returns {Promise}
  */
-SessionService.login = (username, password) => {
+SessionService.login = (loginName, password) => {
   const data = {
-    ExternalIdentifier: username,
+    ExternalIdentifier: loginName,
     ExternalCredential: password,
   };
   return axios.post(SessionAPI.LOGIN, data);
