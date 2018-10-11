@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
@@ -60,7 +61,7 @@ module.exports = {
             options: {
               // 单位 KB
               limit: 1024 * 2,
-
+              publicPath: '../',
               /*
                * 设置打包后的文件名称，默认为 hash 值名称
                * [hash:8] 取前 8 位 hash 值
@@ -79,13 +80,13 @@ module.exports = {
             options: {
               // 单位 KB
               limit: 1024 * 2,
-              publicPath: 'fonts', // 打包到fonts文件夹
+              publicPath: '../',
               useRelativePath: true, // 设置为相对路径
               /*
                * 设置打包后的文件名称，默认为 hash 值名称
                * [hash:8] 取前 8 位 hash 值
                */
-              name: '[name].[hash:8].[ext]',
+              name: 'fonts/[name].[hash:8].[ext]',
             },
           },
         ],
@@ -127,8 +128,7 @@ module.exports = {
         },
         commons: {
           test: /\.js$/,
-          name: 'common',
-          minSize: 100, // 只要超出0字节就生成一个新包
+          name: 'commons',
         },
       },
     },
@@ -140,8 +140,11 @@ module.exports = {
   // 配置插件
   plugins: [
 
+    new VueLoaderPlugin(),
+
     new MiniCssExtractPlugin({
-      filename: '[name].[hash:8].css',
+      filename: 'css/[name].[contenthash:8].css',
+      chunkFilename: 'css/[name].[contenthash:8].css',
     }),
 
     // 启动页
