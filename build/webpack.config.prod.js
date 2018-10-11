@@ -81,7 +81,7 @@ module.exports = {
               // 单位 KB
               limit: 1024 * 2,
               publicPath: '../',
-              useRelativePath: true, // 设置为相对路径
+              // useRelativePath: true, // 设置为相对路径
               /*
                * 设置打包后的文件名称，默认为 hash 值名称
                * [hash:8] 取前 8 位 hash 值
