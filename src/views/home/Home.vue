@@ -6,7 +6,7 @@
     <el-header class="page__header">
 
       <!-- logo -->
-      <router-link :to="{ name: 'system' }" class="logo">
+      <router-link to="/" class="logo">
         <img src="../../assets/images/logo.png" alt="">
         <div class="title">基础支撑库平台</div>
       </router-link>
@@ -42,18 +42,27 @@
           <el-menu class="aside__menu" :router="true" :default-active="activeIndex" ref="menuTree">
             <el-submenu index="/user">
               <template slot="title">
-                <i class="el-icon-menu"></i><span>用户</span>
+                <i class="iconfont icon-yonghu1"></i><span>用户</span>
               </template>
               <el-menu-item index="/user/list">
-                <i class="iconfont icon-qunzu"></i><span slot="title">用户管理</span>
+                <i class="iconfont icon-yonghu1"></i><span slot="title">用户管理</span>
               </el-menu-item>
-              <el-menu-item index="2">
-                <i class="iconfont icon-qunzu"></i><span slot="title">注册用户</span>
+              <el-menu-item index="">
+                <i class="iconfont icon-zhuce"></i><span slot="title">注册用户</span>
               </el-menu-item>
-              <el-menu-item index="2">
-                <i class="iconfont icon-qunzu"></i><span slot="title">登陆方式</span>
+              <el-menu-item index="">
+                <i class="iconfont icon-denglu"></i><span slot="title">登陆方式</span>
               </el-menu-item>
             </el-submenu>
+            <el-menu-item index="">
+              <i class="iconfont icon-jiaoseguanli"></i><span slot="title">角色管理</span>
+            </el-menu-item>
+            <el-menu-item index="">
+              <i class="iconfont icon-juese"></i><span slot="title">子系统管理</span>
+            </el-menu-item>
+            <el-menu-item index="">
+              <i class="iconfont icon-caidan"></i><span slot="title">菜单管理</span>
+            </el-menu-item>
           </el-menu>
 
         </el-aside>
@@ -112,16 +121,22 @@
         // 当前路由
         const path = this.$route.path;
 
-        // TODO: 如果当前路由存在于菜单树，则高亮对应的菜单项
-        this.activeIndex = path;
+        const openSubMenu = (p) => {
+          let subMenuIndex = p.substring(0, p.lastIndexOf('/'));
+          console.log(p, subMenuIndex);
+          if (subMenuIndex && subMenuIndex !== '/') {
+            try {
+              this.$refs.menuTree.open(subMenuIndex);
+              // TODO: 如果当前路由存在于菜单树，则高亮对应的菜单项
+              this.activeIndex = p;
+            } catch(e) {
+              openSubMenu(subMenuIndex)
+            }
+          }
+        };
 
         // TODO: 显示当前（active）菜单项
-        const subMenuIndex = path.substring(0, path.lastIndexOf('/'));
-
-        if (subMenuIndex) {
-          this.$refs.menuTree.open(subMenuIndex);
-        }
-
+        openSubMenu(path);
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);

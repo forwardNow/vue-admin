@@ -28,24 +28,33 @@
 
         <el-table-column type="index" width="50"></el-table-column>
 
-        <el-table-column label="姓名" width="100">
+        <el-table-column label="姓名" width="160">
           <template slot-scope="scope">{{ scope.row.UserTrueName }}</template>
         </el-table-column>
 
-        <el-table-column label="昵称" width="180">
-          <template slot-scope="scope">{{ scope.row.UserNickname }}</template>
-        </el-table-column>
-
         <el-table-column label="性别" width="80">
-          <template slot-scope="scope">{{ scope.row.Sex }}</template>
+          <template slot-scope="scope">{{ scope.row.Sex | genderFilter}}</template>
         </el-table-column>
 
-        <el-table-column label="联系电话" width="120">
+        <el-table-column label="人员类别" width="120">
+          <template slot-scope="scope">{{ scope.row.PeopleCategory }}</template>
+        </el-table-column>
+
+        <el-table-column label="创建时间" width="180">
+          <template slot-scope="scope">{{ scope.row.CreateTime | dateFilter }}</template>
+        </el-table-column>
+
+        <el-table-column label="联系电话" width="160">
           <template slot-scope="scope">{{ scope.row.Phone }}</template>
         </el-table-column>
 
-        <el-table-column label="新增时间" width="240">
-          <template slot-scope="scope">{{ scope.row.CreateTime | datetimeFilter}}</template>
+        <el-table-column label="状态" width="80">
+          <template slot-scope="scope">
+            <span v-bind:class="scope.row.IsDeleted === 0 ? 'text-success' : 'text-danger'">
+              <span class="iconfont icon-yuandianzhong"></span>
+              {{ scope.row.IsDeleted === 0 ? '启用' : '停用'}}
+            </span>
+          </template>
         </el-table-column>
 
         <el-table-column label="操作">
@@ -164,8 +173,8 @@
       },
       handleEdit(UserId) {
         this.$router.push({
-          name: 'system.userCenter.userManagement.edit',
-          params: { id: UserId },
+          path: '/user/list/edit',
+          query: { id: UserId },
         });
       },
       handleDelete(UserId) {

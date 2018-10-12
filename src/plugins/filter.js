@@ -42,15 +42,14 @@ Vue.filter('dateFilter', (value) => {
  * 翻译性别
  */
 Vue.filter('genderFilter', (value) => {
-  switch (value) {
-    case 0: {
+  switch (parseInt(value, 10)) {
+    case 1:
       return '男';
-    }
-    case 1: {
+
+    case 2:
       return '女';
-    }
-    default: {
+
+    default:
       return '';
-    }
   }
 });

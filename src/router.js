@@ -9,6 +9,7 @@ const NotFoundView = () => import('./views/error/NotFound.vue');
 const HomeView = () => import('./views/home/Home.vue');
 const UserListView = () => import('./views/user/List.vue');
 const UserDetailView = () => import('./views/user/Detail.vue');
+const UserEditView = () => import('./views/user/Edit.vue');
 
 
 const router = new Router({
@@ -36,6 +37,11 @@ const router = new Router({
               path: 'detail',
               component: UserDetailView,
               meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: 'edit',
+              component: UserEditView,
+              meta: { requiresAuth: true, title: '编辑' },
             },
           ],
         },

@@ -16,8 +16,6 @@ module.exports = merge(baseConfig, {
   },
 
   stats: {
-    // One of the two if I remember right
-    entrypoints: false,
     children: false,
   },
 
@@ -77,6 +75,5 @@ module.exports = merge(baseConfig, {
       filename: 'css/[name].[hash:8].css',
       chunkFilename: 'css/[name].[hash:8].css',
     }),
-
   ],
 });
