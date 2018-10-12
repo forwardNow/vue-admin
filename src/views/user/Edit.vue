@@ -51,8 +51,8 @@ export default {
   data() {
     return {
       genderDicList: [
-        { code: 1, text: '男' },
-        { code: 2, text: '女' },
+        { code: '1', text: '男' },
+        { code: '2', text: '女' },
       ],
       rules: {
         UserNickname: [
