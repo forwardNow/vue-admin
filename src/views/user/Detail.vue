@@ -47,7 +47,7 @@
     },
     methods: {
       init() {
-        UserService.getUserById(this.$route.query.id).then((res) => {
+        UserService.get({ UserId: this.$route.query.id } ).then((res) => {
           if (res.errorCode === 0) {
             this.user = res.result;
           } else if (res.errorCode === 1) {

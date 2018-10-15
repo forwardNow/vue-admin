@@ -1,0 +1,62 @@
+import axios from '../plugins/axios';
+
+class BaseService {
+  /**
+   *
+   * @param API {{INSERT?: string, DELETE?: string,
+   * UPDATE?: string, GET_ONE?: string, GET_LIST?: string}}
+   */
+  constructor(API) {
+    this.API = API;
+  }
+
+  /**
+   * 插入一条数据
+   * @param bean
+   * @return {AxiosPromise<any>}
+   */
+  insert(bean) {
+    return axios.post(this.API.INSERT, bean);
+  }
+
+  /**
+   * 删除一条数据
+   * @param bean
+   * @return {AxiosPromise<any> | * | void}
+   */
+  delete(bean) {
+    return axios.post(this.API.DELETE, bean);
+  }
+
+  /**
+   * 更新一条数据
+   * @param bean
+   * @return {AxiosPromise<any> | * | void}
+   */
+  update(bean) {
+    return axios.post(this.API.UPDATE, bean);
+  }
+
+  /**
+   * 获取一条数据
+   * @param bean
+   * @return {AxiosPromise<any> | * | void}
+   */
+  get(bean) {
+    return axios.post(this.API.GET_ONE, bean);
+  }
+
+  /**
+   * 获取一页数据
+   * @param bean
+   * @param pager
+   * @return {AxiosPromise<any> | * | void}
+   */
+  getList(bean, pager) {
+    const condition = { pager };
+    Object.assign(condition, bean);
+    return axios.post(this.API.GET_LIST, condition);
+  }
+}
+
+export default BaseService;

@@ -133,7 +133,7 @@
 
         const { pageSize, currentPage } = this.pager;
 
-        UserService.getUserList(this.UserTrueName, { pageSize, currentPage }).then((res) => {
+        UserService.getList( { UserTrueName: this.UserTrueName }, { pageSize, currentPage }).then((res) => {
           if (res.errorCode === 0) {
             const {
               result: {
@@ -156,12 +156,10 @@
         });
       },
       handlePageSizeChange(newPageSize) {
-        console.log('handlePageSizeChange', newPageSize);
         this.pager.pageSize = newPageSize;
         this.reload(true);
       },
       handleCurrentPageChange(newCurrentPage) {
-        console.log('handleCurrentPageChange', newCurrentPage);
         this.pager.currentPage = newCurrentPage;
         this.reload();
       },
@@ -182,7 +180,7 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
-        }).then(() => UserService.deleteUserById(UserId))
+        }).then(() => UserService.delete({ UserId }))
             .then((res) => {
               if (res.errorCode === 0) {
                 this.$message({

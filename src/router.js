@@ -16,10 +16,16 @@ const UserRegisterView = () => import('./views/user/Register.vue');
 const UserLoginModeView = () => import('./views/user/LoginMode.vue');
 
 const RoleListView = () => import('./views/role/List.vue');
+const RoleAddView = () => import('./views/role/Add.vue');
+const RoleEditView = () => import('./views/role/Edit.vue');
+const RoleDetailView = () => import('./views/role/Detail.vue');
 
 const SubsysListView = () => import('./views/subsys/List.vue');
 
 const MenuListView = () => import('./views/menu/List.vue');
+const MenuAddView = () => import('./views/menu/Add.vue');
+const MenuEditView = () => import('./views/menu/Edit.vue');
+const MenuDetailView = () => import('./views/menu/Detail.vue');
 
 
 const router = new Router({
@@ -77,6 +83,23 @@ const router = new Router({
           path: '/role/list',
           component: RoleListView,
           meta: { requiresAuth: true, title: '角色管理' },
+          children: [
+            {
+              path: '/role/list/detail',
+              component: RoleDetailView,
+              meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: '/role/list/edit',
+              component: RoleEditView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+            {
+              path: '/role/list/add',
+              component: RoleAddView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+          ],
         },
 
         // 子系统管理
@@ -91,6 +114,23 @@ const router = new Router({
           path: '/menu/list',
           component: MenuListView,
           meta: { requiresAuth: true, title: '菜单管理' },
+          children: [
+            {
+              path: '/menu/list/detail',
+              component: MenuDetailView,
+              meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: '/menu/list/edit',
+              component: MenuEditView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+            {
+              path: '/menu/list/add',
+              component: MenuAddView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+          ],
         },
       ],
     },

@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --progress --config ./build/webpack.config.dev.js",
-    "build": "NODE_ENV=production webpack --progress --config ./build/webpack.config.prod.js"
+    "build": "NODE_ENV=production webpack --progress --config ./build/webpack.config.prod.js",
+    "serve-dist": "http-server ./dist -P http://localhost:3000"
   },
   "keywords": [],
   "author": "",

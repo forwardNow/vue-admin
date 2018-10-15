@@ -1,21 +1,13 @@
 /** 用户 */
 const UserAPI = {
-  /** 列表 */
-  LIST: '/api/user/list',
+  GET_ONE: '/api/user/get',
 
-  /** 用户名唯一性校验 */
-  CHECK_LOGIN_NAME_UNIQUE: '/api/user/unique',
+  GET_LIST: '/api/user/list',
 
-  /** 添加用户 */
-  ADD_USER: '/api/user/add',
+  INSERT: '/api/user/insert',
 
-  /** 查找 */
-  FIND_BY_ID: '/api/user/get',
+  DELETE: '/api/user/delete',
 
-  /** 删除用户 */
-  DELETE_USER: '/api/user/delete',
-
-  /** 更新用户 */
-  UPDATE_USER: '/api/user/edit',
+  UPDATE: '/api/user/update',
 };
 export default UserAPI;

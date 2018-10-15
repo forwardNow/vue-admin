@@ -80,7 +80,7 @@ export default {
     init() {
       const UserId = this.$route.query.id;
 
-      UserService.getUserById(UserId).then((res) => {
+      UserService.get({ UserId }).then((res) => {
         if (res.errorCode === 0) {
           const user = res.result;
 
@@ -98,7 +98,7 @@ export default {
       });
     },
     handleSubmit() {
-      UserService.updateUser(this.formModel).then((res) => {
+      UserService.update(this.formModel).then((res) => {
         if (res.errorCode === 0) {
           this.$message({
             type: 'success',
