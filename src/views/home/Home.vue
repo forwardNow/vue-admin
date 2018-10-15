@@ -47,20 +47,20 @@
               <el-menu-item index="/user/list">
                 <i class="iconfont icon-yonghu1"></i><span slot="title">用户管理</span>
               </el-menu-item>
-              <el-menu-item index="">
+              <el-menu-item index="/user/register">
                 <i class="iconfont icon-zhuce"></i><span slot="title">注册用户</span>
               </el-menu-item>
-              <el-menu-item index="">
+              <el-menu-item index="/user/loginMode">
                 <i class="iconfont icon-denglu"></i><span slot="title">登陆方式</span>
               </el-menu-item>
             </el-submenu>
-            <el-menu-item index="">
+            <el-menu-item index="/role/list">
               <i class="iconfont icon-jiaoseguanli"></i><span slot="title">角色管理</span>
             </el-menu-item>
-            <el-menu-item index="">
+            <el-menu-item index="/subsys/list">
               <i class="iconfont icon-juese"></i><span slot="title">子系统管理</span>
             </el-menu-item>
-            <el-menu-item index="">
+            <el-menu-item index="/menu/list">
               <i class="iconfont icon-caidan"></i><span slot="title">菜单管理</span>
             </el-menu-item>
           </el-menu>
