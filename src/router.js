@@ -28,10 +28,11 @@ const router = new Router({
     { path: '/', redirect: '/home' },
 
     // 登陆
-    { path: '/login', component: Login },
+    { name: 'login', path: '/login', component: Login },
 
     // 系统
     {
+      name: 'home',
       path: '/home',
       component: HomeView,
       meta: { requiresAuth: true, title: '首页' },
