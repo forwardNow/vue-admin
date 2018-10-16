@@ -2,8 +2,15 @@
  * 字典相关
  */
 const DicAPI = {
-  /** 根据字典名称获取字典列表 */
-  GET_DIC_LIST_BY_NAME: '/api/dic/list',
+  GET_ONE: '/api/dic/get',
+
+  GET_LIST: '/api/dic/list',
+
+  INSERT: '/api/dic/insert',
+
+  DELETE: '/api/dic/delete',
+
+  UPDATE: '/api/dic/update',
 };
 
 export default DicAPI;

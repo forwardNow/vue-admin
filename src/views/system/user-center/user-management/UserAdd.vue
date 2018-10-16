@@ -5,7 +5,7 @@
     </el-header>
     <el-main class="popup__content">
 
-      <el-form class="form" label-width="80px"
+      <el-form class="form_edit" label-width="80px"
           ref="formModel" :model="formModel" :rules="rules">
         <el-form-item label="登录名" prop="clientName">
           <el-input v-model="formModel.clientName"></el-input>

@@ -1,0 +1,22 @@
+.table_detail {
+  width: 100%;
+  max-width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+  background-color: transparent;
+
+  td {
+    padding: 12px;
+    border: solid 1px #fff;
+
+    &:nth-of-type(2n-1) {
+      color: #666;
+      text-align: right;
+      background-color: #eee;
+    }
+
+    &:nth-of-type(2n) {
+      background-color: #fafafa;
+    }
+  }
+}

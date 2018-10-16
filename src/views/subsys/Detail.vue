@@ -1,6 +1,6 @@
 <template>
   <el-container class="popup">
-    <el-header class="popup__heading" height="40px">角色详情
+    <el-header class="popup__heading" height="40px">系统详情
       <i class="popup__close el-icon-close" @click="handleClosePopup"></i>
     </el-header>
     <el-main class="popup__content">
@@ -10,15 +10,16 @@
           <col width="80%">
         </colgroup>
         <tbody>
-        <tr> <td>角色名称</td> <td>{{ role.RoleName }}</td> </tr>
-        <tr> <td>角色类别</td> <td>{{ role.RoleCategory }}</td> </tr>
+        <tr> <td>系统名称</td> <td>{{ subsys.SystemName }}</td> </tr>
+        <tr> <td>系统编号</td> <td>{{ subsys.SystemIdenty }}</td> </tr>
+        <tr> <td>系统描述</td> <td>{{ subsys.SystemDesc }}</td> </tr>
         </tbody>
       </table>
     </el-main>
   </el-container>
 </template>
 <script>
-  import RoleService from '../../services/RoleService';
+  import SubsysService from '../../services/SubsysService';
 
   export default {
     created() {
@@ -26,18 +27,18 @@
     },
     data() {
       return {
-        role: {},
+        subsys: {},
       };
     },
     methods: {
       init() {
-        RoleService.get({ RoleId: this.$route.query.id } ).then((res) => {
+        SubsysService.get({ SystemId: this.$route.query.id } ).then((res) => {
           if (res.errorCode === 0) {
-            this.role = res.result;
+            this.subsys = res.result;
           } else if (res.errorCode === 1) {
             this.$message({
               type: 'error',
-              message: '该角色不存在！',
+              message: '该系统不存在！',
               showClose: true,
               duration: 2000,
             });
@@ -46,7 +47,7 @@
       },
       handleClosePopup() {
         this.$router.push({
-          path: '/role/list',
+          path: '/subsys/list',
         });
       },
     },

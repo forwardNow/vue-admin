@@ -5,7 +5,7 @@
     </el-header>
     <el-main class="popup__content">
 
-      <el-form class="form" label-width="120px"
+      <el-form class="form_edit" label-width="120px"
                ref="formModel" :model="formModel" :rules="rules">
 
         <el-form-item label="菜单图标" prop="MenuNodeIcon">
@@ -114,9 +114,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.form {
-  width: 600px;
-}
-</style>
 

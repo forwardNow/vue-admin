@@ -1,21 +1,21 @@
 <template>
   <!-- .content__body -->
   <el-container class="content__body">
-    <el-header class="heading">角色管理</el-header>
+    <el-header class="heading">字典管理</el-header>
     <el-main class="content">
 
       <!-- 操作 -->
       <div class="ope clearfix">
 
         <!-- 添加 -->
-        <el-button type="success" size="small" @click="handleAdd()">添加角色</el-button>
+        <el-button type="success" size="small" @click="handleAdd()">添加字典</el-button>
         <!-- /添加 -->
 
         <!-- 搜索 -->
         <el-form :inline="true" class="search-group">
           <el-form-item>
-            <el-input placeholder="请输入关键字" size="small" v-model="RoleName">
-              <template slot="prepend">角色名称</template>
+            <el-input placeholder="请输入关键字" size="small" v-model="DicName">
+              <template slot="prepend">字典名称</template>
             </el-input>
           </el-form-item>
           <el-form-item>
@@ -32,12 +32,12 @@
 
         <el-table-column type="index" width="50"></el-table-column>
 
-        <el-table-column label="角色名称" width="160">
-          <template slot-scope="scope">{{ scope.row.RoleName }}</template>
+        <el-table-column label="字典名称" width="160">
+          <template slot-scope="scope">{{ scope.row.DicName }}</template>
         </el-table-column>
 
-        <el-table-column label="角色类别" width="180">
-          <template slot-scope="scope">{{ scope.row.RoleCategory }}</template>
+        <el-table-column label="字典描述" width="180">
+          <template slot-scope="scope">{{ scope.row.DicDesc }}</template>
         </el-table-column>
 
         <el-table-column label="创建时间" width="180">
@@ -56,11 +56,11 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <a class="ope-link" href="#"
-               @click.prevent="handleDetail(scope.row.RoleId)">详情</a>
+               @click.prevent="handleDetail(scope.row.DicName)">详情</a>
             <a class="ope-link" href="#"
-               @click.prevent="handleEdit(scope.row.RoleId)">编辑</a>
+               @click.prevent="handleEdit(scope.row.DicName)">编辑</a>
             <a class="ope-link" href="#"
-               @click.prevent="handleDelete(scope.row.RoleId)">删除</a>
+               @click.prevent="handleDelete(scope.row.DicName)">删除</a>
           </template>
         </el-table-column>
 
@@ -89,7 +89,7 @@
   </el-container>
 </template>
 <script>
-import RoleService from '../../services/RoleService';
+import DicService from '../../services/DicService';
 
 export default {
   created() {
@@ -104,7 +104,7 @@ export default {
         total: null,
         currentPage: 1,
       },
-      RoleName: '',
+      DicName: '',
       tableData: [],
     };
   },
@@ -129,7 +129,7 @@ export default {
 
       const { pageSize, currentPage } = this.pager;
 
-      RoleService.getList( { RoleName: this.RoleName }, { pageSize, currentPage }).then((res) => {
+      DicService.getList( { DicName: this.DicName }, { pageSize, currentPage }).then((res) => {
         if (res.errorCode === 0) {
           const {
             result: {
@@ -159,29 +159,29 @@ export default {
       this.pager.currentPage = newCurrentPage;
       this.reload();
     },
-    handleDetail(RoleId) {
+    handleDetail(DicName) {
       this.$router.push({
-        path: '/role/list/detail',
-        query: { id: RoleId },
+        path: '/dic/list/detail',
+        query: { id: DicName },
       });
     },
     handleAdd() {
       this.$router.push({
-        path: '/role/list/add',
+        path: '/dic/list/add',
       });
     },
-    handleEdit(RoleId) {
+    handleEdit(DicName) {
       this.$router.push({
-        path: '/role/list/edit',
-        query: { id: RoleId },
+        path: '/dic/list/edit',
+        query: { id: DicName },
       });
     },
-    handleDelete(RoleId) {
+    handleDelete(DicName) {
       this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-      }).then(() => RoleService.delete({ RoleId }))
+      }).then(() => DicService.delete({ DicName }))
           .then((res) => {
             if (res.errorCode === 0) {
               this.$message({

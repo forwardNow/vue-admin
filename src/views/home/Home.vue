@@ -63,6 +63,9 @@
             <el-menu-item index="/menu/list">
               <i class="iconfont icon-caidan"></i><span slot="title">菜单管理</span>
             </el-menu-item>
+            <el-menu-item index="/dic/list">
+              <i class="iconfont icon-zidian"></i><span slot="title">字典管理</span>
+            </el-menu-item>
           </el-menu>
 
         </el-aside>

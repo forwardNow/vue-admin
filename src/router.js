@@ -21,11 +21,19 @@ const RoleEditView = () => import('./views/role/Edit.vue');
 const RoleDetailView = () => import('./views/role/Detail.vue');
 
 const SubsysListView = () => import('./views/subsys/List.vue');
+const SubsysAddView = () => import('./views/subsys/Add.vue');
+const SubsysEditView = () => import('./views/subsys/Edit.vue');
+const SubsysDetailView = () => import('./views/subsys/Detail.vue');
 
 const MenuListView = () => import('./views/menu/List.vue');
 const MenuAddView = () => import('./views/menu/Add.vue');
 const MenuEditView = () => import('./views/menu/Edit.vue');
 const MenuDetailView = () => import('./views/menu/Detail.vue');
+
+const DicListView = () => import('./views/dic/List.vue');
+const DicAddView = () => import('./views/dic/Add.vue');
+const DicEditView = () => import('./views/dic/Edit.vue');
+const DicDetailView = () => import('./views/dic/Detail.vue');
 
 
 const router = new Router({
@@ -107,6 +115,23 @@ const router = new Router({
           path: '/subsys/list',
           component: SubsysListView,
           meta: { requiresAuth: true, title: '子系统管理' },
+          children: [
+            {
+              path: '/subsys/list/detail',
+              component: SubsysDetailView,
+              meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: '/subsys/list/edit',
+              component: SubsysEditView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+            {
+              path: '/subsys/list/add',
+              component: SubsysAddView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+          ],
         },
 
         // 菜单管理
@@ -128,6 +153,30 @@ const router = new Router({
             {
               path: '/menu/list/add',
               component: MenuAddView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+          ],
+        },
+
+        // 字典管理
+        {
+          path: '/dic/list',
+          component: DicListView,
+          meta: { requiresAuth: true, title: '字典管理' },
+          children: [
+            {
+              path: '/dic/list/detail',
+              component: DicDetailView,
+              meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: '/dic/list/edit',
+              component: DicEditView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+            {
+              path: '/dic/list/add',
+              component: DicAddView,
               meta: { requiresAuth: true, title: '编辑' },
             },
           ],

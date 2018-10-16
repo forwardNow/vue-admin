@@ -28,7 +28,7 @@
       <!-- /操作 -->
 
       <!-- 数据表格 -->
-      <el-table :data="tableData" v-loading="loading" class="data-table">
+      <el-table :data="tableData" v-loading="loading" class="datagrid_table">
 
         <el-table-column type="index" width="50"></el-table-column>
 
@@ -69,7 +69,7 @@
 
       </el-table>
 
-      <el-pagination class="data-pagination"
+      <el-pagination class="datagrid_pagination"
           background
           layout="total, sizes, prev, pager, next, jumper"
           :disabled="loading"

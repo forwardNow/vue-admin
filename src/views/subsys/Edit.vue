@@ -1,6 +1,6 @@
 <template>
   <el-container class="popup">
-    <el-header class="popup__heading" height="40px">编辑角色
+    <el-header class="popup__heading" height="40px">编辑系统
       <i class="popup__close el-icon-close" @click="handleClosePopup"></i>
     </el-header>
     <el-main class="popup__content">
@@ -8,12 +8,16 @@
       <el-form class="form_edit" label-width="120px"
                ref="formModel" :model="formModel" :rules="rules">
 
-        <el-form-item label="角色名称" prop="RoleName">
-          <el-input v-model="formModel.RoleName"></el-input>
+        <el-form-item label="系统名称" prop="SystemName">
+          <el-input v-model="formModel.SystemName"></el-input>
         </el-form-item>
 
-        <el-form-item label="角色类别" prop="RoleCategory">
-          <el-input v-model="formModel.RoleCategory"></el-input>
+        <el-form-item label="系统编号" prop="SystemIdenty">
+          <el-input v-model="formModel.SystemIdenty"></el-input>
+        </el-form-item>
+
+        <el-form-item label="系统描述" prop="SystemDesc">
+          <el-input type="textarea" v-model="formModel.SystemDesc"></el-input>
         </el-form-item>
 
         <el-form-item>
@@ -26,7 +30,7 @@
   </el-container>
 </template>
 <script>
-import RoleService from '../../services/RoleService';
+import SubsysService from '../../services/SubsysService';
 
 export default {
   created() {
@@ -40,17 +44,18 @@ export default {
         //],
       },
       formModel: {
-        RoleId: '',
-        RoleName: '',
-        RoleCategory: '',
+        SystemId: '',
+        SystemName: '',
+        SystemIdenty: '',
+        SystemDesc: '',
       },
     };
   },
   methods: {
     init() {
-      const RoleId = this.$route.query.id;
+      const SystemId = this.$route.query.id;
 
-      RoleService.get({ RoleId: RoleId }).then((res) => {
+      SubsysService.get({ SystemId: SystemId }).then((res) => {
         if (res.errorCode === 0) {
           const user = res.result;
 
@@ -60,7 +65,7 @@ export default {
         } else if (res.errorCode === 1) {
           this.$message({
             type: 'error',
-            message: '该角色不存在！',
+            message: '该子系统不存在！',
             showClose: true,
             duration: 2000,
           });
@@ -68,7 +73,7 @@ export default {
       });
     },
     handleSubmit() {
-      RoleService.update(this.formModel).then((res) => {
+      SubsysService.update(this.formModel).then((res) => {
         if (res.errorCode === 0) {
           this.$message({
             type: 'success',
@@ -94,7 +99,7 @@ export default {
     },
     handleClosePopup() {
       this.$router.push({
-        path: '/role/list',
+        path: '/subsys/list',
       });
     },
   },

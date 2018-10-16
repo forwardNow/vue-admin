@@ -4,7 +4,7 @@
       <i class="popup__close el-icon-close" @click="handleClosePopup"></i>
     </el-header>
     <el-main class="popup__content">
-      <table class="table_simple">
+      <table class="table_detail">
         <colgroup>
           <col width="20%">
           <col width="80%">
@@ -55,9 +55,3 @@
     },
   };
 </script>
-<style lang="scss" scoped>
-  .form {
-    width: 400px;
-  }
-</style>
-

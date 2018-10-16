@@ -5,7 +5,7 @@
     </el-header>
     <el-main class="popup__content">
 
-      <el-form class="form" label-width="80px"
+      <el-form class="form_edit" label-width="80px"
           ref="formModel" :model="formModel" :rules="rules">
         <el-form-item label="姓名" prop="UserTrueName">
           <el-input v-model="formModel.UserTrueName"></el-input>
@@ -130,9 +130,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.form {
-  width: 400px;
-}
-</style>
-

@@ -1,6 +1,6 @@
 <template>
   <el-container class="popup">
-    <el-header class="popup__heading" height="40px">角色详情
+    <el-header class="popup__heading" height="40px">字典详情
       <i class="popup__close el-icon-close" @click="handleClosePopup"></i>
     </el-header>
     <el-main class="popup__content">
@@ -10,15 +10,15 @@
           <col width="80%">
         </colgroup>
         <tbody>
-        <tr> <td>角色名称</td> <td>{{ role.RoleName }}</td> </tr>
-        <tr> <td>角色类别</td> <td>{{ role.RoleCategory }}</td> </tr>
+        <tr> <td>字典名称</td> <td>{{ dic.DicName }}</td> </tr>
+        <tr> <td>字典描述</td> <td>{{ dic.DicDesc }}</td> </tr>
         </tbody>
       </table>
     </el-main>
   </el-container>
 </template>
 <script>
-  import RoleService from '../../services/RoleService';
+  import DicService from '../../services/DicService';
 
   export default {
     created() {
@@ -26,18 +26,18 @@
     },
     data() {
       return {
-        role: {},
+        dic: {},
       };
     },
     methods: {
       init() {
-        RoleService.get({ RoleId: this.$route.query.id } ).then((res) => {
+        DicService.get({ DicName: this.$route.query.id } ).then((res) => {
           if (res.errorCode === 0) {
-            this.role = res.result;
+            this.dic = res.result;
           } else if (res.errorCode === 1) {
             this.$message({
               type: 'error',
-              message: '该角色不存在！',
+              message: '该字典不存在！',
               showClose: true,
               duration: 2000,
             });
@@ -46,7 +46,7 @@
       },
       handleClosePopup() {
         this.$router.push({
-          path: '/role/list',
+          path: '/dic/list',
         });
       },
     },
