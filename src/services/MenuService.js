@@ -1,10 +1,6 @@
-import MenuAPI from '../apis/MenuAPI';
 import BaseService from './BaseService';
+import API from '../apis/MenuAPI';
 
-class MenuService extends BaseService {
-  constructor() {
-    super(MenuAPI);
-  }
-}
+const Service = new BaseService(API);
 
-export default new MenuService();
+export default Service;

@@ -1,13 +1,6 @@
-/** 用户 */
-const MenuAPI = {
-  GET_ONE: '/api/role/get',
+import BaseAPI from './BaseAPI';
 
-  GET_LIST: '/api/role/list',
-
-  INSERT: '/api/role/insert',
-
-  DELETE: '/api/role/delete',
-
-  UPDATE: '/api/role/update',
+const API = {
 };
-export default MenuAPI;
+
+export default Object.assign(BaseAPI('role'), API);

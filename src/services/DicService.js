@@ -1,10 +1,6 @@
-import DicAPI from '../apis/DicAPI';
 import BaseService from './BaseService';
+import API from '../apis/DicAPI';
 
-class DicService extends BaseService {
-  constructor() {
-    super(DicAPI);
-  }
-}
+const Service = new BaseService(API);
 
-export default new DicService();
+export default Service;

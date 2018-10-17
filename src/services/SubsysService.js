@@ -1,10 +1,6 @@
-import SubsysAPI from '../apis/SubsysAPI';
 import BaseService from './BaseService';
+import API from '../apis/SubsysAPI';
 
-class SubsysService extends BaseService {
-  constructor() {
-    super(SubsysAPI);
-  }
-}
+const Service = new BaseService(API);
 
-export default new SubsysService();
+export default Service;

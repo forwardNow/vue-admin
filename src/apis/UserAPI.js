@@ -1,13 +1,7 @@
-/** 用户 */
-const UserAPI = {
-  GET_ONE: '/api/user/get',
+import BaseAPI from './BaseAPI';
 
-  GET_LIST: '/api/user/list',
-
-  INSERT: '/api/user/insert',
-
-  DELETE: '/api/user/delete',
-
-  UPDATE: '/api/user/update',
+const API = {
+  REGISTER: '/api/user/register',
 };
-export default UserAPI;
+
+export default Object.assign(BaseAPI('user'), API);

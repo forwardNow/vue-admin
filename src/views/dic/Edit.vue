@@ -176,7 +176,7 @@ export default {
           });
 
           // 告知父组件
-          // this.$emit('finish');
+          this.$emit('finish');
         } else {
           this.$message({
             type: 'error',

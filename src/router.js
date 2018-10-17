@@ -46,7 +46,6 @@ const router = new Router({
 
     // 系统
     {
-      name: 'home',
       path: '/home',
       component: HomeView,
       meta: { requiresAuth: true, title: '首页' },

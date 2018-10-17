@@ -1,16 +1,6 @@
-/**
- * 字典相关
- */
-const DicAPI = {
-  GET_ONE: '/api/dic/get',
+import BaseAPI from './BaseAPI';
 
-  GET_LIST: '/api/dic/list',
-
-  INSERT: '/api/dic/insert',
-
-  DELETE: '/api/dic/delete',
-
-  UPDATE: '/api/dic/update',
+const API = {
 };
 
-export default DicAPI;
+export default Object.assign(BaseAPI('dic'), API);

@@ -1,10 +1,6 @@
-import RoleAPI from '../apis/RoleAPI';
 import BaseService from './BaseService';
+import API from '../apis/RoleAPI';
 
-class RoleService extends BaseService {
-  constructor() {
-    super(RoleAPI);
-  }
-}
+const Service = new BaseService(API);
 
-export default new RoleService();
+export default Service;

@@ -10,15 +10,28 @@
 
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="头像" prop="UserHeadImage">
+
+            <el-form-item label="用户名" prop="ExternalPartyUser.ExternalIdentifier">
+              <el-input v-model="formModel.ExternalPartyUser.ExternalIdentifier"></el-input>
+            </el-form-item>
+
+            <el-form-item label="密码" prop="ExternalPartyUser.ExternalCredential">
+              <el-input v-model="formModel.ExternalPartyUser.ExternalCredential"></el-input>
+            </el-form-item>
+
+            <el-form-item label="确认密码" prop="ExternalPartyUser.confirmPassword">
+              <el-input v-model="formModel.ExternalPartyUser.confirmPassword"></el-input>
+            </el-form-item>
+
+            <el-form-item label="头像" prop="">
               <el-input v-model="formModel.User.UserHeadImage"></el-input>
             </el-form-item>
 
-            <el-form-item label="昵称" prop="UserNickname">
+            <el-form-item label="昵称" prop="">
               <el-input v-model="formModel.User.UserNickname"></el-input>
             </el-form-item>
 
-            <el-form-item label="姓名" prop="UserTrueName">
+            <el-form-item label="姓名" prop="User.UserTrueName">
               <el-input v-model="formModel.User.UserTrueName"></el-input>
             </el-form-item>
 
@@ -32,6 +45,10 @@
                 </el-option>
               </el-select>
             </el-form-item>
+
+          </el-col>
+
+          <el-col :span="12">
 
             <el-form-item label="人员类别">
               <el-select v-model="formModel.User.PeopleCategory" placeholder="请选择">
@@ -51,10 +68,6 @@
               <el-input v-model="formModel.User.Address"></el-input>
             </el-form-item>
 
-          </el-col>
-
-          <el-col :span="12">
-
             <el-form-item label="座机" prop="Landline">
               <el-input v-model="formModel.User.Landline"></el-input>
             </el-form-item>
@@ -67,39 +80,16 @@
               <el-input v-model="formModel.User.Email"></el-input>
             </el-form-item>
 
-            <el-form-item label="用户名" prop="ExternalIdentifier">
-              <el-input v-model="formModel.ExternalPartyUser.ExternalIdentifier"></el-input>
-            </el-form-item>
 
-            <el-form-item label="密码" prop="ExternalCredential">
-              <el-input v-model="formModel.ExternalPartyUser.ExternalCredential"></el-input>
-            </el-form-item>
-
-            <el-form-item label="确认密码" prop="confirmPassword">
-              <el-input v-model="confirmPassword"></el-input>
-            </el-form-item>
-
-            <el-form-item label="分配角色">
-              <el-select v-model="formModel.Role.SystemId" placeholder="请选择">
-                <el-option
-                    v-for="item in roleList"
-                    :key="item.SystemId"
-                    :label="item.SystemName"
-                    :value="item.SystemId">
-                </el-option>
-              </el-select>
-            </el-form-item>
 
           </el-col>
 
         </el-row>
 
         <el-row>
-          <el-col :span="12" :offset="12">
+          <el-col :span="24" class="text_center">
 
-            <el-form-item>
-              <el-button type="primary" @click="handleSubmit()">保存</el-button>
-            </el-form-item>
+            <el-button type="primary" @click="handleSubmit()">保存</el-button>
 
           </el-col>
         </el-row>
@@ -111,12 +101,43 @@
 </template>
 <script>
   import UserService from '../../services/UserService';
+  import ExternalPartyUserService from '../../services/ExternalPartyUserService';
 
   export default {
     created() {
       this.init();
     },
     data() {
+      const confirmPwdValidator = (rule, value, callback) => {
+        if (value === '') {
+          callback();
+        } else if (value !== this.formModel.ExternalPartyUser.ExternalCredential) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+          callback();
+        }
+      };
+      const ExternalIdentifierUniqueValidator = (rule, value, callback) => {
+        if (value === '') {
+          callback();
+        } else {
+          const ExternalIdentifier = this.formModel.ExternalPartyUser.ExternalIdentifier;
+
+          ExternalPartyUserService.getByCondition({ ExternalIdentifier })
+              .then((res) => {
+                if (res.errorCode === 0) {
+                  return callback(new Error('已存在！'));
+                } else if (res.errorCode === 1) {
+                  return callback();
+                } else {
+                  callback(new Error('唯一性校验：失败，未知错误。'));
+                }
+              })
+              .catch(() => {
+                callback(new Error('唯一性校验：失败，未知错误。'));
+              });
+        }
+      };
       return {
         genderDicList: [
           { code: '1', text: '男' },
@@ -128,6 +149,24 @@
         ],
         roleList: [],
         rules: {
+          ExternalPartyUser: {
+            ExternalIdentifier: [
+              { required: true, message: '必填项', trigger: ['blur', 'change'] },
+              { validator: ExternalIdentifierUniqueValidator, trigger: ['blur'] },
+            ],
+            ExternalCredential: [
+              { required: true, message: '必填项', trigger: ['blur', 'change'] },
+            ],
+            confirmPassword: [
+              { required: true, message: '必填项', trigger: ['blur', 'change'] },
+              { validator: confirmPwdValidator, trigger: ['blur', 'change'] },
+            ],
+          },
+          User: {
+            UserTrueName: [
+              { required: true, message: '必填项', trigger: ['blur', 'change'] },
+            ],
+          },
         },
         confirmPassword: '',
         formModel: {
@@ -147,9 +186,6 @@
             ExternalIdentifier: '',
             ExternalCredential: '',
           },
-          Role: {
-            SystemId: '',
-          }
         },
       };
     },
@@ -158,7 +194,7 @@
 
       },
       handleSubmit() {
-        UserService.update(this.formModel).then((res) => {
+        UserService.register(this.formModel).then((res) => {
           if (res.errorCode === 0) {
             this.$message({
               type: 'success',
@@ -171,7 +207,7 @@
             this.handleClosePopup();
 
             // 告知父组件
-            this.$emit('finishAddUser');
+            this.$emit('finish');
           } else {
             this.$message({
               type: 'error',
