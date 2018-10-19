@@ -31,7 +31,7 @@
     },
     methods: {
       init() {
-        DicService.get({ DicName: this.$route.query.id } ).then((res) => {
+        DicService.get({ DicId: this.$route.query.id } ).then((res) => {
           if (res.errorCode === 0) {
             this.dic = res.result;
           } else if (res.errorCode === 1) {

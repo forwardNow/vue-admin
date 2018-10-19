@@ -140,9 +140,9 @@ export default {
   },
   methods: {
     init() {
-      const DicName = this.$route.query.id;
+      const DicId = this.$route.query.id;
 
-      DicService.get({ DicName: DicName }).then((res) => {
+      DicService.get({ DicId }).then((res) => {
         if (res.errorCode === 0) {
           const user = res.result;
 

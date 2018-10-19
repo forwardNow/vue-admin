@@ -56,11 +56,11 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <a class="ope-link" href="#"
-               @click.prevent="handleDetail(scope.row.DicName)">详情</a>
+               @click.prevent="handleDetail(scope.row.DicId)">详情</a>
             <a class="ope-link" href="#"
-               @click.prevent="handleEdit(scope.row.DicName)">编辑</a>
+               @click.prevent="handleEdit(scope.row.DicId)">编辑</a>
             <a class="ope-link" href="#"
-               @click.prevent="handleDelete(scope.row.DicName)">删除</a>
+               @click.prevent="handleDelete(scope.row.DicId)">删除</a>
           </template>
         </el-table-column>
 
@@ -159,10 +159,10 @@ export default {
       this.pager.currentPage = newCurrentPage;
       this.reload();
     },
-    handleDetail(DicName) {
+    handleDetail(id) {
       this.$router.push({
         path: '/dic/list/detail',
-        query: { id: DicName },
+        query: { id: id },
       });
     },
     handleAdd() {
@@ -170,18 +170,18 @@ export default {
         path: '/dic/list/add',
       });
     },
-    handleEdit(DicName) {
+    handleEdit(id) {
       this.$router.push({
         path: '/dic/list/edit',
-        query: { id: DicName },
+        query: { id: id },
       });
     },
-    handleDelete(DicName) {
+    handleDelete(id) {
       this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-      }).then(() => DicService.delete({ DicName }))
+      }).then(() => DicService.delete({ DicId: id }))
           .then((res) => {
             if (res.errorCode === 0) {
               this.$message({
