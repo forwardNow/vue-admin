@@ -53,9 +53,9 @@ class BaseService {
    * @return {AxiosPromise<any> | * | void}
    */
   getList(bean, pager) {
-    const condition = { pager };
-    Object.assign(condition, bean);
-    return axios.post(this.API.GET_LIST, condition);
+    const param = { condition: {}, pager };
+    Object.assign(param.condition, bean);
+    return axios.post(this.API.GET_LIST, param);
   }
 }
 
