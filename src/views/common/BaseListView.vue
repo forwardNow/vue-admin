@@ -10,7 +10,7 @@
         <slot name="ope"></slot>
           <!--添加-->
           <!--
-          <el-button type="success" size="small" @click="handleAdd()">添加角色</el-button>
+          <el-button type="success" size="small" @click="showAddView()">添加角色</el-button>
           -->
           <!--/添加-->
 
@@ -55,7 +55,8 @@
 
       <!-- 添加模板 -->
       <transition mode="out-in" name="admin" v-on:after-enter="afterEnter">
-        <router-view class="popup" @finish="reload" ref="popup"></router-view>
+        <router-view class="popup" ref="popup"
+                     @finish-add="reload"></router-view>
       </transition>
       <!-- 添加模板 -->
 
@@ -63,10 +64,15 @@
   </el-container>
 </template>
 <script>
+  import BaseService from '../../services/BaseService';
+
   export default {
-    props: [
-      'title', 'service', 'searchFormModel'
-    ],
+    props: {
+      title: { type: String, default: '请添加标题' },
+      path: { type: String },
+      service: { type: BaseService },
+      searchFormModel: { type: Object },
+    },
     created() {
       this.reload();
     },
@@ -134,29 +140,29 @@
         this.pager.currentPage = newCurrentPage;
         this.reload();
       },
-      handleDetail(RoleId) {
+      showDetailView(id) {
         this.$router.push({
-          path: '/role/list/detail',
-          query: { id: RoleId },
+          path: `${this.path}/detail`,
+          query: { id },
         });
       },
-      handleAdd() {
+      showAddView() {
         this.$router.push({
-          path: '/role/list/add',
+          path: `${this.path}/add`,
         });
       },
-      handleEdit(RoleId) {
+      showEditView(id) {
         this.$router.push({
-          path: '/role/list/edit',
-          query: { id: RoleId },
+          path: `${this.path}/edit`,
+          query: { id },
         });
       },
-      handleDelete(RoleId) {
+      deleteRecord(condition) {
         this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
-        }).then(() => service.delete({ RoleId }))
+        }).then(() => this.service.delete(condition))
           .then((res) => {
             if (res.errorCode === 0) {
               this.$message({

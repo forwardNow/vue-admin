@@ -10,8 +10,11 @@ import './plugins/element-ui';
 // vue 插件 / 自定义过滤器
 import './plugins/filter';
 
-// vue 创建 / 自定义指令
+// vue 插件 / 自定义指令
 import './plugins/directive';
+
+// vue 插件 / 自定义组件
+import './plugins/component';
 
 // 路由
 import router from './router';

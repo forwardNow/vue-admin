@@ -53,30 +53,6 @@ const router = new Router({
         /* 用户 /user */
 
 
-        // 角色管理
-        {
-          path: '/test/list',
-          component: () => import('./views/role/TestList.vue'),
-          meta: { requiresAuth: true, title: '角色管理' },
-          children: [
-            {
-              path: '/role/list/detail',
-              component: RoleDetailView,
-              meta: { requiresAuth: true, title: '详情' },
-            },
-            {
-              path: '/role/list/edit',
-              component: RoleEditView,
-              meta: { requiresAuth: true, title: '编辑' },
-            },
-            {
-              path: '/role/list/add',
-              component: RoleAddView,
-              meta: { requiresAuth: true, title: '编辑' },
-            },
-          ],
-        },
-
         // 用户管理
         {
           path: '/user/list',
@@ -113,7 +89,7 @@ const router = new Router({
         // 角色管理
         {
           path: '/role/list',
-          component: RoleListView,
+          component: () => import('./views/role/TestList.vue'),
           meta: { requiresAuth: true, title: '角色管理' },
           children: [
             {
@@ -128,7 +104,8 @@ const router = new Router({
             },
             {
               path: '/role/list/add',
-              component: RoleAddView,
+              // component: RoleAddView,
+              component: () => import('./views/role/TestAdd.vue'),
               meta: { requiresAuth: true, title: '编辑' },
             },
           ],

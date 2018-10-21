@@ -13,7 +13,7 @@
             </el-form-item>
             <el-form-item prop="password">
               <el-input type="password" v-model="userForm.password" placeholder="7410"
-                        @keyup.enter.native="onSubmit('userForm')">
+                        @keyup.enter.native="onSubmit()">
                 <template slot="prepend">密码</template>
               </el-input>
             </el-form-item>
@@ -63,8 +63,8 @@ export default {
     };
   },
   methods: {
-    onSubmit(formName) {
-      this.$refs[formName].validate((valid) => {
+    onSubmit() {
+      this.$refs.userForm.validate((valid) => {
         if (!valid) {
           console.log('error submit!!');
           return false;

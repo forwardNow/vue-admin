@@ -1,12 +1,12 @@
 <template>
-  <base-list title="哇哈哈"
+  <base-list-view title="角色管理"
+             path="/role/list"
              :service="service"
              :search-form-model="searchFormModel"
-             ref="base"
-  >
+             ref="base">
     <template slot="ope">
 
-      <el-button type="success" size="small" @click="$refs.base.handleAdd()">添加角色</el-button>
+      <el-button type="success" size="small" @click="$refs.base.showAddView()">添加角色</el-button>
 
       <el-form :inline="true" class="search-group">
         <el-form-item>
@@ -47,20 +47,20 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <a class="ope-link" href="#"
-             @click.prevent="handleDetail(scope.row.RoleId)">详情</a>
+             @click.prevent="$refs.base.showDetailView(scope.row.RoleId)">详情</a>
           <a class="ope-link" href="#"
-             @click.prevent="handleEdit(scope.row.RoleId)">编辑</a>
+             @click.prevent="$refs.base.showEditView(scope.row.RoleId)">编辑</a>
           <a class="ope-link" href="#"
-             @click.prevent="handleDelete(scope.row.RoleId)">删除</a>
+             @click.prevent="$refs.base.deleteRecord({RoleId: scope.row.RoleId})">删除</a>
         </template>
       </el-table-column>
       
     </template>
 
-  </base-list>
+  </base-list-view>
 </template>
 <script>
-import BaseList from '../common/BaseList.vue';
+import BaseList from '../common/BaseListView.vue';
 import RoleService from '../../services/RoleService';
 
 export default {
@@ -68,12 +68,12 @@ export default {
     return {
       service: RoleService,
       searchFormModel: {
-        roleName: '1',
+        roleName: '',
       }
     }
   },
   components: {
-    'base-list': BaseList
+    'base-list-view': BaseList
   },
 };
 </script>
