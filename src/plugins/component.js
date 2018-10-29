@@ -12,3 +12,13 @@ Vue.component(
   'base-add-view',
   () => import('../views/common/BaseAddView.vue'),
 );
+
+Vue.component(
+  'base-edit-view',
+  () => import('../views/common/BaseEditView.vue'),
+);
+
+Vue.component(
+  'base-detail-view',
+  () => import('../views/common/BaseDetailView.vue'),
+);

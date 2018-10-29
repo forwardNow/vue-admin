@@ -6,28 +6,7 @@
 
       <!-- 操作 -->
       <div class="ope clearfix">
-
         <slot name="ope"></slot>
-          <!--添加-->
-          <!--
-          <el-button type="success" size="small" @click="showAddView()">添加角色</el-button>
-          -->
-          <!--/添加-->
-
-          <!--搜索-->
-          <!--
-          <el-form :inline="true" class="search-group">
-            <el-form-item>
-              <el-input placeholder="请输入关键字" size="small" v-model="RoleName">
-                <template slot="prepend">角色名称</template>
-              </el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" size="small" @click="reload()">搜索</el-button>
-            </el-form-item>
-          </el-form>
-          -->
-          <!--/搜索-->
       </div>
       <!-- /操作 -->
 
@@ -54,9 +33,12 @@
       <!-- 数据表格 -->
 
       <!-- 添加模板 -->
-      <transition mode="out-in" name="admin" v-on:after-enter="afterEnter">
+      <transition mode="out-in" name="admin" @after-enter="afterEnter">
         <router-view class="popup" ref="popup"
-                     @finish-add="reload"></router-view>
+                     @finish-add="handleFinishAdd"
+                     @finish-edit="handleFinishEdit"
+                     @finish-detail="handleFinishDetail"
+        ></router-view>
       </transition>
       <!-- 添加模板 -->
 
@@ -132,6 +114,15 @@
           this.loading = false;
         });
       },
+      handleFinishAdd(...args) {
+        this.$emit('finish-add', args);
+      },
+      handleFinishEdit(...args) {
+        this.$emit('finish-edit', args);
+      },
+      handleFinishDetail(...args) {
+        this.$emit('finish-detail', args);
+      },
       handlePageSizeChange(newPageSize) {
         this.pager.pageSize = newPageSize;
         this.reload(true);
@@ -140,10 +131,10 @@
         this.pager.currentPage = newCurrentPage;
         this.reload();
       },
-      showDetailView(id) {
+      showDetailView(query) {
         this.$router.push({
           path: `${this.path}/detail`,
-          query: { id },
+          query,
         });
       },
       showAddView() {
@@ -151,10 +142,10 @@
           path: `${this.path}/add`,
         });
       },
-      showEditView(id) {
+      showEditView(query) {
         this.$router.push({
           path: `${this.path}/edit`,
-          query: { id },
+          query,
         });
       },
       deleteRecord(condition) {

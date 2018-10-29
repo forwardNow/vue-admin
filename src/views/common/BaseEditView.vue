@@ -6,7 +6,7 @@
     <el-main class="popup__content">
 
       <el-form class="form_edit" label-width="120px"
-          ref="addForm" :model="addFormModel" :rules="addFormRules">
+               ref="editForm" :model="editFormModel" :rules="editFormRules">
 
         <slot></slot>
 
@@ -23,41 +23,62 @@ export default {
     title: { type: String, default: '请添加标题' },
     parentPath: { type: String, default: '' },
     service: { type: BaseService },
-    addFormModel: { type: Object },
-    addFormRules: { type: Object },
-    isCloseAfterAddSuccess: { type: Boolean, default: true }
+    editFormModel: { type: Object },
+    editFormRules: { type: Object },
+    isCloseAfterEditSuccess: { type: Boolean, default: true }
+  },
+  created() {
+    this.init();
   },
   data() {
     return {
     };
   },
   methods: {
+    init() {
+      this.service.get(this.$route.query).then((res) => {
+        if (res.errorCode === 0) {
+          const user = res.result;
+
+          Object.keys(this.editFormModel).forEach((key) => {
+            this.editFormModel[key] = user[key];
+          });
+        } else if (res.errorCode === 1) {
+          this.$message({
+            type: 'error',
+            message: '该记录不存在！',
+            showClose: true,
+            duration: 2000,
+          });
+        }
+      });
+    },
     submit() {
-      this.$refs.addForm.validate((valid) => {
+      this.$refs.editForm.validate((valid) => {
         if (!valid) {
           console.log('error submit!!');
           return false;
         }
 
-        this.service.insert(this.addFormModel).then((res) => {
+        this.service.update(this.editFormModel).then((res) => {
           if (res.errorCode === 0) {
             this.$message({
               type: 'success',
-              message: '添加成功！',
+              message: '保存成功！',
               showClose: true,
               duration: 1000,
             });
 
             // 关闭
-            if (this.isCloseAfterAddSuccess) {
+            if (this.isCloseAfterEditSuccess) {
               this.closePopup();
             }
 
-            this.$emit('add-success');
+            this.$emit('edit-success');
           } else {
             this.$message({
               type: 'error',
-              message: '添加失败！',
+              message: '保存失败！',
               showClose: true,
               duration: 1000,
             });

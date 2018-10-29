@@ -15,11 +15,6 @@ const UserEditView = () => import('./views/user/Edit.vue');
 const UserRegisterView = () => import('./views/user/Register.vue');
 const UserLoginModeView = () => import('./views/user/LoginMode.vue');
 
-const RoleListView = () => import('./views/role/List.vue');
-const RoleAddView = () => import('./views/role/Add.vue');
-const RoleEditView = () => import('./views/role/Edit.vue');
-const RoleDetailView = () => import('./views/role/Detail.vue');
-
 const SubsysListView = () => import('./views/subsys/List.vue');
 const SubsysAddView = () => import('./views/subsys/Add.vue');
 const SubsysEditView = () => import('./views/subsys/Edit.vue');
@@ -29,6 +24,11 @@ const MenuListView = () => import('./views/menu/List.vue');
 const MenuAddView = () => import('./views/menu/Add.vue');
 const MenuEditView = () => import('./views/menu/Edit.vue');
 const MenuDetailView = () => import('./views/menu/Detail.vue');
+
+const RoleListView = () => import('./views/role/List.vue');
+const RoleAddView = () => import('./views/role/Add.vue');
+const RoleEditView = () => import('./views/role/Edit.vue');
+const RoleDetailView = () => import('./views/role/Detail.vue');
 
 const DicListView = () => import('./views/dic/List.vue');
 const DicAddView = () => import('./views/dic/Add.vue');
@@ -89,7 +89,7 @@ const router = new Router({
         // 角色管理
         {
           path: '/role/list',
-          component: () => import('./views/role/TestList.vue'),
+          component: RoleListView,
           meta: { requiresAuth: true, title: '角色管理' },
           children: [
             {
@@ -104,8 +104,7 @@ const router = new Router({
             },
             {
               path: '/role/list/add',
-              // component: RoleAddView,
-              component: () => import('./views/role/TestAdd.vue'),
+              component: RoleAddView,
               meta: { requiresAuth: true, title: '编辑' },
             },
           ],
