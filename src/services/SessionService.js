@@ -19,6 +19,7 @@ SessionService.login = (loginName, password) => {
   const data = {
     ExternalIdentifier: loginName,
     ExternalCredential: password,
+    ExternalIdentityType: '1',
   };
   return axios.post(SessionAPI.LOGIN, data);
 };

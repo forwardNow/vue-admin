@@ -12,7 +12,7 @@
 
       <el-form :inline="true" class="search-group">
         <el-form-item>
-          <el-input placeholder="请输入关键字" size="small" v-model="searchFormModel.roleName">
+          <el-input placeholder="请输入关键字" size="small" v-model="searchFormModel.RoleName">
             <template slot="prepend">角色名称</template>
           </el-input>
         </el-form-item>
@@ -69,7 +69,7 @@ export default {
     return {
       service: RoleService,
       searchFormModel: {
-        roleName: '',
+        RoleName: '',
       }
     }
   },

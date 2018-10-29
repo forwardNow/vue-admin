@@ -1,12 +1,11 @@
 <template>
-
   <base-edit-view title="编辑角色"
                  parentPath="/role/list"
                  :service="service"
                  :editFormModel="formModel"
                  :editFormRules="rules"
                  :isCloseAfterAddSuccess="true"
-                 @editSuccess="finish"
+                 @edit-success="finish"
                  ref="edit" >
 
     <el-form-item label="角色名称" prop="RoleName">
@@ -49,7 +48,7 @@
       finish() {
         this.$emit('finish-edit');
       },
-    }
+    },
   };
 </script>
 

@@ -1,12 +1,11 @@
 <template>
-
   <base-add-view title="添加角色"
                  parentPath="/role/list"
                  :service="service"
                  :addFormModel="formModel"
                  :addFormRules="rules"
                  :isCloseAfterAddSuccess="true"
-                 @addSuccess="finish"
+                 @add-success="finish"
                  ref="add" >
 
     <el-form-item label="角色名称" prop="RoleName">
@@ -48,7 +47,7 @@ export default {
     finish() {
       this.$emit('finish-add');
     },
-  }
+  },
 };
 </script>
 
