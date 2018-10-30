@@ -1,5 +1,6 @@
-const merge = require('webpack-merge');
 const webpack = require('webpack');
+const merge = require('webpack-merge');
+const FlowWebpackPlugin = require('flow-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
 
@@ -32,6 +33,8 @@ module.exports = merge(baseConfig, {
   plugins: [
 
     new webpack.HotModuleReplacementPlugin(),
+
+    new FlowWebpackPlugin({ failOnError: true }),
 
   ],
 });

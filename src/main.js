@@ -1,3 +1,4 @@
+// @flow
 // vue
 import Vue from 'vue';
 
