@@ -1,28 +1,24 @@
 <template>
-  <el-container class="popup">
-    <el-header class="popup__heading" height="40px">添加字典
-      <i class="popup__close el-icon-close" @click="handleClosePopup"></i>
-    </el-header>
-    <el-main class="popup__content">
+  <base-add-view title="添加字典"
+                 parentPath="/dic/list"
+                 :service="service"
+                 :addFormModel="formModel"
+                 :addFormRules="rules"
+                 :isCloseAfterAddSuccess="true"
+                 @add-success="finish"
+                 ref="add" >
+    <el-form-item label="字典名称" prop="DicName">
+      <el-input v-model="formModel.DicName"></el-input>
+    </el-form-item>
 
-      <el-form class="form_edit" label-width="120px"
-          ref="formModel" :model="formModel" :rules="rules">
+    <el-form-item label="字典描述" prop="DicDesc">
+      <el-input type="textarea" v-model="formModel.DicDesc"></el-input>
+    </el-form-item>
 
-        <el-form-item label="字典名称" prop="DicName">
-          <el-input v-model="formModel.DicName"></el-input>
-        </el-form-item>
-
-        <el-form-item label="字典描述" prop="DicDesc">
-          <el-input type="textarea" v-model="formModel.DicDesc"></el-input>
-        </el-form-item>
-
-        <el-form-item>
-          <el-button type="primary" @click="handleSubmit">保存</el-button>
-        </el-form-item>
-      </el-form>
-
-    </el-main>
-  </el-container>
+    <el-form-item>
+      <el-button type="primary" @click="$refs.add.submit()">保存</el-button>
+    </el-form-item>
+  </base-add-view>
 </template>
 <script>
 import DicService from '../../services/DicService';
@@ -30,10 +26,8 @@ import DicService from '../../services/DicService';
 export default {
   data() {
     return {
+      service: DicService,
       rules: {
-        //UserNickname: [
-        //  { required: true, message: '必填项', trigger: ['blur', 'change'] },
-        //],
       },
       formModel: {
         DicName: '',
@@ -42,35 +36,8 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
-      DicService.insert(this.formModel).then((res) => {
-        if (res.errorCode === 0) {
-          this.$message({
-            type: 'success',
-            message: '添加成功！',
-            showClose: true,
-            duration: 1000,
-          });
-
-          // 关闭
-          this.handleClosePopup();
-
-          // 告知父组件
-          this.$emit('finish');
-        } else {
-          this.$message({
-            type: 'error',
-            message: '添加失败！',
-            showClose: true,
-            duration: 1000,
-          });
-        }
-      });
-    },
-    handleClosePopup() {
-      this.$router.push({
-        path: '/dic/list',
-      });
+    finish() {
+      this.$emit('finish-add');
     },
   },
 };

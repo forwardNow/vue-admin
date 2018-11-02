@@ -43,6 +43,9 @@ class BaseService {
    * @return {AxiosPromise<any> | * | void}
    */
   get(bean) {
+    if (Reflect.ownKeys(bean).length === 0) {
+      throw new Error('bean prop is required!');
+    }
     return axios.post(this.API.GET_ONE, bean);
   }
 
