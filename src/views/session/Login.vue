@@ -12,7 +12,7 @@
               </el-input>
             </el-form-item>
             <el-form-item prop="password">
-              <el-input type="password" v-model="userForm.password" placeholder="7410"
+              <el-input type="password" v-model="userForm.password" placeholder="123456"
                         @keyup.enter.native="onSubmit()">
                 <template slot="prepend">密码</template>
               </el-input>
@@ -36,7 +36,7 @@
       </div>
     </main>
     <footer class="login__footer">
-      Copyright   2008-2018 版权所有：武汉开普伟业科技有限公司
+      Copyright   2008-2018 版权所有：武汉xxxx科技有限公司
     </footer>
   </div>
 </template>
