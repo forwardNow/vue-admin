@@ -127,25 +127,26 @@ export default {
   .page-title {
     float: left;
     margin-left: 136px;
-    color: #3d86ec;
     font-size: 44px;
     font-weight: 500;
+    color: #3d86ec;
     text-align: center;
     letter-spacing: 5px;
   }
+
   .panel {
     float: right;
     width: 320px;
     background-color: #fff;
-    border-radius: 5px;
     border: 1px solid #d2d2d2;
+    border-radius: 5px;
   }
 
   .panel__heading {
-    line-height: 68px;
     font-size: 28px;
-    text-align: center;
+    line-height: 68px;
     color: #3d86ec;
+    text-align: center;
     border-bottom: 1px solid #f1f1f1;
   }
 
@@ -157,8 +158,8 @@ export default {
     height: 48px;
     padding: 0 24px;
     line-height: 48px;
-    border-top: 1px solid #f1f1f1;
     color: #666;
+    border-top: 1px solid #f1f1f1;
   }
 
   .oauth-link {
@@ -167,6 +168,7 @@ export default {
     font-size: 24px;
     vertical-align: middle;
   }
+
   .iconfont {
     font-size: inherit;
   }
@@ -192,10 +194,10 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    text-align: center;
     line-height: 48px;
-    background-color: #ffffff;
     color: #8b8b8b;
+    text-align: center;
+    background-color: #fff;
   }
 
 </style>

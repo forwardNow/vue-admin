@@ -54,8 +54,11 @@
       path: { type: String },
       service: { type: BaseService },
       searchFormModel: { type: Object },
+      pageSize: { type: Number, default: 20 },
+      tableDataFormatter: { type: Function, default: items => items },
     },
     created() {
+      this.pager.pageSize = this.pageSize;
       this.reload();
     },
     data() {
@@ -104,7 +107,7 @@
                 },
               },
             } = res;
-            this.tableData = items;
+            this.tableData = this.tableDataFormatter(items);
             this.pager.pageSize = newPageSize;
             this.pager.currentPage = newCurrentPage;
             this.pager.total = total;

@@ -3,12 +3,14 @@
                   path="/menu/list"
                   :service="service"
                   :search-form-model="searchFormModel"
+                  :pageSize="100"
+                  :tableDataFormatter="tableDataFormatter"
                   @finish-add="handleFinishAdd"
                   @finish-edit="handleFinishEdit"
                   ref="base">
     <template slot="ope">
 
-      <el-button type="success" size="small" @click="$refs.base.showAddView()">添加角色</el-button>
+      <el-button type="success" size="small" @click="$refs.base.showAddView()">添加菜单</el-button>
 
       <el-form :inline="true" class="search-group">
         <el-form-item>
@@ -25,16 +27,20 @@
 
     <template slot="dategrid">
 
-      <el-table-column label="菜单名称" width="160">
-        <template slot-scope="scope">{{ scope.row.MenuName }}</template>
+      <el-table-column label="菜单名称" width="200">
+        <template slot-scope="scope">
+          {{ '　'.repeat(scope.row.$depth || 0) }}
+          <span :class="scope.row.MenuNodeIcon"></span>
+          {{ scope.row.MenuName }}
+        </template>
       </el-table-column>
 
       <el-table-column label="菜单编码" width="80">
         <template slot-scope="scope">{{ scope.row.MenuNo }}</template>
       </el-table-column>
 
-      <el-table-column label="菜单级别" width="120">
-        <template slot-scope="scope">{{ scope.row.MenuLevel }}</template>
+      <el-table-column label="父菜单编码" width="120">
+        <template slot-scope="scope">{{ scope.row.MenuParentNo }}</template>
       </el-table-column>
 
       <el-table-column label="Url地址" width="180">
@@ -67,6 +73,7 @@
 </template>
 <script>
   import MenuService from '../../services/MenuService';
+  import Utils from '../../share/Utils';
 
   export default {
     data() {
@@ -74,10 +81,28 @@
         service: MenuService,
         searchFormModel: {
           MenuName: '',
-        }
+        },
       }
     },
     methods: {
+      tableDataFormatter(items) {
+        // items.sort((prev, next) => {
+        //   if (prev.MenuParentNo === next.MenuParentNo) {
+        //     return prev.MenuNo.replace(/[^\d]/, '') - next.MenuNo.replace(/[^\d]/, '');
+        //   } else {
+        //     return prev.MenuParentNo.replace(/[^\d]/, '') - next.MenuParentNo.replace(/[^\d]/, '');
+        //   }
+        // });
+
+        const newItems = Utils.convertToTreeItems({
+          items,
+          idName: 'MenuNo',
+          parentIdName: 'MenuParentNo',
+          childrenName: 'children',
+        });
+
+        return newItems;
+      },
       handleFinishAdd() {
         this.$refs.base.reload();
       },
