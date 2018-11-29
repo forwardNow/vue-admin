@@ -7,7 +7,7 @@
 
       <!-- logo -->
       <router-link to="/" class="logo">
-        <img src="../../assets/images/logo.png" alt="">
+        <img src="../../assets/images/logo.jpg" alt="">
         <div class="title">基础支撑库平台</div>
       </router-link>
       <!-- /logo -->
