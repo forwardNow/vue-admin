@@ -1,29 +1,14 @@
 {
   "presets": [
     "flow",
-    [
-      "env",
-      {
-        "modules": false,
-        "loose": true,
-        "useBuiltIns": false,
-        "targets": {
-          "browsers": [
-            "last 4 versions",
-            "ie >= 9",
-            "iOS >= 7",
-            "Android >= 4"
-          ]
-        }
-      }
-    ],
+    "env",
     "stage-0"
   ],
   "plugins": [
     "syntax-dynamic-import",
-    "transform-runtime", 
+    "transform-runtime",
     [
-      "component", 
+      "component",
       [
         {
           "libraryName": "element-ui",

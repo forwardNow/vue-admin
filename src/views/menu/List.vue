@@ -73,7 +73,7 @@
 </template>
 <script>
   import MenuService from '../../services/MenuService';
-  import Utils from '../../share/Utils';
+  import MenuUtils from '../../share/MenuUtils';
 
   export default {
     data() {
@@ -94,7 +94,7 @@
         //   }
         // });
 
-        const newItems = Utils.convertToTreeItems({
+        const newItems = MenuUtils.convertToTreeItems({
           items,
           idName: 'MenuNo',
           parentIdName: 'MenuParentNo',
