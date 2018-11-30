@@ -29,7 +29,7 @@
 
       <el-table-column label="菜单名称" width="200">
         <template slot-scope="scope">
-          {{ '　'.repeat(scope.row.$depth || 0) }}
+          <span class="indent" v-for="i in scope.row.$depth"></span>
           <span :class="scope.row.MenuNodeIcon"></span>
           {{ scope.row.MenuName }}
         </template>
@@ -86,22 +86,14 @@
     },
     methods: {
       tableDataFormatter(items) {
-        // items.sort((prev, next) => {
-        //   if (prev.MenuParentNo === next.MenuParentNo) {
-        //     return prev.MenuNo.replace(/[^\d]/, '') - next.MenuNo.replace(/[^\d]/, '');
-        //   } else {
-        //     return prev.MenuParentNo.replace(/[^\d]/, '') - next.MenuParentNo.replace(/[^\d]/, '');
-        //   }
-        // });
+        const newItems = TreeUtils.createNestedTree(items, null,
+          {
+            idName: 'MenuNo',
+            parentIdName: 'MenuParentNo',
+            subTreeName: 'children',
+          });
 
-        const newItems = TreeUtils.convertToTreeItems({
-          items,
-          idName: 'MenuNo',
-          parentIdName: 'MenuParentNo',
-          childrenName: 'children',
-        });
-
-        return newItems;
+        return TreeUtils.concatNestedTree(newItems);
       },
       handleFinishAdd() {
         this.$refs.base.reload();
@@ -112,3 +104,8 @@
     },
   };
 </script>
+<style scoped>
+  .indent {
+    margin-right: 1.5em;
+  }
+</style>
