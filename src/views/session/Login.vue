@@ -49,8 +49,8 @@ export default {
     return {
       isLoading: false,
       userForm: {
-        loginName: '',
-        password: '',
+        loginName: 'admin',
+        password: '123456',
       },
       rules: {
         loginName: [

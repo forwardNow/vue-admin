@@ -47,6 +47,10 @@
         <template slot-scope="scope">{{ scope.row.MenuUrl }}</template>
       </el-table-column>
 
+      <el-table-column label="排序" width="60">
+        <template slot-scope="scope">{{ scope.row.Sort }}</template>
+      </el-table-column>
+
       <el-table-column label="状态" width="80">
         <template slot-scope="scope">
             <span v-bind:class="scope.row.IsDeleted === 0 ? 'text_success' : 'text_danger'">

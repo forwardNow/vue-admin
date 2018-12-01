@@ -40,6 +40,7 @@
         <el-aside class="main__aside" width="200px">
 
           <el-menu class="aside__menu" :router="true" :default-active="activeIndex" ref="menuTree">
+            <!--
             <el-submenu index="/user">
               <template slot="title">
                 <i class="iconfont icon-yonghu1"></i><span>用户</span>
@@ -66,8 +67,27 @@
             <el-menu-item index="/dic/list">
               <i class="iconfont icon-zidian"></i><span slot="title">字典管理</span>
             </el-menu-item>
+            -->
+            <template v-for="menu in menus">
+              <template v-if="menu.children && menu.children.length > 0">
+                <el-submenu :index="menu.MenuUrl">
+                  <template slot="title">
+                    <i :class="menu.MenuNodeIcon"></i><span>{{ menu.MenuName }}</span>
+                  </template>
+                  <template v-for="submenu in menu.children">
+                    <el-menu-item :index="submenu.MenuUrl">
+                      <i :class="submenu.MenuNodeIcon"></i><span slot="title">{{ submenu.MenuName }}</span>
+                    </el-menu-item>
+                  </template>
+                </el-submenu>
+              </template>
+              <template v-else>
+                <el-menu-item :index="menu.MenuUrl">
+                  <i :class="menu.MenuNodeIcon"></i><span slot="title">{{ menu.MenuName }}</span>
+                </el-menu-item>
+              </template>
+            </template>
           </el-menu>
-
         </el-aside>
         <!-- /aside -->
 
@@ -105,10 +125,13 @@
 </template>
 <script>
   import SessionService from '../../services/SessionService';
+  import MenuService from '../../services/MenuService';
+  import TreeUtils from '../../share/TreeUtils';
 
   export default {
     created() {
       this.user = SessionService.getUserInfo();
+      this.getMenus();
     },
     mounted() {
       this.activeMenuItemByPath();
@@ -117,9 +140,25 @@
       return {
         activeIndex: null,
         user: {},
+        menus: [],
       };
     },
     methods: {
+      getMenus() {
+        MenuService.getList(null, {"pageSize":100,"currentPage":1}).then(res => {
+          if (res.errorCode !== 0) {
+            throw new Error('Home.vue: getMenus() 获取菜单失败!');
+          }
+          const items = res.result.items;
+
+          this.menus = TreeUtils.createNestedTree(items, null,
+            {
+              idName: 'MenuNo',
+              parentIdName: 'MenuParentNo',
+              subTreeName: 'children',
+            });
+        });
+      },
       activeMenuItemByPath() {
         // 当前路由
         const path = this.$route.path;
