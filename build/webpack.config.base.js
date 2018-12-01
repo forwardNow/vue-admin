@@ -146,6 +146,8 @@ module.exports = {
 
       // 指定编译后的文件名称
       filename: 'index.html',
+
+      favicon: path.join(__dirname, '../public/favicon.ico'),
     }),
   ],
 };
