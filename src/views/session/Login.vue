@@ -1,7 +1,7 @@
 <template>
   <div class="login clearfix">
     <main class="login__main clearfix">
-      <div class="page-title">基础支撑库平台</div>
+      <div class="page-title">系统管理平台</div>
       <div class="panel clearfix">
         <div class="panel__heading">用户登录</div>
         <div class="panel__body">
@@ -171,6 +171,7 @@ export default {
 
   .iconfont {
     font-size: inherit;
+    vertical-align: baseline;
   }
 
   .login-links {

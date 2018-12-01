@@ -8,7 +8,7 @@
       <!-- logo -->
       <router-link to="/" class="logo">
         <img src="../../assets/images/logo.jpg" alt="">
-        <div class="title">基础支撑库平台</div>
+        <div class="title">系统管理平台</div>
       </router-link>
       <!-- /logo -->
 
@@ -40,34 +40,6 @@
         <el-aside class="main__aside" width="200px">
 
           <el-menu class="aside__menu" :router="true" :default-active="activeIndex" ref="menuTree">
-            <!--
-            <el-submenu index="/user">
-              <template slot="title">
-                <i class="iconfont icon-yonghu1"></i><span>用户</span>
-              </template>
-              <el-menu-item index="/user/list">
-                <i class="iconfont icon-yonghu1"></i><span slot="title">用户管理</span>
-              </el-menu-item>
-              <el-menu-item index="/user/register">
-                <i class="iconfont icon-zhuce"></i><span slot="title">注册用户</span>
-              </el-menu-item>
-              <el-menu-item index="/user/loginMode">
-                <i class="iconfont icon-denglu"></i><span slot="title">登陆方式</span>
-              </el-menu-item>
-            </el-submenu>
-            <el-menu-item index="/subsys/list">
-              <i class="iconfont icon-juese"></i><span slot="title">子系统管理</span>
-            </el-menu-item>
-            <el-menu-item index="/role/list">
-              <i class="iconfont icon-jiaoseguanli"></i><span slot="title">角色管理</span>
-            </el-menu-item>
-            <el-menu-item index="/menu/list">
-              <i class="iconfont icon-caidan"></i><span slot="title">菜单管理</span>
-            </el-menu-item>
-            <el-menu-item index="/dic/list">
-              <i class="iconfont icon-zidian"></i><span slot="title">字典管理</span>
-            </el-menu-item>
-            -->
             <template v-for="menu in menus">
               <template v-if="menu.children && menu.children.length > 0">
                 <el-submenu :index="menu.MenuUrl">
