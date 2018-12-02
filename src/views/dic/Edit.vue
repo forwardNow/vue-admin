@@ -81,12 +81,19 @@
             <template slot-scope="scope">{{ scope.row.CreateTime | dateFilter }}</template>
           </el-table-column>
 
-          <el-table-column label="状态" width="80">
+          <el-table-column label="状态" width="100">
             <template slot-scope="scope">
-            <span v-bind:class="scope.row.IsDeleted === 0 ? 'text_success' : 'text_danger'">
-              <span class="iconfont icon-yuandianzhong"></span>
-              {{ scope.row.IsDeleted === 0 ? '启用' : '停用'}}
-            </span>
+              <span v-bind:class="scope.row.IsDeleted === 0 ? 'text_success' : 'text_danger'">
+                <span class="iconfont icon-yuandianzhong"></span>
+                {{ scope.row.IsDeleted === 0 ? '启用' : '停用'}}
+              </span>
+              <el-switch
+                  v-model="scope.row.IsDeleted"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                  :active-value="0"
+                  :inactive-value="1">
+              </el-switch>
             </template>
           </el-table-column>
 
