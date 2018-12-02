@@ -33,7 +33,7 @@
         <div class="dic-item__head">字典条目</div>
 
         <!-- 操作 -->
-        <div class="ope clearfix">
+        <div class="dic-item__body ope clearfix">
 
           <el-form :inline="true" class="dic-item-form"
                    ref="dicItemForm" :model="dicItemFormModel" :rules="dicItemFormRules">
@@ -55,7 +55,9 @@
             <el-form-item>
               <el-button type="success" size="small" @click="insertDicItem">添加</el-button>
             </el-form-item>
+            <el-button type="primary" size="small" class="btn_refresh" @click="reloadDicItems">刷新</el-button>
           </el-form>
+
 
         </div>
         <!-- /操作 -->
@@ -81,19 +83,24 @@
             <template slot-scope="scope">{{ scope.row.CreateTime | dateFilter }}</template>
           </el-table-column>
 
-          <el-table-column label="状态" width="100">
+          <el-table-column label="状态" width="160">
             <template slot-scope="scope">
+              <!--
               <span v-bind:class="scope.row.IsDeleted === 0 ? 'text_success' : 'text_danger'">
                 <span class="iconfont icon-yuandianzhong"></span>
                 {{ scope.row.IsDeleted === 0 ? '启用' : '停用'}}
               </span>
+              -->
               <el-switch
-                  v-model="scope.row.IsDeleted"
+                  :value="scope.row.IsDeleted"
                   active-color="#13ce66"
                   inactive-color="#ff4949"
                   :active-value="0"
-                  :inactive-value="1">
+                  :inactive-value="1"
+                  :disabled="Boolean(scope.row.reserve)"
+                  @click.native="changeDicItemStatus(scope.row)">
               </el-switch>
+              <i class="el-icon-loading" v-if="scope.row.reserve"></i>
             </template>
           </el-table-column>
 
@@ -141,6 +148,7 @@ export default {
       dicFormRules: {
       },
       dicFormModel: {
+        DicId: '',
         DicName: '',
         DicDesc: '',
       },
@@ -207,7 +215,7 @@ export default {
               this.closePopup();
             }
 
-            this.$emit('edit-success');
+            this.$emit('finish-edit');
           } else {
             this.$message({
               type: 'error',
@@ -218,6 +226,39 @@ export default {
           }
         });
 
+      });
+    },
+    changeDicItemStatus(row) {
+      if (row.reserve === true) {
+        return;
+      }
+
+      row.reserve === true;
+
+      const newIsDeleted = row.IsDeleted === 0 ? 1 : 0;
+
+      DicItemService.update({
+        ItemId: row.ItemId,
+        IsDeleted: newIsDeleted,
+      }).then((res) => {
+        if (res.errorCode === 0) {
+          this.$message({
+            type: 'success',
+            message: '状态改变成功！',
+            showClose: true,
+            duration: 1000,
+          });
+          row.IsDeleted = newIsDeleted;
+        } else {
+          this.$message({
+            type: 'error',
+            message: '状态改变失败！',
+            showClose: true,
+            duration: 1000,
+          });
+        }
+
+        row.reserve === false;
       });
     },
     insertDicItem() {
@@ -369,5 +410,10 @@ export default {
   }
   .dic-item-form {
     margin-left: -10px;
+  }
+
+  .btn_refresh {
+    float: right;
+    margin-top: 5px;
   }
 </style>
