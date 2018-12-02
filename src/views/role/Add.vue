@@ -16,6 +16,10 @@
       <el-input v-model="formModel.RoleCategory"></el-input>
     </el-form-item>
 
+    <el-form-item label="角色描述" prop="RoleDes">
+      <el-input v-model="formModel.RoleDes"></el-input>
+    </el-form-item>
+
     <el-form-item>
       <el-button type="primary" @click="$refs.add.submit()">保存</el-button>
     </el-form-item>
@@ -40,6 +44,7 @@ export default {
       formModel: {
         RoleName: '',
         RoleCategory: '',
+        RoleDes: '',
       },
     };
   },

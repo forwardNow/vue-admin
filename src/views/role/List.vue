@@ -33,6 +33,10 @@
         <template slot-scope="scope">{{ scope.row.RoleCategory }}</template>
       </el-table-column>
 
+      <el-table-column label="角色描述" width="180">
+        <template slot-scope="scope">{{ scope.row.RoleDes }}</template>
+      </el-table-column>
+
       <el-table-column label="创建时间" width="180">
         <template slot-scope="scope">{{ scope.row.CreateTime | dateFilter }}</template>
       </el-table-column>

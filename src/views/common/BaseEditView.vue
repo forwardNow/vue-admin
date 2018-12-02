@@ -38,10 +38,10 @@ export default {
     init() {
       this.service.get(this.$route.query).then((res) => {
         if (res.errorCode === 0) {
-          const user = res.result;
+          const bean = res.result;
 
           Object.keys(this.editFormModel).forEach((key) => {
-            this.editFormModel[key] = user[key];
+            this.editFormModel[key] = bean[key];
           });
         } else if (res.errorCode === 1) {
           this.$message({

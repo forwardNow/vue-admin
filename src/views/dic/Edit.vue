@@ -1,48 +1,61 @@
 <template>
   <el-container class="popup">
     <el-header class="popup__heading" height="40px">编辑字典
-      <i class="popup__close el-icon-close" @click="handleClosePopup"></i>
+      <i class="popup__close el-icon-close" @click="closePopup"></i>
     </el-header>
     <el-main class="popup__content">
 
-      <el-form class="form_edit" :inline="true" label-width="80px"
-               ref="formModel" :model="formModel" :rules="rules">
+      <div class="dic">
 
-        <el-form-item label="字典名称" prop="DicName">
-          <el-input v-model="formModel.DicName" :disabled="true"></el-input>
-        </el-form-item>
+        <div class="dic__head">字典</div>
 
-        <el-form-item label="字典描述" prop="DicDesc">
-          <el-input v-model="formModel.DicDesc" style="width: 360px;"></el-input>
-        </el-form-item>
+        <el-form class="form_edit" :inline="true" label-width="80px"
+                 ref="dicForm" :model="dicFormModel" :rules="dicFormRules">
 
-        <el-form-item>
-          <el-button type="primary" @click="handleSubmit">保存</el-button>
-        </el-form-item>
+          <el-form-item label="字典名称" prop="DicName">
+            <el-input v-model="dicFormModel.DicName" size="small"></el-input>
+          </el-form-item>
 
-      </el-form>
+          <el-form-item label="字典描述" prop="DicDesc">
+            <el-input v-model="dicFormModel.DicDesc" size="small" style="width: 360px;"></el-input>
+          </el-form-item>
 
-      <div class="container_dic-item">
+          <el-form-item>
+            <el-button type="primary" size="small" @click="updateDic">保存</el-button>
+          </el-form-item>
+
+        </el-form>
+
+      </div>
+
+      <div class="dic-item">
+
+        <div class="dic-item__head">字典条目</div>
 
         <!-- 操作 -->
         <div class="ope clearfix">
 
-          <!-- 添加 -->
-          <el-button type="success" size="small" @click="handleAdd()">添加字典条目</el-button>
-          <!-- /添加 -->
-
-          <!-- 搜索 -->
-          <el-form :inline="true" class="search-group">
+          <el-form :inline="true" class="dic-item-form"
+                   ref="dicItemForm" :model="dicItemFormModel" :rules="dicItemFormRules">
             <el-form-item>
-              <el-input placeholder="请输入关键字" size="small" v-model="ItemCode">
-                <template slot="prepend">条目编码</template>
+              <el-input size="small" v-model="dicItemFormModel.ItemCode">
+                <template slot="prepend">编码</template>
               </el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" size="small" @click="reload()">搜索</el-button>
+              <el-input size="small" v-model="dicItemFormModel.ItemValue">
+                <template slot="prepend">值</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-input size="small" v-model="dicItemFormModel.ItemDesc">
+                <template slot="prepend">描述</template>
+              </el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="success" size="small" @click="insertDicItem">添加</el-button>
             </el-form-item>
           </el-form>
-          <!-- /搜索 -->
 
         </div>
         <!-- /操作 -->
@@ -80,11 +93,9 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <a class="ope-link" href="#"
-                 @click.prevent="handleDetail(scope.row.DicName)">详情</a>
+                 @click.prevent="showDicItemDetail({ItemId: scope.row.ItemId})">详情</a>
               <a class="ope-link" href="#"
-                 @click.prevent="handleEdit(scope.row.DicName)">编辑</a>
-              <a class="ope-link" href="#"
-                 @click.prevent="handleDelete(scope.row.DicName)">删除</a>
+                 @click.prevent="deleteDicItem({ItemId: scope.row.ItemId})">删除</a>
             </template>
           </el-table-column>
 
@@ -110,6 +121,7 @@
 </template>
 <script>
 import DicService from '../../services/DicService';
+import DicItemService from '../../services/DicItemService';
 
 export default {
   created() {
@@ -117,17 +129,23 @@ export default {
   },
   data() {
     return {
-      rules: {
-        //UserNickname: [
-        //  { required: true, message: '必填项', trigger: ['blur', 'change'] },
-        //],
+      isCloseAfterEditSuccess: false,
+      parentPath: '/dic/list',
+      dicFormRules: {
       },
-      formModel: {
+      dicFormModel: {
         DicName: '',
         DicDesc: '',
       },
 
-      ItemCode: '',
+      dicItemFormRules: {
+      },
+      dicItemFormModel: {
+        DicName: '',
+        ItemCode: '',
+        ItemValue: '',
+        ItemDesc: '',
+      },
       loading: false,
       pager: {
         pageSizes: [10, 20, 50, 100, 200],
@@ -140,65 +158,171 @@ export default {
   },
   methods: {
     init() {
-      const DicId = this.$route.query.id;
-
-      DicService.get({ DicId }).then((res) => {
+      DicService.get(this.$route.query).then((res) => {
         if (res.errorCode === 0) {
-          const user = res.result;
+          const bean = res.result;
 
-          Object.keys(this.formModel).forEach((key) => {
-            this.formModel[key] = user[key];
+          Object.keys(this.dicFormModel).forEach((key) => {
+            this.dicFormModel[key] = bean[key];
           });
+
+          this.dicItemFormModel.DicName = this.dicFormModel.DicName;
         } else if (res.errorCode === 1) {
           this.$message({
             type: 'error',
-            message: '该字典不存在！',
+            message: '该记录不存在！',
             showClose: true,
             duration: 2000,
           });
         }
       });
-    },
-    reload() {
 
+      this.reloadDicItems();
     },
-    handleAdd() {
-
-    },
-    handleSubmit() {
-      DicService.update(this.formModel).then((res) => {
-        if (res.errorCode === 0) {
-          this.$message({
-            type: 'success',
-            message: '更新成功！',
-            showClose: true,
-            duration: 1000,
-          });
-
-          // 告知父组件
-          this.$emit('finish');
-        } else {
-          this.$message({
-            type: 'error',
-            message: '更新失败！',
-            showClose: true,
-            duration: 1000,
-          });
+    updateDic() {
+      this.$refs.dicForm.validate((valid) => {
+        if (!valid) {
+          console.log('error submit!!');
+          return false;
         }
+
+        DicService.update(this.dicFormModel).then((res) => {
+          if (res.errorCode === 0) {
+            this.$message({
+              type: 'success',
+              message: '保存成功！',
+              showClose: true,
+              duration: 1000,
+            });
+
+            // 关闭
+            if (this.isCloseAfterEditSuccess) {
+              this.closePopup();
+            }
+
+            this.$emit('edit-success');
+          } else {
+            this.$message({
+              type: 'error',
+              message: '保存失败！',
+              showClose: true,
+              duration: 1000,
+            });
+          }
+        });
+
       });
     },
-    handleClosePopup() {
+    insertDicItem() {
+      this.$refs.dicItemForm.validate((valid) => {
+        if (!valid) {
+          console.log('error submit!!');
+          return false;
+        }
+
+        DicItemService.insert(this.dicItemFormModel).then((res) => {
+          if (res.errorCode === 0) {
+            this.$message({
+              type: 'success',
+              message: '保存成功！',
+              showClose: true,
+              duration: 1000,
+            });
+
+            this.reloadDicItems();
+            this.dicItemFormModel.ItemCode = '';
+            this.dicItemFormModel.ItemValue = '';
+            this.dicItemFormModel.ItemDesc = '';
+          } else {
+            this.$message({
+              type: 'error',
+              message: '保存失败！',
+              showClose: true,
+              duration: 1000,
+            });
+          }
+        });
+
+      });
+    },
+    showDicItemDetail(query) {
+      
+    },
+    deleteDicItem(condition) {
+      this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => DicItemService.delete(condition))
+        .then((res) => {
+          if (res.errorCode === 0) {
+            this.$message({
+              type: 'success',
+              message: '删除成功！',
+              showClose: true,
+              duration: 1000,
+            });
+
+            this.reloadDicItems();
+          } else {
+            this.$message({
+              type: 'error',
+              message: '删除失败！',
+              showClose: true,
+              duration: 1000,
+            });
+          }
+        })
+        .catch(() => {
+        });
+    },
+    reloadDicItems(isInitCurrentPage = false) {
+      if (this.loading) {
+        return;
+      }
+
+      if (isInitCurrentPage) {
+        this.pager.currentPage = 1;
+      }
+
+      this.loading = true;
+
+      const { pageSize, currentPage } = this.pager;
+
+      DicItemService.getList( {}, { pageSize, currentPage }).then((res) => {
+        if (res.errorCode === 0) {
+          const {
+            result: {
+              items,
+              pager: {
+                pageSize: newPageSize,
+                currentPage: newCurrentPage,
+                total,
+              },
+            },
+          } = res;
+          this.tableData = items;
+          this.pager.pageSize = newPageSize;
+          this.pager.currentPage = newCurrentPage;
+          this.pager.total = total;
+        }
+        this.loading = false;
+      }).catch(() => {
+        this.loading = false;
+      });
+    },
+    closePopup() {
       this.$router.push({
-        path: '/dic/list',
+        path: this.parentPath,
       });
     },
     handlePageSizeChange(newPageSize) {
       this.pager.pageSize = newPageSize;
-      this.reload(true);
+      this.reloadDicItems(true);
     },
     handleCurrentPageChange(newCurrentPage) {
       this.pager.currentPage = newCurrentPage;
-      this.reload();
+      this.reloadDicItems();
     },
   },
 };
@@ -207,10 +331,36 @@ export default {
   .form_edit {
     width: 100%;
   }
-  .container_dic-item {
-    padding: 0 1px 20px 2px;
+
+  .dic,
+  .dic-item {
+    padding: 0 20px 20px 20px;
     margin-left: -20px;
     margin-right: -20px;
-    border-top: dashed 1px #eee;
+  }
+
+  .dic {
+    margin-top: -12px;
+  }
+
+  .dic__head,
+  .dic-item__head {
+    height: 40px;
+    padding: 0 20px;
+    margin: 0 -20px;
+    font-size: 16px;
+    line-height: 40px;
+    background-color: #f5f7fa;
+  }
+
+  .form_edit {
+    margin-top: 20px;
+  }
+  .el-form--inline .el-form-item {
+    margin-left: 10px;
+    margin-right: 0;
+  }
+  .dic-item-form {
+    margin-left: -10px;
   }
 </style>
