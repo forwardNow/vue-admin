@@ -55,7 +55,7 @@
       service: { type: BaseService },
       searchFormModel: { type: Object },
       pageSize: { type: Number, default: 20 },
-      tableDataFormatter: { type: Function, default: items => items },
+      tableDataFormatter: { type: Function, default: items => Promise.resolve(items) },
     },
     created() {
       this.pager.pageSize = this.pageSize;
@@ -82,7 +82,7 @@
           inputNodeList[0].focus();
         }
       },
-      reload(isInitCurrentPage = false) {
+      async reload(isInitCurrentPage = false) {
         if (this.loading) {
           return;
         }
@@ -94,8 +94,9 @@
         this.loading = true;
 
         const { pageSize, currentPage } = this.pager;
+        let tableData;
 
-        this.service.getList( this.searchFormModel, { pageSize, currentPage }).then((res) => {
+        await this.service.getList( this.searchFormModel, { pageSize, currentPage }).then((res) => {
           if (res.errorCode === 0) {
             const {
               result: {
@@ -107,7 +108,9 @@
                 },
               },
             } = res;
-            this.tableData = this.tableDataFormatter(items);
+
+            // this.tableData = this.tableDataFormatter(items);
+            tableData = items;
             this.pager.pageSize = newPageSize;
             this.pager.currentPage = newCurrentPage;
             this.pager.total = total;
@@ -115,6 +118,10 @@
           this.loading = false;
         }).catch(() => {
           this.loading = false;
+        });
+
+        await this.tableDataFormatter(tableData).then((items) => {
+          this.tableData = items;
         });
       },
       handleFinishAdd(...args) {
