@@ -97,7 +97,7 @@
             subTreeName: 'children',
           });
 
-        return TreeUtils.concatNestedTree(newItems);
+        return Promise.resolve(TreeUtils.concatNestedTree(newItems));
       },
       handleFinishAdd() {
         this.$refs.base.reload();

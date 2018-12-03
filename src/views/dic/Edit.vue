@@ -172,8 +172,8 @@ export default {
     };
   },
   methods: {
-    init() {
-      DicService.get(this.$route.query).then((res) => {
+    async init() {
+      await DicService.get(this.$route.query).then((res) => {
         if (res.errorCode === 0) {
           const bean = res.result;
 
@@ -192,7 +192,7 @@ export default {
         }
       });
 
-      this.reloadDicItems();
+      return this.reloadDicItems();
     },
     updateDic() {
       this.$refs.dicForm.validate((valid) => {
@@ -336,8 +336,13 @@ export default {
       this.loading = true;
 
       const { pageSize, currentPage } = this.pager;
+      const { DicName } = this.dicItemFormModel;
 
-      DicItemService.getList( {}, { pageSize, currentPage }).then((res) => {
+      if (!DicName) {
+        throw new Error('reloadDicItems(): can not get DicName');
+      }
+
+      DicItemService.getList( { DicName }, { pageSize, currentPage }).then((res) => {
         if (res.errorCode === 0) {
           const {
             result: {
