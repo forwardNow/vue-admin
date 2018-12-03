@@ -13,8 +13,21 @@
     </el-form-item>
 
     <el-form-item label="角色类别" prop="RoleCategory">
+      <!--
       <el-input v-model="formModel.RoleCategory"></el-input>
+      -->
+
+      <el-select v-model="formModel.RoleCategory" placeholder="请选择">
+        <el-option
+            v-for="item in roleCategoryDicList"
+            :key="item.ItemCode"
+            :label="item.ItemValue"
+            :value="item.ItemCode"
+            :disabled="item.IsDeleted !== 0">
+        </el-option>
+      </el-select>
     </el-form-item>
+
 
     <el-form-item label="角色描述" prop="RoleDes">
       <el-input v-model="formModel.RoleDes"></el-input>
@@ -28,10 +41,17 @@
 </template>
 <script>
 import RoleService from '../../services/RoleService';
+import DicItemService from '../../services/DicItemService';
 
 export default {
+  created() {
+    DicItemService.getDicList('role_category').then((items) => {
+      this.roleCategoryDicList = items;
+    });
+  },
   data() {
     return {
+      roleCategoryDicList: [],
       service: RoleService,
       rules: {
         RoleName: [

@@ -3,6 +3,7 @@
              path="/role/list"
              :service="service"
              :search-form-model="searchFormModel"
+             :table-data-formatter="tableDataFormatter"
              @finish-add="handleFinishAdd"
              @finish-edit="handleFinishEdit"
              ref="base">
@@ -30,7 +31,7 @@
       </el-table-column>
 
       <el-table-column label="角色类别" width="180">
-        <template slot-scope="scope">{{ scope.row.RoleCategory }}</template>
+        <template slot-scope="scope">{{ scope.row.$RoleCategory }}</template>
       </el-table-column>
 
       <el-table-column label="角色描述" width="180">
@@ -67,6 +68,7 @@
 </template>
 <script>
 import RoleService from '../../services/RoleService';
+import DicItemService from '../../services/DicItemService';
 
 export default {
   data() {
@@ -78,6 +80,22 @@ export default {
     }
   },
   methods: {
+    async tableDataFormatter(items) {
+      const newItems = [];
+
+      items.forEach(async (item) => {
+        const newItem = Object.assign({}, item);
+        const { RoleCategory } = item;
+
+        await DicItemService.getValueByCode('role_category', RoleCategory).then((ItemValue) => {
+          newItem.$RoleCategory = ItemValue;
+        });
+
+        newItems.push(newItem);
+      });
+
+      return Promise.resolve(newItems);
+    },
     handleFinishAdd() {
       this.$refs.base.reload();
     },
