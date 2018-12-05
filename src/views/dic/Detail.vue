@@ -11,6 +11,11 @@
     <tbody>
     <tr> <td>字典名称</td> <td>{{ formModel.DicName }}</td> </tr>
     <tr> <td>字典描述</td> <td>{{ formModel.DicDesc }}</td> </tr>
+
+    <tr> <td>创建时间</td> <td>{{ formModel.CreateTime | datetimeFilter}}</td> </tr>
+    <tr> <td>创建人</td> <td>{{ formModel.CreateUserName }}</td> </tr>
+    <tr> <td>修改时间</td> <td>{{ formModel.ModifiedTime | datetimeFilter}}</td> </tr>
+    <tr> <td>修改人</td> <td>{{ formModel.ModifiedUserName }}</td> </tr>
     </tbody>
   </base-detail-view>
 </template>
@@ -24,6 +29,11 @@
         formModel: {
           DicName: '',
           DicDesc: '',
+          
+          CreateTime: '',
+          CreateUserName: '',
+          ModifiedTime: '',
+          ModifiedUserName: ''
         },
       };
     },
