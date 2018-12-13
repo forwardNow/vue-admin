@@ -1,5 +1,5 @@
 import assert from 'assert';
-import TreeUtils from '../../../src/share/TreeUtils';
+import TreeUtils from '../../../src/common/utils/TreeUtils';
 
 const items = [{
   MenuNo: '1',

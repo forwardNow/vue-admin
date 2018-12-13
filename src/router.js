@@ -1,39 +1,44 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from './views/session/Login.vue';
+import Login from './session/Login.vue';
 
 Vue.use(Router);
 
 // 按需加载
-const NotFoundView = () => import('./views/error/NotFound.vue');
+const NotFoundView = () => import('./common/views/error/NotFound.vue');
 
-const HomeView = () => import('./views/home/Home.vue');
+const HomeView = () => import('./home/Home.vue');
 
-const UserListView = () => import('./views/user/List.vue');
-const UserDetailView = () => import('./views/user/Detail.vue');
-const UserEditView = () => import('./views/user/Edit.vue');
-const UserRegisterView = () => import('./views/user/Register.vue');
-const UserLoginModeView = () => import('./views/user/LoginMode.vue');
+const UserListView = () => import('./system/views/user/List.vue');
+const UserDetailView = () => import('./system/views/user/Detail.vue');
+const UserEditView = () => import('./system/views/user/Edit.vue');
+const UserRegisterView = () => import('./system/views/user/Register.vue');
+const UserLoginModeView = () => import('./system/views/user/LoginMode.vue');
 
-const SubsysListView = () => import('./views/subsys/List.vue');
-const SubsysAddView = () => import('./views/subsys/Add.vue');
-const SubsysEditView = () => import('./views/subsys/Edit.vue');
-const SubsysDetailView = () => import('./views/subsys/Detail.vue');
+const SubsysListView = () => import('./system/views/subsys/List.vue');
+const SubsysAddView = () => import('./system/views/subsys/Add.vue');
+const SubsysEditView = () => import('./system/views/subsys/Edit.vue');
+const SubsysDetailView = () => import('./system/views/subsys/Detail.vue');
 
-const MenuListView = () => import('./views/menu/List.vue');
-const MenuAddView = () => import('./views/menu/Add.vue');
-const MenuEditView = () => import('./views/menu/Edit.vue');
-const MenuDetailView = () => import('./views/menu/Detail.vue');
+const MenuListView = () => import('./system/views/menu/List.vue');
+const MenuAddView = () => import('./system/views/menu/Add.vue');
+const MenuEditView = () => import('./system/views/menu/Edit.vue');
+const MenuDetailView = () => import('./system/views/menu/Detail.vue');
 
-const RoleListView = () => import('./views/role/List.vue');
-const RoleAddView = () => import('./views/role/Add.vue');
-const RoleEditView = () => import('./views/role/Edit.vue');
-const RoleDetailView = () => import('./views/role/Detail.vue');
+const RoleListView = () => import('./system/views/role/List.vue');
+const RoleAddView = () => import('./system/views/role/Add.vue');
+const RoleEditView = () => import('./system/views/role/Edit.vue');
+const RoleDetailView = () => import('./system/views/role/Detail.vue');
 
-const DicListView = () => import('./views/dic/List.vue');
-const DicAddView = () => import('./views/dic/Add.vue');
-const DicEditView = () => import('./views/dic/Edit.vue');
-const DicDetailView = () => import('./views/dic/Detail.vue');
+const DicListView = () => import('./system/views/dic/List.vue');
+const DicAddView = () => import('./system/views/dic/Add.vue');
+const DicEditView = () => import('./system/views/dic/Edit.vue');
+const DicDetailView = () => import('./system/views/dic/Detail.vue');
+
+const ExamPaperListView = () => import('./exam/views/paper/List.vue');
+const ExamPaperAddView = () => import('./exam/views/paper/Add.vue');
+const ExamPaperEditView = () => import('./exam/views/paper/Edit.vue');
+const ExamPaperDetailView = () => import('./exam/views/paper/Detail.vue');
 
 
 const router = new Router({
@@ -105,7 +110,7 @@ const router = new Router({
             {
               path: '/role/list/add',
               component: RoleAddView,
-              meta: { requiresAuth: true, title: '编辑' },
+              meta: { requiresAuth: true, title: '添加' },
             },
           ],
         },
@@ -129,7 +134,7 @@ const router = new Router({
             {
               path: '/subsys/list/add',
               component: SubsysAddView,
-              meta: { requiresAuth: true, title: '编辑' },
+              meta: { requiresAuth: true, title: '添加' },
             },
           ],
         },
@@ -153,7 +158,7 @@ const router = new Router({
             {
               path: '/menu/list/add',
               component: MenuAddView,
-              meta: { requiresAuth: true, title: '编辑' },
+              meta: { requiresAuth: true, title: '添加' },
             },
           ],
         },
@@ -177,6 +182,32 @@ const router = new Router({
             {
               path: '/dic/list/add',
               component: DicAddView,
+              meta: { requiresAuth: true, title: '添加' },
+            },
+          ],
+        },
+
+        /* 问卷调查 /exam */
+
+        // 问卷管理
+        {
+          path: '/exam/paper/list',
+          component: ExamPaperListView,
+          meta: { requiresAuth: true, title: '问卷管理' },
+          children: [
+            {
+              path: '/exam/paper/list/detail',
+              component: ExamPaperDetailView,
+              meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: '/exam/paper/list/edit',
+              component: ExamPaperEditView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+            {
+              path: '/exam/paper/list/add',
+              component: ExamPaperAddView,
               meta: { requiresAuth: true, title: '编辑' },
             },
           ],

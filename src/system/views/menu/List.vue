@@ -1,0 +1,115 @@
+<template>
+  <base-list-view title="菜单管理"
+                  path="/menu/list"
+                  :service="service"
+                  :search-form-model="searchFormModel"
+                  :pageSize="100"
+                  :tableDataFormatter="tableDataFormatter"
+                  @finish-add="handleFinishAdd"
+                  @finish-edit="handleFinishEdit"
+                  ref="base">
+    <template slot="ope">
+
+      <el-button type="success" size="small" @click="$refs.base.showAddView()">添加菜单</el-button>
+
+      <el-form :inline="true" class="search-group">
+        <el-form-item>
+          <el-input placeholder="请输入关键字" size="small" v-model="searchFormModel.MenuName">
+            <template slot="prepend">菜单名称</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="small" @click="$refs.base.reload()">搜索</el-button>
+        </el-form-item>
+      </el-form>
+
+    </template>
+
+    <template slot="dategrid">
+
+      <el-table-column label="菜单名称" width="200">
+        <template slot-scope="scope">
+          <span class="indent" v-for="i in scope.row.$depth"></span>
+          <span :class="scope.row.MenuNodeIcon"></span>
+          {{ scope.row.MenuName }}
+        </template>
+      </el-table-column>
+
+      <el-table-column label="菜单编码" width="80">
+        <template slot-scope="scope">{{ scope.row.MenuNo }}</template>
+      </el-table-column>
+
+      <el-table-column label="父菜单编码" width="120">
+        <template slot-scope="scope">{{ scope.row.MenuParentNo }}</template>
+      </el-table-column>
+
+      <el-table-column label="Url地址" width="180">
+        <template slot-scope="scope">{{ scope.row.MenuUrl }}</template>
+      </el-table-column>
+
+      <el-table-column label="排序" width="60">
+        <template slot-scope="scope">{{ scope.row.Sort }}</template>
+      </el-table-column>
+
+      <el-table-column label="状态" width="80">
+        <template slot-scope="scope">
+            <span v-bind:class="scope.row.IsDeleted === 0 ? 'text_success' : 'text_danger'">
+              <span class="iconfont icon-yuandianzhong"></span>
+              {{ scope.row.IsDeleted === 0 ? '启用' : '停用'}}
+            </span>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <a class="ope-link" href="#"
+             @click.prevent="$refs.base.showDetailView({MenuId: scope.row.MenuId})">详情</a>
+          <a class="ope-link" href="#"
+             @click.prevent="$refs.base.showEditView({MenuId: scope.row.MenuId})">编辑</a>
+          <a class="ope-link" href="#"
+             @click.prevent="$refs.base.deleteRecord({MenuId: scope.row.MenuId})">删除</a>
+        </template>
+      </el-table-column>
+
+    </template>
+
+  </base-list-view>
+</template>
+<script>
+  import MenuService from '../../services/MenuService';
+  import TreeUtils from '../../../common/utils/TreeUtils';
+
+  export default {
+    data() {
+      return {
+        service: MenuService,
+        searchFormModel: {
+          MenuName: '',
+        },
+      }
+    },
+    methods: {
+      tableDataFormatter(items) {
+        const newItems = TreeUtils.createNestedTree(items, null,
+          {
+            idName: 'MenuNo',
+            parentIdName: 'MenuParentNo',
+            subTreeName: 'children',
+          });
+
+        return Promise.resolve(TreeUtils.concatNestedTree(newItems));
+      },
+      handleFinishAdd() {
+        this.$refs.base.reload();
+      },
+      handleFinishEdit() {
+        this.$refs.base.reload();
+      },
+    },
+  };
+</script>
+<style scoped>
+  .indent {
+    margin-right: 1.5em;
+  }
+</style>
