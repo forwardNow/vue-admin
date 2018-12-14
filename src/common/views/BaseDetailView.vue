@@ -7,6 +7,7 @@
       <table class="table_detail">
         <slot></slot>
       </table>
+      <slot name="others"></slot>
     </el-main>
   </el-container>
 </template>

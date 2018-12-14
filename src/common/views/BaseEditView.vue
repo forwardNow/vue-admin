@@ -5,13 +5,14 @@
     </el-header>
     <el-main class="popup__content">
 
-      <el-form class="form_edit" label-width="120px"
+      <el-form :class="['form_edit', formClassName]" label-width="120px"
                ref="editForm" :model="editFormModel" :rules="editFormRules">
 
         <slot></slot>
 
       </el-form>
 
+      <slot name="others"></slot>
     </el-main>
   </el-container>
 </template>
@@ -25,7 +26,8 @@ export default {
     service: { type: BaseService },
     editFormModel: { type: Object },
     editFormRules: { type: Object },
-    isCloseAfterEditSuccess: { type: Boolean, default: true }
+    isCloseAfterEditSuccess: { type: Boolean, default: true },
+    formClassName: { type: String, default: '' },
   },
   created() {
     this.init();

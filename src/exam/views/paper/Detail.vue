@@ -10,7 +10,7 @@
 
         <div class="paper">
 
-          <div class="paper__header"></div>
+          <div class="paper__header"><img src="../../assets/images/banner.png" width="100%" alt=""></div>
 
           <div class="paper__body">
 
@@ -149,68 +149,5 @@
   };
 </script>
 
+<style scoped lang="scss" src="../../assets/iphone.scss"></style>
 <style scoped src="../../../common/assets/mui/css/mui.css"></style>
-<style scoped>
-  .phone {
-    width: 365px;
-    height: 796px;
-    margin: 20px 20px 0;
-    padding: 100px 16px;
-    background: url(../../assets/phone.png) no-repeat;
-    background-size: 100%;
-  }
-
-  .phone__content {
-    overflow: auto;
-    height: 100%;
-    background: #f4f4f4;
-  }
-
-  .paper {
-
-  }
-  .paper__header {
-    height: 160px;
-    background: url(../../assets/banner.png) no-repeat;
-    background-size: 100% 100%;
-  }
-
-  .paper__body {
-
-  }
-
-  .question {
-    margin-top: 1em;
-    padding: 0.5em 1em;
-    font-size: 16px;
-    background: #fff;
-    border-top: solid 1px #e8e8e8;
-    border-bottom: solid 1px #e8e8e8;
-  }
-
-  .question .question {
-    margin-top: 0;
-    border: none 0;
-  }
-
-  .question__header {
-    line-height: 2em;
-  }
-
-  .question__content {
-
-  }
-
-  .option__text {
-    float: left;
-    margin-right: 10px;
-  }
-  .option__input {
-    overflow: hidden;
-    margin-top: -11px;
-  }
-
-  .option__input input {
-    margin-bottom: 0;
-  }
-</style>
