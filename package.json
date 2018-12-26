@@ -20,7 +20,6 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.4.8",
-    "mui": "git+ssh://git@github.com/dcloudio/mui.git",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"

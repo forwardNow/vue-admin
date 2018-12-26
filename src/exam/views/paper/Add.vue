@@ -180,7 +180,7 @@
   };
 </script>
 <style scoped lang="scss" src="../../assets/iphone.scss"></style>
-<style scoped src="../../../common/assets/mui/css/mui.css"></style>
+<!--<style scoped src="../../../common/assets/mui/css/mui.css"></style>-->
 <style>
   .exam-paper-add-form {
     width: 500px;
