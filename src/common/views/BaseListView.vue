@@ -15,7 +15,7 @@
       <!-- /操作 -->
 
       <!-- 数据表格 -->
-      <el-table :data="tableData" v-loading="loading" class="datagrid_table">
+      <el-table :data="tableData" v-loading="loading" class="datagrid_table" :fit="true">
 
         <el-table-column type="index" width="50"></el-table-column>
 

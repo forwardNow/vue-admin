@@ -48,35 +48,35 @@
     </template>
 
     <template slot="dategrid">
-      <el-table-column label="用户名" width="100">
+      <el-table-column label="用户名">
         <template slot-scope="scope">{{ scope.row.userName }}</template>
       </el-table-column>
 
-      <el-table-column label="姓名" width="100">
+      <el-table-column label="姓名">
         <template slot-scope="scope">{{ scope.row.userRealName}}</template>
       </el-table-column>
 
-      <el-table-column label="角色" width="80">
+      <el-table-column label="角色">
         <template slot-scope="scope">{{ scope.row.userRole }}</template>
       </el-table-column>
 
-      <el-table-column label="机构" width="120">
+      <el-table-column label="机构">
         <template slot-scope="scope">{{ scope.row.userOrgan }}</template>
       </el-table-column>
 
-      <el-table-column label="身份证" width="120">
+      <el-table-column label="身份证">
         <template slot-scope="scope">{{ scope.row.userCart }}</template>
       </el-table-column>
 
-      <el-table-column label="警官证" width="120">
+      <el-table-column label="警官证" >
         <template slot-scope="scope">{{ scope.row.userPoliceCart }}</template>
       </el-table-column>
 
-      <el-table-column label="创建时间" width="100">
+      <el-table-column label="创建时间">
         <template slot-scope="scope">{{ scope.row.createTime }}</template>
       </el-table-column>
 
-      <el-table-column label="状态" width="80">
+      <el-table-column label="状态">
         <template slot-scope="scope">
           <span v-bind:class="scope.row.userStatus === '正常' ? 'text_success' : 'text_danger'">
             <span class="iconfont icon-yuandianzhong"></span>
