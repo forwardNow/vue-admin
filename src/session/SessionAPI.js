@@ -3,10 +3,10 @@
  */
 const LoginAPI = {
   /** 登陆认证 */
-  LOGIN: '/api/session/login',
+  LOGIN: '/systemManage/UserController/userLogin',
 
   /** 登出：退出系统 */
-  LOGOUT: '/api/session/logout',
+  LOGOUT: '/systemManage/UserController/userLogout',
 };
 
 export default LoginAPI;

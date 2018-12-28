@@ -1,7 +1,14 @@
-import BaseAPI from '../../common/apis/BaseAPI';
 
 const API = {
-  REGISTER: '/api/user/register',
+  GET_ONE: '/api/get',
+
+  GET_LIST: '/systemManage/UserController/queryUserInfo',
+
+  INSERT: '/api/insert',
+
+  DELETE: '/api/delete',
+
+  UPDATE: '/api/update',
 };
 
-export default Object.assign(BaseAPI('user'), API);
+export default API;

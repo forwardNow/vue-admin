@@ -26,6 +26,7 @@ module.exports = merge(baseConfig, {
     // 代理
     proxy: {
       '/api': 'http://localhost:3000',
+      '/systemManage': 'http://localhost:8083',
     },
   },
 

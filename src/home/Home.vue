@@ -7,20 +7,16 @@
 
       <!-- logo -->
       <router-link to="/" class="logo">
-        <img src="../common/assets/images/logo.jpg" alt="">
-        <div class="title">系统管理平台</div>
+        <div class="title"><!-- 安全业务审批系统 --><img src="../common/assets/images/logo.png" alt=""></div>
       </router-link>
       <!-- /logo -->
 
       <!-- top-menu -->
       <el-menu class="header__top-menu"
                mode="horizontal"
-               @select="handleSelect"
-               background-color="#157dc5"
-               text-color="#fff"
-               active-text-color="#fff">
+               @select="handleSelect">
         <el-submenu index="2">
-          <template slot="title">{{ user.UserTrueName || '用户' }}</template>
+          <template slot="title">{{ (user && user.userRealName) || '用户' }}</template>
           <el-menu-item index="2-1" @click="logout()">
             <i class="iconfont icon-dengchu"></i> 退出系统
           </el-menu-item>
@@ -39,23 +35,26 @@
         <!-- aside -->
         <el-aside class="main__aside" width="200px">
 
-          <el-menu class="aside__menu" :router="true" :default-active="activeIndex" ref="menuTree">
+          <el-menu class="aside__menu" :router="true" :default-active="activeIndex" ref="menuTree"
+                   background-color="#373e58"
+                   text-color="#f1f1f1"
+                    >
             <template v-for="menu in menus">
               <template v-if="menu.children && menu.children.length > 0">
-                <el-submenu :index="menu.MenuUrl">
+                <el-submenu :index="menu.url">
                   <template slot="title">
-                    <i :class="menu.MenuNodeIcon"></i><span>{{ menu.MenuName }}</span>
+                    <i :class="menu.icon"></i><span>{{ menu.upcRightName }}</span>
                   </template>
                   <template v-for="submenu in menu.children">
-                    <el-menu-item :index="submenu.MenuUrl">
-                      <i :class="submenu.MenuNodeIcon"></i><span slot="title">{{ submenu.MenuName }}</span>
+                    <el-menu-item :index="submenu.url">
+                      <i :class="submenu.icon"></i><span slot="title">{{ submenu.upcRightName }}</span>
                     </el-menu-item>
                   </template>
                 </el-submenu>
               </template>
               <template v-else>
-                <el-menu-item :index="menu.MenuUrl">
-                  <i :class="menu.MenuNodeIcon"></i><span slot="title">{{ menu.MenuName }}</span>
+                <el-menu-item :index="menu.url">
+                  <i :class="menu.icon"></i><span slot="title">{{ menu.upcRightName }}</span>
                 </el-menu-item>
               </template>
             </template>
@@ -117,6 +116,7 @@
     },
     methods: {
       getMenus() {
+        /*
         MenuService.getList(null, {"pageSize":100,"currentPage":1}).then(res => {
           if (res.errorCode !== 0) {
             throw new Error('Home.vue: getMenus() 获取菜单失败!');
@@ -125,11 +125,24 @@
 
           this.menus = TreeUtils.createNestedTree(items, null,
             {
-              idName: 'MenuNo',
-              parentIdName: 'MenuParentNo',
+              idName: 'upcId',
+              parentIdName: 'fatherId',
               subTreeName: 'children',
             });
         });
+        */
+        const items = [
+          { upcId: 0, upcRightName: '系统设置', fatherId: null, url: '/sys', icon: 'iconfont icon-jiaoseguanli', },
+          { upcId: 1, upcRightName: '用户管理', fatherId: 0, url: '/user/list', icon: 'iconfont icon-yonghu1', },
+          { upcId: 2, upcRightName: '角色管理', fatherId: 0, url: '/role/list', icon: 'iconfont icon-jiaoseguanli', },
+        ];
+
+        this.menus = TreeUtils.createNestedTree(items, null,
+          {
+            idName: 'upcId',
+            parentIdName: 'fatherId',
+            subTreeName: 'children',
+          });
       },
       activeMenuItemByPath() {
         // 当前路由
@@ -183,4 +196,38 @@
     },
   };
 </script>
+<style>
+  .aside__menu {
+    border-right: solid 1px #373e58;
+    border-bottom-right-radius: 6px;
+  }
+
+  .el-breadcrumb {
+    margin: 20px 0 20px 0;
+    padding-left: 10px;
+    line-height: 20px;
+    border-left: solid 4px #216bff;
+  }
+
+
+  .el-breadcrumb__inner a,
+  .el-breadcrumb__inner.is-link {
+    color: #000;
+  }
+
+  .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+    color: #333;
+  }
+
+  .el-submenu__title,
+  .el-menu-item {
+    user-select:none;
+  }
+
+  .el-menu-item.is-active {
+    color: #fff;
+    background: #1b2131!important;
+    border-left: solid 4px #216bff;
+  }
+</style>
 

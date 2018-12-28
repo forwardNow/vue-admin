@@ -7,8 +7,6 @@ import axios from '../common/plugins/axios';
 const SessionService = {};
 const USER_INFO = 'userInfo';
 
-let TOKEN = null;
-
 /**
  * 登陆
  * @param {string} loginName
@@ -17,9 +15,8 @@ let TOKEN = null;
  */
 SessionService.login = (loginName, password) => {
   const data = {
-    ExternalIdentifier: loginName,
-    ExternalCredential: password,
-    ExternalIdentityType: '1',
+    userName: loginName,
+    userPassword: password,
   };
   return axios.post(SessionAPI.LOGIN, data);
 };
@@ -58,35 +55,5 @@ SessionService.isLogin = () => sessionStorage.getItem(USER_INFO) !== null;
  */
 SessionService.getUserInfo = () => JSON.parse(sessionStorage.getItem(USER_INFO));
 
-/**
- * 设置 token
- * @param token {string}
- */
-SessionService.setToken = (token) => {
-  if (!token) {
-    return;
-  }
-
-  if (!TOKEN) {
-    TOKEN = localStorage.getItem('TOKEN');
-  }
-
-  if (token !== TOKEN) {
-    TOKEN = token;
-  }
-
-  localStorage.setItem('TOKEN', TOKEN);
-};
-
-/**
- * 获取 token
- * @returns {string}
- */
-SessionService.getToken = () => {
-  if (TOKEN) {
-    return TOKEN;
-  }
-  return localStorage.getItem('TOKEN');
-};
 
 export default SessionService;

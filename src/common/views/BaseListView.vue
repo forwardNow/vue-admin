@@ -1,7 +1,11 @@
 <template>
   <!-- .content__body -->
   <el-container class="content__body">
-    <el-header class="heading">{{ title }}</el-header>
+    <el-header class="heading">{{ title }}
+      <div class="fn clearfix">
+        <slot name="fn"></slot>
+      </div>
+    </el-header>
     <el-main class="content">
 
       <!-- 操作 -->
@@ -97,19 +101,32 @@
         let tableData;
 
         await this.service.getList( this.searchFormModel, { pageSize, currentPage }).then((res) => {
-          if (res.errorCode === 0) {
-            const {
-              result: {
-                items,
-                pager: {
-                  pageSize: newPageSize,
-                  currentPage: newCurrentPage,
-                  total,
-                },
-              },
-            } = res;
+          let items = null;
+          let newPageSize = 20;
+          let newCurrentPage = 1;
+          let total = 0;
 
-            // this.tableData = this.tableDataFormatter(items);
+          if (res.errorCode === 0) {
+            if (Array.isArray(res.result)) {
+              console.warn('【reload】数据不符合要求');
+
+              items = res.result;
+              total = items.length;
+            } else {
+              ({
+                result: {
+                  items,
+                  pager: {
+                    pageSize: newPageSize,
+                    currentPage: newCurrentPage,
+                    total,
+                  },
+                },
+              } = res);
+            }
+
+
+
             tableData = items;
             this.pager.pageSize = newPageSize;
             this.pager.currentPage = newCurrentPage;

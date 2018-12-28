@@ -1,43 +1,31 @@
 <template>
   <div class="login clearfix">
     <main class="login__main clearfix">
-      <div class="page-title">系统管理平台</div>
+      <div class="ball"></div>
       <div class="panel clearfix">
-        <div class="panel__heading">用户登录</div>
+        <div class="panel__heading">安全业务审批系统</div>
         <div class="panel__body">
           <el-form :model="userForm" :rules="rules" ref="userForm" class="demo-userForm">
             <el-form-item prop="loginName">
-              <el-input v-model="userForm.loginName" placeholder="admin" v-focus>
-                <template slot="prepend">用户</template>
+              <el-input v-model="userForm.loginName" placeholder="请输入您的账号" v-focus>
+                <template slot="prefix"><span class="icon icon-user"></span></template>
               </el-input>
             </el-form-item>
             <el-form-item prop="password">
-              <el-input type="password" v-model="userForm.password" placeholder="123456"
+              <el-input type="password" v-model="userForm.password" placeholder="请输入您的密码"
                         @keyup.enter.native="onSubmit()">
-                <template slot="prepend">密码</template>
+                <template slot="prefix"><span class="icon icon-pwd"></span></template>
               </el-input>
             </el-form-item>
             <el-form-item>
               <el-button class="btn_submit" type="primary"
                          @click="onSubmit('userForm')"
-                         :plain="true" :loading="isLoading">登陆</el-button>
+                         :loading="isLoading">登陆</el-button>
             </el-form-item>
-            <div class="login-links">
-              <a class="link" href="#">忘记密码</a>
-              <a class="link" href="#">免费注册</a>
-            </div>
           </el-form>
-        </div>
-        <div class="panel__footer">
-          其他方式登录：
-          <a class="oauth-link" href="#"><span class="iconfont icon-qq1"></span></a>
-          <a class="oauth-link" href="#"><span class="iconfont icon-weixin"></span></a>
         </div>
       </div>
     </main>
-    <footer class="login__footer">
-      Copyright   2008-2018 版权所有：武汉xxxx科技有限公司
-    </footer>
   </div>
 </template>
 
@@ -49,8 +37,8 @@ export default {
     return {
       isLoading: false,
       userForm: {
-        loginName: 'admin',
-        password: '123456',
+        loginName: '',
+        password: '',
       },
       rules: {
         loginName: [
@@ -107,98 +95,26 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped src="./assets/login.css"></style>
+<style lang="scss">
   .login {
-    position: relative;
-    min-height: 100%;
-    padding-bottom: 48px;
-    background: #c7e8ff;
-  }
+    .el-input__inner,
+    .el-form-item__content {
+      height: 50px;
+      line-height: 50px;
+    }
 
-  .login__main {
-    position: relative;
-    width: 860px;
-    min-height: 600px;
-    margin: 0 auto;
-    padding-top: 120px;
-    background: url("../common/assets/images/login_bg.png") 0 200px no-repeat;
-  }
+    .el-input--prefix .el-input__inner {
+      padding-left: 60px;
+    }
 
-  .page-title {
-    float: left;
-    margin-left: 136px;
-    font-size: 44px;
-    font-weight: 500;
-    color: #3d86ec;
-    text-align: center;
-    letter-spacing: 5px;
+    .el-input__inner {
+      font-size: 18px;
+      border-width: 0 0 1px 0;
+      border-radius: 0;
+    }
+    .el-form-item {
+      margin: 36px 0 0 0;
+    }
   }
-
-  .panel {
-    float: right;
-    width: 320px;
-    background-color: #fff;
-    border: 1px solid #d2d2d2;
-    border-radius: 5px;
-  }
-
-  .panel__heading {
-    font-size: 28px;
-    line-height: 68px;
-    color: #3d86ec;
-    text-align: center;
-    border-bottom: 1px solid #f1f1f1;
-  }
-
-  .panel__body {
-    padding: 32px 24px 6px 24px;
-  }
-
-  .panel__footer {
-    height: 48px;
-    padding: 0 24px;
-    line-height: 48px;
-    color: #666;
-    border-top: 1px solid #f1f1f1;
-  }
-
-  .oauth-link {
-    display: inline-block;
-    margin-right: 6px;
-    font-size: 24px;
-    vertical-align: middle;
-  }
-
-  .iconfont {
-    font-size: inherit;
-    vertical-align: baseline;
-  }
-
-  .login-links {
-    text-align: right;
-  }
-
-  .link {
-    margin-left: 12px;
-    color: #9b9ea0;
-  }
-  .link:hover {
-    color: #108cee;
-  }
-
-  .btn_submit {
-    width: 100%;
-  }
-
-  .login__footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    line-height: 48px;
-    color: #8b8b8b;
-    text-align: center;
-    background-color: #fff;
-  }
-
 </style>

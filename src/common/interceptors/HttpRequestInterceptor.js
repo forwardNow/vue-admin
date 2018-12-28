@@ -11,7 +11,7 @@ axiosInstance.interceptors.request.use(
     console.log('请求：', config);
 
     // eslint-disable-next-line
-    config.headers.token = SessionService.getToken();
+    // config.headers.token = SessionService.getToken();
 
     store.commit('showLoading');
 

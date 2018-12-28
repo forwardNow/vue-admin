@@ -7,13 +7,38 @@
                   @finish-edit="handleFinishEdit"
                   ref="base">
 
+    <template slot="fn">
+      <el-button type="success" size="small">添加用户</el-button>
+    </template>
+
     <template slot="ope">
 
       <el-form :inline="true" class="search-group">
-        <el-form-item>
-          <el-input placeholder="请输入姓名" size="small" v-model="searchFormModel.UserTrueName">
-            <template slot="prepend">姓名</template>
+        <el-form-item label="用户名　">
+          <el-input placeholder="" size="small" v-model="searchFormModel.userName">
           </el-input>
+        </el-form-item>
+        <el-form-item label="部门名称">
+          <el-input placeholder="" size="small" v-model="searchFormModel.userDepartment">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="身份证号">
+          <el-input placeholder="" size="small" v-model="searchFormModel.userCart">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="警官证号">
+          <el-input placeholder="" size="small" v-model="searchFormModel.userPoliceCart">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="角色类别">
+          <el-select v-model="searchFormModel.userRole" placeholder="请选择" size="small">
+            <el-option
+                v-for="item in roleList"
+                :key="item.roleName"
+                :label="item.roleName"
+                :value="item.roleName">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="small" @click="$refs.base.reload()">搜索</el-button>
@@ -23,31 +48,39 @@
     </template>
 
     <template slot="dategrid">
-      <el-table-column label="姓名" width="160">
-        <template slot-scope="scope">{{ scope.row.UserTrueName }}</template>
+      <el-table-column label="用户名" width="100">
+        <template slot-scope="scope">{{ scope.row.userName }}</template>
       </el-table-column>
 
-      <el-table-column label="性别" width="80">
-        <template slot-scope="scope">{{ scope.row.Sex | genderFilter}}</template>
+      <el-table-column label="姓名" width="100">
+        <template slot-scope="scope">{{ scope.row.userRealName}}</template>
       </el-table-column>
 
-      <el-table-column label="人员类别" width="120">
-        <template slot-scope="scope">{{ scope.row.PeopleCategory }}</template>
+      <el-table-column label="角色" width="80">
+        <template slot-scope="scope">{{ scope.row.userRole }}</template>
       </el-table-column>
 
-      <el-table-column label="创建时间" width="180">
-        <template slot-scope="scope">{{ scope.row.CreateTime | dateFilter }}</template>
+      <el-table-column label="机构" width="120">
+        <template slot-scope="scope">{{ scope.row.userOrgan }}</template>
       </el-table-column>
 
-      <el-table-column label="联系电话" width="160">
-        <template slot-scope="scope">{{ scope.row.Phone }}</template>
+      <el-table-column label="身份证" width="120">
+        <template slot-scope="scope">{{ scope.row.userCart }}</template>
+      </el-table-column>
+
+      <el-table-column label="警官证" width="120">
+        <template slot-scope="scope">{{ scope.row.userPoliceCart }}</template>
+      </el-table-column>
+
+      <el-table-column label="创建时间" width="100">
+        <template slot-scope="scope">{{ scope.row.createTime }}</template>
       </el-table-column>
 
       <el-table-column label="状态" width="80">
         <template slot-scope="scope">
-          <span v-bind:class="scope.row.IsDeleted === 0 ? 'text_success' : 'text_danger'">
+          <span v-bind:class="scope.row.userStatus === '正常' ? 'text_success' : 'text_danger'">
             <span class="iconfont icon-yuandianzhong"></span>
-            {{ scope.row.IsDeleted === 0 ? '启用' : '停用'}}
+            {{ scope.row.userStatus }}
           </span>
         </template>
       </el-table-column>
@@ -74,8 +107,15 @@
     data() {
       return {
         service: UserService,
+        roleList: [
+          '角色名-1', '角色名-2', '角色名-3'
+        ],
         searchFormModel: {
-          UserTrueName: '',
+          userName: '',
+          userDepartment: '',
+          userCart: '',
+          userPoliceCart: '',
+          userRole: '',
         }
       }
     },

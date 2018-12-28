@@ -44,10 +44,13 @@ function handleStatus(url, status) {
       desc = '服务器内部错误！';
       break;
     }
+    case 504: {
+      desc = 'API 服务器异常！';
+      break;
+    }
     default: {
-      // desc = '未知错误!';
-      // break;
-      return;
+      desc = '未知错误!';
+      break;
     }
   }
 
@@ -66,14 +69,28 @@ function handleStatus(url, status) {
 axiosInstance.interceptors.response.use(
   // HTTP 状态码：2xx
   (res) => {
+    const { data } = res;
+    let errorCode;
+    let reason;
+    let result;
+
+    /*
+     * 针对 { code: 0, message: '', result: null } 做适配
+     */
+    if ('code' in data) {
+      ({ code: errorCode, message: reason, result } = data);
+    } else {
+      ({ errorCode, reason, result } = data);
+    }
+
     console.log('响应：', res);
 
-    SessionService.setToken(res.headers.token);
+    // SessionService.setToken(res.headers.token);
 
-    handleStatus(res.config.url, res.data.errorCode);
+    handleStatus(res.config.url, errorCode);
     // 处理数据部分 res.data
 
-    return res.data;
+    return { errorCode, reason, result };
   },
 
   // HTTP 状态码：4xx 5xx
