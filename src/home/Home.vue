@@ -132,9 +132,16 @@
         });
         */
         const items = [
-          { upcId: 0, upcRightName: '系统设置', fatherId: null, url: '/sys', icon: 'iconfont icon-jiaoseguanli', },
-          { upcId: 1, upcRightName: '用户管理', fatherId: 0, url: '/user/list', icon: 'iconfont icon-yonghu1', },
-          { upcId: 2, upcRightName: '角色管理', fatherId: 0, url: '/role/list', icon: 'iconfont icon-jiaoseguanli', },
+          { upcId: 0, upcRightName: '系统设置', fatherId: null, url: '/system', icon: 'iconfont icon-jiaoseguanli', },
+          { upcId: 1, upcRightName: '用户管理', fatherId: 0, url: '/system/user', icon: '', },
+          { upcId: 2, upcRightName: '角色管理', fatherId: 0, url: '/role/list', icon: '', },
+          { upcId: 3, upcRightName: '机构管理', fatherId: 0, url: '/dept/list', icon: '', },
+          { upcId: 4, upcRightName: '系统状态', fatherId: 0, url: '/system/sysStatus', icon: '', },
+          { upcId: 5, upcRightName: '证书管理', fatherId: 0, url: '/system/license', icon: '', },
+          { upcId: 51, upcRightName: '我的证书', fatherId: 0, url: '/license/list', icon: '', },
+          { upcId: 6, upcRightName: '系统日志', fatherId: 0, url: '/system/sysLog', icon: '', },
+          { upcId: 7, upcRightName: '业务日志', fatherId: 0, url: '/system/bizLog', icon: '', },
+          { upcId: 8, upcRightName: '个人中心', fatherId: 0, url: '/myProfile/list', icon: '', },
         ];
 
         this.menus = TreeUtils.createNestedTree(items, null,
@@ -196,38 +203,53 @@
     },
   };
 </script>
-<style>
-  .aside__menu {
-    border-right: solid 1px #373e58;
-    border-bottom-right-radius: 6px;
-  }
+<style lang="scss">
+  .page {
+    .aside__menu {
+      border-right: solid 1px #373e58;
+      border-bottom-right-radius: 6px;
+    }
 
-  .el-breadcrumb {
-    margin: 20px 0 20px 0;
-    padding-left: 10px;
-    line-height: 20px;
-    border-left: solid 4px #216bff;
-  }
+    .el-breadcrumb {
+      margin: 20px 0 20px 0;
+      padding-left: 10px;
+      line-height: 20px;
+      border-left: solid 4px #216bff;
+    }
 
 
-  .el-breadcrumb__inner a,
-  .el-breadcrumb__inner.is-link {
-    color: #000;
-  }
+    .el-breadcrumb__inner a,
+    .el-breadcrumb__inner.is-link {
+      color: #000;
+    }
+    .el-breadcrumb__inner a:hover,
+    .el-breadcrumb__inner.is-link:hover {
+      color: #409EFF;
+      cursor: pointer;
+    }
+    .el-breadcrumb__item:last-child .el-breadcrumb__inner,
+    .el-breadcrumb__item:last-child .el-breadcrumb__inner a,
+    .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover,
+    .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
+      font-weight: 400;
+      color: #606266;
+      cursor: text;
+    }
 
-  .el-breadcrumb__item:last-child .el-breadcrumb__inner {
-    color: #333;
-  }
+    .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+      color: #333;
+    }
 
-  .el-submenu__title,
-  .el-menu-item {
-    user-select:none;
-  }
+    .el-submenu__title,
+    .el-menu-item {
+      user-select:none;
+    }
 
-  .el-menu-item.is-active {
-    color: #fff;
-    background: #1b2131!important;
-    border-left: solid 4px #216bff;
+    .el-menu-item.is-active {
+      color: #fff;
+      background: #1b2131!important;
+      border-left: solid 4px #216bff;
+    }
   }
 </style>
 

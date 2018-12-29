@@ -11,8 +11,8 @@
     </div>
   </section>
 </template>
-<style>
-  body {
+<style scoped>
+  #not-found {
     width:100%;
     height:100%;
     margin:0;

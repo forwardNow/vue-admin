@@ -100,7 +100,7 @@
   </el-container>
 </template>
 <script>
-  import UserService from '../../services/UserService';
+  import UserService from '../../user/UserService';
   import ExternalPartyUserService from '../../services/ExternalPartyUserService';
 
   export default {

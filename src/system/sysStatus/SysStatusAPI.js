@@ -2,7 +2,7 @@
 const API = {
   GET_ONE: '/api/get',
 
-  GET_LIST: '/systemManage/UserController/queryUserInfo',
+  GET_LIST: '/systemManage/systemInfo/querySystemInfo',
 
   INSERT: '/api/insert',
 

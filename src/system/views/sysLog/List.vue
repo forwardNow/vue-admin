@@ -1,15 +1,11 @@
 <template>
-  <base-list-view title="用户管理"
-                  path="/user/list"
+  <base-list-view title="系统日志"
+                  path="/sysLog/list"
                   :service="service"
                   :search-form-model="searchFormModel"
                   @finish-add="handleFinishAdd"
                   @finish-edit="handleFinishEdit"
                   ref="base">
-
-    <template slot="fn">
-      <el-button type="success" size="small">添加用户</el-button>
-    </template>
 
     <template slot="ope">
 
@@ -34,9 +30,9 @@
           <el-select v-model="searchFormModel.userRole" placeholder="请选择" size="small">
             <el-option
                 v-for="item in roleList"
-                :key="item.roleName"
-                :label="item.roleName"
-                :value="item.roleName">
+                :key="item"
+                :label="item"
+                :value="item">
             </el-option>
           </el-select>
         </el-form-item>
@@ -101,7 +97,7 @@
   </base-list-view>
 </template>
 <script>
-  import UserService from '../../services/UserService';
+  import UserService from '../../services/SysLogService';
 
   export default {
     data() {

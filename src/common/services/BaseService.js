@@ -1,3 +1,4 @@
+import merge from 'lodash.merge';
 import axios from '../plugins/axios';
 
 class BaseService {
@@ -57,7 +58,8 @@ class BaseService {
    */
   getList(bean, pager) {
     const param = { condition: {}, pager };
-    Object.assign(param.condition, bean);
+    merge(param.condition, bean);
+    merge(param, bean);
     return axios.post(this.API.GET_LIST, param);
   }
 }
