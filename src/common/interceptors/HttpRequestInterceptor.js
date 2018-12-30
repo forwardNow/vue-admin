@@ -4,7 +4,6 @@
 
 import axiosInstance from '../plugins/axios';
 import store from '../../store';
-import SessionService from '../../session/SessionService';
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -14,6 +13,7 @@ axiosInstance.interceptors.request.use(
     // config.headers.token = SessionService.getToken();
 
     store.commit('showLoading');
+    store.commit('setCurrentUrl', config.url);
 
     return config;
   },

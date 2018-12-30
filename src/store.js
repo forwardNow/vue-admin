@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isLoading: false,
+    currentUrl: '',
     breadcrumbRouteList: [],
   },
   mutations: {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     setBreadcrumbRouteList(state, list = []) {
       this.state.breadcrumbRouteList = list;
+    },
+    setCurrentUrl(state, url) {
+      this.state.currentUrl = url;
     },
   },
   actions: {

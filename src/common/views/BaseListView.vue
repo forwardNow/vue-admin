@@ -180,28 +180,30 @@
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
-        }).then(() => this.service.delete(condition))
-          .then((res) => {
-            if (res.errorCode === 0) {
-              this.$message({
-                type: 'success',
-                message: '删除成功！',
-                showClose: true,
-                duration: 1000,
-              });
+        })
+        .then(() => this.service.delete(condition))
+        .then((res) => {
+          if (res.errorCode === 0) {
+            this.$message({
+              type: 'success',
+              message: '删除成功！',
+              showClose: true,
+              duration: 1000,
+            });
 
-              this.reload();
-            } else {
-              this.$message({
-                type: 'error',
-                message: '删除失败！',
-                showClose: true,
-                duration: 1000,
-              });
-            }
-          })
-          .catch(() => {
-          });
+            this.reload();
+          } else {
+            this.$message({
+              type: 'error',
+              message: '删除失败！',
+              showClose: true,
+              duration: 1000,
+            });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       },
     },
   };

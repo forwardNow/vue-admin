@@ -93,6 +93,8 @@
              @click.prevent="$refs.base.showEditView({ userId: scope.row.userId })">编辑</a>
           <a class="ope-link" href="#"
              @click.prevent="$refs.base.deleteRecord({ userId: scope.row.userId })">删除</a>
+          <a class="ope-link" href="#"
+             @click.prevent="resetPassword(scope.row)">重置密码</a>
         </template>
       </el-table-column>
 
@@ -101,12 +103,12 @@
   </base-list-view>
 </template>
 <script>
-  import UserService from '../UserService';
+  import service from '../UserService';
 
   export default {
     data() {
       return {
-        service: UserService,
+        service,
         roleList: [
           '角色名-1', '角色名-2', '角色名-3'
         ],
@@ -126,6 +128,38 @@
       handleFinishEdit() {
         this.$refs.base.reload();
       },
+      resetPassword(user) {
+        const { userId, userName } = user;
+
+        this.$confirm(`此操作将重置用户【${userName}】的密码, 是否继续?`, '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          })
+          .then(() => service.resetPassword({ userId }))
+          .then((res) => {
+            if (res.errorCode === 0) {
+              this.$message({
+                type: 'success',
+                message: '重置用户密码成功！',
+                showClose: true,
+                duration: 1000,
+              });
+
+              this.reload();
+            } else {
+              this.$message({
+                type: 'error',
+                message: '重置用户密码失败！',
+                showClose: true,
+                duration: 1000,
+              });
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
     },
   };
 </script>

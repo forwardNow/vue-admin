@@ -9,6 +9,8 @@ const API = {
   DELETE: '/systemManage/UserController/deleteUser',
 
   UPDATE: '/systemManage/UserController/updateUser',
+
+  RESET_PWD: '/systemManage/UserController/userPassWordRemake',
 };
 
 export default API;

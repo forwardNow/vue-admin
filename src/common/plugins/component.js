@@ -22,3 +22,8 @@ Vue.component(
   'base-detail-view',
   () => import('../views/BaseDetailView.vue'),
 );
+
+Vue.component(
+  'tree-menu',
+  () => import('../views/TreeMenu.vue'),
+);
