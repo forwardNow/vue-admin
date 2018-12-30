@@ -61,11 +61,22 @@
             </template>
           </el-menu>
           -->
-          <el-menu class="aside__menu" :router="true"
-                   background-color="#373e58"
-                   text-color="#f1f1f1">
-            <tree-menu :items="menus"></tree-menu>
-          </el-menu>
+
+          <el-tree
+              :data="menus"
+              :show-checkbox="false"
+              :default-expand-all="false"
+              node-key="upcId"
+              ref="tree"
+              highlight-current
+              :props="defaultProps"
+              @node-click="handleNodeClick">
+            <span class="custom-tree-node" slot-scope="{ node, data }">
+              <span :class="node.icon"></span>
+              <span>{{ node.label }}</span>
+            </span>
+          </el-tree>
+
         </el-aside>
         <!-- /aside -->
 
@@ -119,6 +130,10 @@
         activeIndex: null,
         user: {},
         menus: [],
+        defaultProps: {
+          children: 'children',
+          label: 'upcRightName'
+        }
       };
     },
     methods: {
@@ -206,6 +221,9 @@
           }
         });
       },
+      handleNodeClick(data) {
+        this.$router.push({ path: data.url });
+      }
     },
     computed: {
       breadcrumbRouteList() {
@@ -216,9 +234,33 @@
 </script>
 <style lang="scss">
   .page {
-    .aside__menu {
-      border-right: solid 1px #373e58;
+    .main__aside {
       border-bottom-right-radius: 6px;
+      background: #373e58;
+    }
+    .el-tree {
+      color: #fff;
+      background: #373e58;
+    }
+
+    .el-tree-node__label {
+      font-size: 16px;
+    }
+
+    .el-tree-node__content {
+      height: auto;
+      padding: 0.5em 0;
+      user-select:none;
+    }
+    .el-tree-node:focus > .el-tree-node__content,
+    .el-tree-node__content:hover {
+      background-color: rgba(255,255,255, 0.2);
+    }
+
+    .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+      color: #fff;
+      background: #1b2131!important;
+      border-left: solid 4px #216bff;
     }
 
     .el-breadcrumb {
@@ -249,17 +291,6 @@
 
     .el-breadcrumb__item:last-child .el-breadcrumb__inner {
       color: #333;
-    }
-
-    .el-submenu__title,
-    .el-menu-item {
-      user-select:none;
-    }
-
-    .el-menu-item.is-active {
-      color: #fff;
-      background: #1b2131!important;
-      border-left: solid 4px #216bff;
     }
   }
 </style>
