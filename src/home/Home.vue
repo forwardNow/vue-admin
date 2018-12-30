@@ -120,10 +120,10 @@
   export default {
     created() {
       this.user = SessionService.getUserInfo();
-      this.createTree();
+      this.createMenuTree();
     },
     mounted() {
-      this.activeMenuItemByPath();
+      this.hilightTreeNodeByRoute();
     },
     data() {
       return {
@@ -138,11 +138,14 @@
       };
     },
     methods: {
-      createTree() {
+      /**
+       * 构建菜单树
+       */
+      createMenuTree() {
         /*
         MenuService.getList(null, {"pageSize":100,"currentPage":1}).then(res => {
           if (res.errorCode !== 0) {
-            throw new Error('Home.vue: createTree() 获取菜单失败!');
+            throw new Error('Home.vue: createMenuTree() 获取菜单失败!');
           }
           const menuItems = res.result.items;
 
@@ -190,7 +193,7 @@
       /**
        * 当刷新当前页后，根据路由高亮指定菜单
        */
-      activeMenuItemByPath() {
+      hilightTreeNodeByRoute() {
         // 当前路由
         const path = this.$route.path;
 
@@ -219,6 +222,10 @@
           }
         });
       },
+
+      /**
+       * 登出
+       */
       logout() {
         SessionService.logout().then((res) => {
           if (res.errorCode === 0) {
@@ -243,11 +250,20 @@
         this.$router.push({ path: data.url });
       }
     },
+
     computed: {
       breadcrumbRouteList() {
         return this.$store.state.breadcrumbRouteList;
       },
     },
+    watch: {
+      /**
+       * 监听路由变化：实时高亮当前路由的菜单树
+       */
+      $route() {
+        this.hilightTreeNodeByRoute();
+      }
+    }
   };
 </script>
 <style lang="scss">
