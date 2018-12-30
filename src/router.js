@@ -106,6 +106,24 @@ const router = new Router({
           meta: { requiresAuth: true, title: '系统状态' },
         },
 
+        // 证书管理
+        {
+          path: 'license',
+          component: RoleListView,
+          meta: { requiresAuth: true, title: '证书管理' },
+          children: [
+            {
+              path: 'my',
+              component: RoleAddView,
+              meta: { requiresAuth: true, title: '我的证书' },
+            },
+            {
+              path: 'gen',
+              component: RoleDetailView,
+              meta: { requiresAuth: true, title: '生成证书' },
+            },
+          ],
+        },
       ],
     },
     // 404
