@@ -3,12 +3,17 @@
                   path="/system/user"
                   :service="service"
                   :search-form-model="searchFormModel"
+                  @selection-change="handleSelectionChange"
                   @finish-add="handleFinishAdd"
                   @finish-edit="handleFinishEdit"
                   ref="base">
 
     <template slot="fn">
       <el-button type="success" size="small" @click="$refs.base.showAddView()">创建用户</el-button>
+      <el-button type="primary" size="small" @click="exportUsers" :disabled="isExporting">
+        <span v-show='isExporting' class="el-icon-loading"></span>
+        导出用户
+      </el-button>
     </template>
 
     <template slot="ope">
@@ -48,6 +53,9 @@
     </template>
 
     <template slot="dategrid">
+      <el-table-column type="selection" width="36">
+      </el-table-column>
+
       <el-table-column label="用户名">
         <template slot-scope="scope">{{ scope.row.userName }}</template>
       </el-table-column>
@@ -85,7 +93,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="220">
         <template slot-scope="scope">
           <a class="ope-link" href="#"
              @click.prevent="$refs.base.showDetailView({ userId: scope.row.userId })">详情</a>
@@ -108,7 +116,9 @@
   export default {
     data() {
       return {
+        isExporting: false,
         service,
+        selectedRecords: [],
         roleList: [
           '角色名-1', '角色名-2', '角色名-3'
         ],
@@ -159,7 +169,70 @@
           .catch((error) => {
             console.error(error);
           });
-      }
+      },
+      handleSelectionChange(selection) {
+        this.selectedRecords = selection;
+      },
+      exportUsers() {
+        let html;
+        let rows = '';
+
+        if (this.selectedRecords < 1) {
+          this.$message({
+            type: 'error',
+            message: '请勾选要导出的数据记录！',
+            showClose: true,
+            duration: 1000,
+          });
+
+          return;
+        }
+
+        this.selectedRecords.forEach((item, i) => {
+          rows += `<tr> <td>${ i + 1 }</td> <td>${item.userName}</td> <td>${item.userRealName}</td> </tr>`;
+        });
+
+        html =
+          `<table class="table_simple">
+            <tbody>
+              <tr> <th>序号</th> <th>用户名</th> <th>姓名</th></tr>
+              ${ rows }
+            </tbody>
+           </table>`;
+
+        const vnode = this.$createElement('div', {
+          style: {
+            maxHeight: '500px',
+            overflow: 'auto',
+          },
+          domProps: {
+            innerHTML: html
+          },
+        });
+
+        this.$confirm(vnode, '是否导出以下用户', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: '',
+        })
+        .then(() => {
+          this.isExporting = true;
+
+          setTimeout(() => {
+            this.$message({
+              type: 'warning',
+              message: '此功能未开发完毕！',
+              showClose: true,
+              duration: 3000,
+            });
+
+            this.isExporting = false
+          }, 1000);
+        })
+        .catch((e) => {
+          console.log(e);
+        })
+      },
     },
   };
 </script>

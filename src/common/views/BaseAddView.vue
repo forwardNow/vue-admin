@@ -5,7 +5,7 @@
     </el-header>
     <el-main class="popup__content">
 
-      <el-form :class="['form_edit', formClassName]" label-width="120px"
+      <el-form :class="['form_edit', formClassName]" :label-width="labelWidth"
           ref="addForm" :model="addFormModel" :rules="addFormRules">
 
         <slot></slot>
@@ -27,6 +27,7 @@ export default {
     addFormRules: { type: Object },
     isCloseAfterAddSuccess: { type: Boolean, default: true },
     formClassName: { type: String, default: '' },
+    labelWidth: { type: String, default: '120px' },
   },
   data() {
     return {

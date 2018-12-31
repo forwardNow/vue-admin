@@ -1,6 +1,6 @@
 
 const API = {
-  GET_ONE: '/systemManage/',
+  GET_ONE: '/systemManage/UserRoleController/roleDetails',
 
   GET_LIST: '/systemManage/UserRoleController/selectUserRole',
 

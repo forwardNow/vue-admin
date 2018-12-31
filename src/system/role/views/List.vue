@@ -1,6 +1,6 @@
 <template>
   <base-list-view title="角色管理"
-                  path="/system/user"
+                  path="/system/role"
                   :service="service"
                   :search-form-model="searchFormModel"
                   @finish-add="handleFinishAdd"

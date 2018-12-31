@@ -15,7 +15,9 @@
       <!-- /操作 -->
 
       <!-- 数据表格 -->
-      <el-table :data="tableData" v-loading="loading" class="datagrid_table" :fit="true">
+      <el-table class="datagrid_table" :data="tableData" v-loading="loading" :fit="true"
+                ref="datagrid"
+                @selection-change="handleSelectionChange">
 
         <el-table-column type="index" width="50"></el-table-column>
 
@@ -149,6 +151,10 @@
       },
       handleFinishDetail(...args) {
         this.$emit('finish-detail', args);
+      },
+
+      handleSelectionChange(selection) {
+        this.$emit('selection-change', selection);
       },
       handlePageSizeChange(newPageSize) {
         this.pager.pageSize = newPageSize;

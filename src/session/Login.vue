@@ -37,8 +37,8 @@ export default {
     return {
       isLoading: false,
       userForm: {
-        loginName: '',
-        password: '',
+        loginName: 'admin',
+        password: '111111',
       },
       rules: {
         loginName: [

@@ -26,7 +26,7 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     // 根
-    { path: '/', redirect: '/system' },
+    { path: '/', component: HomeView },
 
     // 登陆
     { name: 'login', path: '/login', component: Login },
@@ -65,12 +65,12 @@ const router = new Router({
         {
           path: 'role',
           component: RoleListView,
-          meta: { requiresAuth: true, title: '用户管理' },
+          meta: { requiresAuth: true, title: '角色管理' },
           children: [
             {
               path: 'add',
               component: RoleAddView,
-              meta: { requiresAuth: true, title: '创建用户' },
+              meta: { requiresAuth: true, title: '创建角色' },
             },
             {
               path: 'detail',

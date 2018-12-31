@@ -20,3 +20,19 @@
     }
   }
 }
+
+.table_simple {
+  width: 100%;
+  border-collapse: collapse;
+  border: solid 1px #666;
+
+  th {
+    background-color: #dedede;
+  }
+
+  td,
+  th {
+    padding: 8px;
+    border: solid 1px #666;
+  }
+}
