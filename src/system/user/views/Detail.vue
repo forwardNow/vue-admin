@@ -1,5 +1,5 @@
 <template>
-  <base-detail-view title="用户角色"
+  <base-detail-view title="用户详情"
                     parentPath="/system/user"
                     :service="service"
                     :detailFormModel="formModel"
@@ -35,12 +35,12 @@
   </base-detail-view>
 </template>
 <script>
-  import UserService from '../UserService';
+  import service from '../UserService';
 
   export default {
     data() {
       return {
-        service: UserService,
+        service,
         formModel: {
           userId: '',
           userName: '',

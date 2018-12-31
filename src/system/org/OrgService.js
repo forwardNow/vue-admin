@@ -1,5 +1,6 @@
+import API from './OrgAPI';
 import BaseService from '../../common/services/BaseService';
-import API from '../apis/PaperAPI';
+// import axios from '../../common/plugins/axios';
 
 const Service = new BaseService(API);
 

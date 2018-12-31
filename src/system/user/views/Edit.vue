@@ -74,13 +74,13 @@
   </base-edit-view>
 </template>
 <script>
-import UserService from '../UserService';
+import service from '../UserService';
 import FormFiledValidators from '../../../common/utils/FormFiledValidators';
 
 export default {
   data() {
     return {
-      service: UserService,
+      service,
       rules: {
         userName: [
           { required: true, message: '必填项', trigger: ['blur', 'change'] },

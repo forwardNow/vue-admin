@@ -7,34 +7,6 @@
                  :isCloseAfterAddSuccess="true"
                  @add-success="finish"
                  ref="add">
-    <!--
-    <el-form-item label="姓名" prop="userName">
-      <el-input v-model="formModel.userName"></el-input>
-    </el-form-item>
-    <el-form-item label="昵称" prop="UserNickname">
-      <el-input v-model="formModel.UserNickname"></el-input>
-    </el-form-item>
-    <el-form-item label="头像" prop="UserHeadImage">
-      <el-input v-model="formModel.UserHeadImage"></el-input>
-    </el-form-item>
-    <el-form-item label="性别">
-      <el-select v-model="formModel.Sex" placeholder="请选择">
-        <el-option
-          v-for="item in genderDicList"
-          :key="item.code"
-          :label="item.text"
-          :value="item.code">
-        </el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="联系电话" prop="Phone">
-      <el-input v-model="formModel.Phone"></el-input>
-    </el-form-item>
-    <el-form-item label="座机" prop="Landline">
-      <el-input v-model="formModel.Landline"></el-input>
-    </el-form-item>
-    -->
-
     <el-row>
       <el-col :span="12">
         <el-form-item label="用户名" prop="userName">
@@ -108,14 +80,14 @@
   </base-add-view>
 </template>
 <script>
-import UserService from '../UserService';
+import service from '../UserService';
 import FormFiledValidators from '../../../common/utils/FormFiledValidators';
 
 export default {
   data() {
     return {
       roleList: null,
-      service: UserService,
+      service,
       rules: {
         userName: [
           { required: true, message: '必填项', trigger: ['blur', 'change'] },

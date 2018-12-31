@@ -9,16 +9,31 @@ import SysLogView from './system/sysLog/views/List.vue';
 import BizLogView from './system/bizLog/views/List.vue';
 import SysStatusView from './system/sysStatus/views/List.vue';
 
-import UserListView from './system/user/views/List.vue';
+import UserView from './system/user/views/List.vue';
 import UserDetailView from './system/user/views/Detail.vue';
 import UserEditView from './system/user/views/Edit.vue';
 import UserAddView from './system/user/views/add.vue';
 
-import RoleListView from './system/role/views/List.vue';
+import RoleView from './system/role/views/List.vue';
 import RoleDetailView from './system/role/views/Detail.vue';
 import RoleEditView from './system/role/views/Edit.vue';
 import RoleAddView from './system/role/views/add.vue';
 
+import OrgView from './system/org/views/List.vue';
+import OrgDetailView from './system/org/views/Detail.vue';
+import OrgEditView from './system/org/views/Edit.vue';
+import OrgAddView from './system/org/views/add.vue';
+
+import DeptView from './system/dept/views/List.vue';
+import DeptDetailView from './system/dept/views/Detail.vue';
+import DeptEditView from './system/dept/views/Edit.vue';
+import DeptAddView from './system/dept/views/add.vue';
+
+import LicenseView from './system/license/views/Index.vue';
+import LicenseDetailView from './system/license/views/Detail.vue';
+import LicenseAddView from './system/license/views/add.vue';
+
+import ProfileView from './system/profile/views/Index.vue';
 
 Vue.use(Router);
 
@@ -40,7 +55,7 @@ const router = new Router({
         // 用户管理
         {
           path: 'user',
-          component: UserListView,
+          component: UserView,
           meta: { requiresAuth: true, title: '用户管理' },
           children: [
             {
@@ -64,7 +79,7 @@ const router = new Router({
         // 角色管理
         {
           path: 'role',
-          component: RoleListView,
+          component: RoleView,
           meta: { requiresAuth: true, title: '角色管理' },
           children: [
             {
@@ -80,6 +95,54 @@ const router = new Router({
             {
               path: 'edit',
               component: RoleEditView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+          ],
+        },
+
+        // 机构管理
+        {
+          path: 'org',
+          component: OrgView,
+          meta: { requiresAuth: true, title: '机构管理' },
+          children: [
+            {
+              path: 'add',
+              component: OrgAddView,
+              meta: { requiresAuth: true, title: '创建机构' },
+            },
+            {
+              path: 'detail',
+              component: OrgDetailView,
+              meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: 'edit',
+              component: OrgEditView,
+              meta: { requiresAuth: true, title: '编辑' },
+            },
+          ],
+        },
+
+        // 部门管理
+        {
+          path: 'dept',
+          component: DeptView,
+          meta: { requiresAuth: true, title: '部门管理' },
+          children: [
+            {
+              path: 'add',
+              component: DeptAddView,
+              meta: { requiresAuth: true, title: '创建部门' },
+            },
+            {
+              path: 'detail',
+              component: DeptDetailView,
+              meta: { requiresAuth: true, title: '详情' },
+            },
+            {
+              path: 'edit',
+              component: DeptEditView,
               meta: { requiresAuth: true, title: '编辑' },
             },
           ],
@@ -109,20 +172,27 @@ const router = new Router({
         // 证书管理
         {
           path: 'license',
-          component: RoleListView,
+          component: LicenseView,
           meta: { requiresAuth: true, title: '证书管理' },
           children: [
             {
               path: 'my',
-              component: RoleAddView,
+              component: LicenseDetailView,
               meta: { requiresAuth: true, title: '我的证书' },
             },
             {
               path: 'gen',
-              component: RoleDetailView,
+              component: LicenseAddView,
               meta: { requiresAuth: true, title: '生成证书' },
             },
           ],
+        },
+
+        // 个人中心
+        {
+          path: 'profile',
+          component: ProfileView,
+          meta: { requiresAuth: true, title: '个人中心' },
         },
       ],
     },

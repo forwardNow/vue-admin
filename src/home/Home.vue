@@ -169,7 +169,7 @@
           { upcId: 8, upcRightName: '系统日志', fatherId: 0, url: '/system/sysLog', icon: '', },
           { upcId: 9, upcRightName: '业务日志', fatherId: 0, url: '/system/bizLog', icon: '', },
           { upcId: 10, upcRightName: '系统状态', fatherId: 0, url: '/system/sysStatus', icon: '', },
-          { upcId: 11, upcRightName: '个人中心', fatherId: 0, url: '/system/profile/', icon: '', },
+          { upcId: 11, upcRightName: '个人中心', fatherId: 0, url: '/system/profile', icon: '', },
         ];
 
         this.menuItems = menuItems;
