@@ -1,0 +1,391 @@
+swagger: '2.0'
+info:
+  description: 相关 API
+  version: 1.0.0
+  title: 安全审批系统
+
+# tags are used for organizing operations
+tags:
+- name: system/user
+  description: 系统设置 / 用户管理
+- name: profile
+  description: 个人中心
+
+paths:
+  /system/user/get:
+    post:
+      tags:
+      - system/user
+      summary: 根据 ID 获取用户
+      operationId: getUserById
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: ID
+        schema:
+          type: object
+          required:
+          - userId
+          properties:
+            userId:
+              type: integer
+              example: 1
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: object
+            required:
+              - errorCode
+              - reason
+              - result
+            properties:
+              errorCode:
+                type: integer
+                example: 0
+              reason:
+                type: string
+                example: ok
+              result:
+                $ref: '#/definitions/UserVO'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+  /system/user/list:
+    post:
+      tags:
+      - system/user
+      summary: 根据条件和 pager（分页器）获取用户门列表
+      operationId: getUserListByCondition
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody String json` 接收参数，并对其进行解析
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 条件和分页
+        schema:
+          type: object
+          required:
+          - condition
+          - pager
+          properties:
+            condition:
+              type: object
+              properties:
+                userName:
+                  type: string
+                  example: '张'
+                  description: 模糊查询
+            pager:
+              $ref: '#/definitions/Pager'
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: object
+            required:
+              - errorCode
+              - reason
+              - result
+            properties:
+              errorCode:
+                type: integer
+                example: 0
+              reason:
+                type: string
+                example: ok
+              result:
+                type: object
+                properties:
+                  pager:
+                    $ref: '#/definitions/Pager'
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/definitions/UserVO'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+            
+  /system/user/insert:
+    post:
+      tags:
+      - system/user
+      summary: 新增一个用户
+      operationId: insertUser
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 用户模型
+        schema:
+          $ref: '#/definitions/UserVO'
+      responses:
+        200:
+          description: 成功
+          schema:
+            $ref: '#/definitions/JsonResult'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+            
+  /system/user/update:
+    post:
+      tags:
+      - system/user
+      summary: 更新一个用户
+      operationId: updateUser
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 用户模型
+        schema:
+          $ref: '#/definitions/UserVO'
+      responses:
+        200:
+          description: 成功
+          schema:
+            $ref: '#/definitions/JsonResult'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+            
+  /system/user/delete:
+    post:
+      tags:
+      - system/user
+      summary: 根据 ID 删除一个用户
+      operationId: deleteUser
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: ID
+        schema:
+          type: object
+          properties:
+            userId:
+              type: integer
+              example: 1
+      responses:
+        200:
+          description: 成功
+          schema:
+            $ref: '#/definitions/JsonResult'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+            
+  /profile/account:
+    post:
+      tags:
+      - profile
+      summary: 获取当前登陆的用户
+      operationId: getCurrentUser
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 空对象
+        schema:
+          type: object
+          example: {}
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: object
+            required:
+              - errorCode
+              - reason
+              - result
+            properties:
+              errorCode:
+                type: integer
+                example: 0
+              reason:
+                type: string
+                example: ok
+              result:
+                $ref: '#/definitions/UserVO'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+    
+definitions:
+  JsonResult:
+    type: object
+    properties:
+      errorCode:
+        type: integer
+        example: 0
+      reason:
+        type: string
+        example: ok
+      result:
+        type: object
+        example: null
+  ErrorJsonResult:
+    type: object
+    required:
+      - errorCode
+      - reason
+    properties:
+      errorCode:
+        type: integer
+        example: 1
+      reason:
+        type: string
+        example: fail
+      result:
+        type: object
+        example: null
+  Pager:
+    type: object
+    properties:
+      total:
+        type: integer
+        example: 100
+      currentPage:
+        type: integer
+        example: 1
+        default: 1
+      pageSize:
+        type: integer
+        example: 20
+        default: 20
+        
+  UserVO:
+    properties:
+      userId:
+        type: integer
+        description: 用户的ID
+      userName:
+        type: string
+        description: 用户名
+      userRealName:
+        type: string
+        description: 用户真实姓名
+      userCart:
+        type: string
+        description: 用户的身份证
+      userPoliceCart:
+        type: string
+        description: 用户的警官证
+      userPassword:
+        type: string
+        description: 用户的密码
+      userOrgan:
+        type: string
+        description: 用户所属的机构
+      userDepartment:
+        type: string
+        description: 用户所属的部门
+      fatherId:
+        type: string
+        description: 创建该用户的用户ID
+      userLevel:
+        type: integer
+        description: 用户的等級
+      userPhone:
+        type: string
+        description: 用户的电话
+      userEmail:
+        type: string
+        description: 用户的邮箱
+      userStatus:
+        type: string
+        description: 用户状态，1:正常;2:锁定;3:注销
+      userRole:
+        type: string
+        description: 用户的角色
+      applicationSystem:
+        type: string
+        description: 应用管理系统
+      manufacturer:
+        type: string
+        description: 厂商
+      personinCharge:
+        type: string
+        description: 负责人
+      updateId:
+        type: integer
+        description: 修改该用户的用户ID
+      userNumber:
+        type: integer
+        description: 用户登录次数
+      userCreateTime:
+        type: string
+        description: 用户的注册时间
+      userUpdateTime:
+        type: string
+        description: 用户的修改时间
+      userLastTime:
+        type: string
+        description: 用户最后一次登入时间
+      createUser:
+        type: string
+        description: 创建人
+      createTime:
+        type: string
+        description: 创建时间
+      lastUpdateUser:
+        type: string
+        description: 最后修改人
+      lastUpdateTime:
+        type: string
+        description: 最后修改时间
+      isDelete:
+        type: string
+        description: 删除状态
+# Added by API Auto Mocking Plugin
+# host: www.fn1.top
+# basePath: /api
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /forwardNow/sys/1.0.0
