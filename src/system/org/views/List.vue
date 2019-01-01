@@ -32,11 +32,11 @@
       </el-table-column>
 
 
-      <el-table-column label="创建用户" >
+      <el-table-column label="添加人" >
         <template slot-scope="scope">{{ scope.row.createOrganUser }}</template>
       </el-table-column>
 
-      <el-table-column label="创建时间">
+      <el-table-column label="添加时间">
         <template slot-scope="scope">{{ scope.row.createOrganTime }}</template>
       </el-table-column>
 
@@ -44,7 +44,7 @@
         <template slot-scope="scope">
           <span v-bind:class="scope.row.isDelete === '1' ? 'text_success' : 'text_danger'">
             <span class="iconfont icon-yuandianzhong"></span>
-            {{ scope.row.isDelete === '1' ? '有效' : '无效'}}
+            {{ scope.row.isDelete === '1' ? '启用' : '禁用'}}
           </span>
         </template>
       </el-table-column>

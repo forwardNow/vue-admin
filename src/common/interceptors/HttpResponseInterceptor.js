@@ -14,11 +14,12 @@ function handleStatus(url, status) {
 
   // console.log('响应错误：', status);
 
+  // 小于 400 的 code 值不是异常码
+  if (status < 400) {
+    return;
+  }
+
   switch (status) {
-    case 0:
-    case 200: {
-      return;
-    }
     case 401: {
       desc = '登陆失效，请重新登陆！';
 

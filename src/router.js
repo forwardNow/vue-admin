@@ -33,7 +33,8 @@ import LicenseView from './system/license/views/Index.vue';
 import LicenseDetailView from './system/license/views/Detail.vue';
 import LicenseAddView from './system/license/views/add.vue';
 
-import ProfileView from './system/profile/views/Index.vue';
+import AccountView from './profile/account/views/Index.vue';
+import TaskView from './profile/task/views/Index.vue';
 
 Vue.use(Router);
 
@@ -187,15 +188,32 @@ const router = new Router({
             },
           ],
         },
+      ],
+    },
 
-        // 个人中心
+    // 个人中心
+    {
+      path: '/profile',
+      component: HomeView,
+      meta: { requiresAuth: true, title: '个人中心' },
+      children: [
+        // 我的账户
         {
-          path: 'profile',
-          component: ProfileView,
-          meta: { requiresAuth: true, title: '个人中心' },
+          path: 'account',
+          component: AccountView,
+          meta: { requiresAuth: true, title: '我的账户' },
+        },
+
+        // 我的任务
+        {
+          path: 'task',
+          component: TaskView,
+          meta: { requiresAuth: true, title: '我的任务' },
         },
       ],
     },
+
+
     // 404
     { path: '*', component: NotFoundView },
 

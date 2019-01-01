@@ -1,14 +1,14 @@
 
 const API = {
-  GET_ONE: '/systemManage/OrganController/',
+  GET_ONE: '/systemManage/certificate/queryValidCertificate/',
 
-  GET_LIST: '/systemManage/OrganController/organSelectAlls',
+  GET_LIST: '/systemManage/certificate/',
 
-  INSERT: '/systemManage/OrganController/',
+  INSERT: '/systemManage/certificate/',
 
-  DELETE: '/systemManage/OrganController/',
+  DELETE: '/systemManage/certificate/',
 
-  UPDATE: '/systemManage/OrganController/',
+  UPDATE: '/systemManage/certificate/',
 
 };
 

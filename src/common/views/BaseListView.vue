@@ -108,7 +108,9 @@
           let newCurrentPage = 1;
           let total = 0;
 
-          if (res.errorCode === 0) {
+          const { errorCode, reason } = res;
+
+          if (errorCode === 0) {
             if (Array.isArray(res.result)) {
               console.warn('【reload】数据不符合要求');
 
@@ -133,6 +135,13 @@
             this.pager.pageSize = newPageSize;
             this.pager.currentPage = newCurrentPage;
             this.pager.total = total;
+          } else if (errorCode < 400) {
+            this.$message({
+              type: 'error',
+              message: reason,
+              showClose: true,
+              duration: 3000,
+            });
           }
           this.loading = false;
         }).catch(() => {
