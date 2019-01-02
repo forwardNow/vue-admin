@@ -8,6 +8,8 @@ info:
 tags:
 - name: system/user
   description: 系统设置 / 用户管理
+- name: system/role
+  description: 系统设置 / 角色管理
 - name: profile
   description: 个人中心
 
@@ -20,7 +22,7 @@ paths:
       operationId: getUserById
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
-        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
       consumes: 
       - application/json
       produces:
@@ -43,14 +45,14 @@ paths:
           schema:
             type: object
             required:
-              - errorCode
-              - reason
+              - code
+              - message
               - result
             properties:
-              errorCode:
+              code:
                 type: integer
                 example: 0
-              reason:
+              message:
                 type: string
                 example: ok
               result:
@@ -63,11 +65,11 @@ paths:
     post:
       tags:
       - system/user
-      summary: 根据条件和 pager（分页器）获取用户门列表
+      summary: 根据条件和 pager（分页器）获取用户列表
       operationId: getUserListByCondition
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody String json` 接收参数，并对其进行解析
-        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
       consumes: 
       - application/json
       produces:
@@ -97,14 +99,14 @@ paths:
           schema:
             type: object
             required:
-              - errorCode
-              - reason
+              - code
+              - message
               - result
             properties:
-              errorCode:
+              code:
                 type: integer
                 example: 0
-              reason:
+              message:
                 type: string
                 example: ok
               result:
@@ -120,7 +122,6 @@ paths:
           description: 失败（此处 HTTP 状态码应该为 200）
           schema:
             $ref: '#/definitions/ErrorJsonResult'
-            
   /system/user/insert:
     post:
       tags:
@@ -129,7 +130,7 @@ paths:
       operationId: insertUser
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
-        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
       consumes: 
       - application/json
       produces:
@@ -149,7 +150,6 @@ paths:
           description: 失败（此处 HTTP 状态码应该为 200）
           schema:
             $ref: '#/definitions/ErrorJsonResult'
-            
   /system/user/update:
     post:
       tags:
@@ -158,7 +158,7 @@ paths:
       operationId: updateUser
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
-        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
       consumes: 
       - application/json
       produces:
@@ -178,7 +178,6 @@ paths:
           description: 失败（此处 HTTP 状态码应该为 200）
           schema:
             $ref: '#/definitions/ErrorJsonResult'
-            
   /system/user/delete:
     post:
       tags:
@@ -187,7 +186,7 @@ paths:
       operationId: deleteUser
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
-        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
       consumes: 
       - application/json
       produces:
@@ -211,6 +210,260 @@ paths:
           description: 失败（此处 HTTP 状态码应该为 200）
           schema:
             $ref: '#/definitions/ErrorJsonResult'
+
+  /system/role/get:
+    post:
+      tags:
+      - system/role
+      summary: 根据 ID 获取角色
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserRoleVO userRoleVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: ID
+        schema:
+          type: object
+          required:
+          - roleId
+          properties:
+            roleId:
+              type: integer
+              example: 1
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: object
+            required:
+              - code
+              - message
+              - result
+            properties:
+              code:
+                type: integer
+                example: 0
+              message:
+                type: string
+                example: ok
+              result:
+                $ref: '#/definitions/UserRoleVO'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+  /system/role/list:
+    post:
+      tags:
+      - system/role
+      summary: 根据条件和 pager（分页器）获取角色列表
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody String json` 接收参数，并对其进行解析
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        3. 当 `pager.total` 足够大时（如 10000），则约等于查所有角色
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 条件和分页
+        schema:
+          type: object
+          required:
+          - condition
+          - pager
+          properties:
+            condition:
+              type: object
+              properties:
+                roleName:
+                  type: string
+                  example: '管理'
+                  description: 模糊查询
+            pager:
+              $ref: '#/definitions/Pager'
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: object
+            required:
+              - code
+              - message
+              - result
+            properties:
+              code:
+                type: integer
+                example: 0
+              message:
+                type: string
+                example: ok
+              result:
+                type: object
+                properties:
+                  pager:
+                    $ref: '#/definitions/Pager'
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/definitions/UserRoleVO'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+  /system/role/menu/list:
+    post:
+      tags:
+      - system/role
+      summary: 根据条件和 pager 获取指定角色所拥有的菜单列表
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody String json` 接收参数，并对其进行解析
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        3. 当 `pager.total` 足够大时（如 10000），则约等于查所有角色
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 条件和分页
+        schema:
+          type: object
+          required:
+          - condition
+          - pager
+          properties:
+            condition:
+              type: object
+              properties:
+                roleName:
+                  type: string
+                  example: '管理'
+                  description: 模糊查询
+            pager:
+              $ref: '#/definitions/Pager'
+      responses:
+        200:
+          description: 成功
+          schema:
+            type: object
+            required:
+              - code
+              - message
+              - result
+            properties:
+              code:
+                type: integer
+                example: 0
+              message:
+                type: string
+                example: ok
+              result:
+                type: object
+                properties:
+                  pager:
+                    $ref: '#/definitions/Pager'
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/definitions/UpcRightVO'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+  /system/role/insert:
+    post:
+      tags:
+      - system/role
+      summary: 新增一个角色
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserRoleVO userRoleVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 角色模型
+        schema:
+          $ref: '#/definitions/UserRoleVO'
+      responses:
+        200:
+          description: 成功
+          schema:
+            $ref: '#/definitions/JsonResult'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+  /system/role/update:
+    post:
+      tags:
+      - system/role
+      summary: 更新一个角色
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserRoleVO userRoleVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: 角色模型
+        schema:
+          $ref: '#/definitions/UserRoleVO'
+      responses:
+        200:
+          description: 成功
+          schema:
+            $ref: '#/definitions/JsonResult'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
+  /system/role/delete:
+    post:
+      tags:
+      - system/role
+      summary: 根据 ID 删除一个用户
+      description: |
+        1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: HTTP 请求体
+        description: ID
+        schema:
+          type: object
+          properties:
+            roleId:
+              type: integer
+              example: 1
+      responses:
+        200:
+          description: 成功
+          schema:
+            $ref: '#/definitions/JsonResult'
+        201:
+          description: 失败（此处 HTTP 状态码应该为 200）
+          schema:
+            $ref: '#/definitions/ErrorJsonResult'
             
   /profile/account:
     post:
@@ -220,7 +473,7 @@ paths:
       operationId: getCurrentUser
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
-        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `errorCode` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
+        2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
       consumes: 
       - application/json
       produces:
@@ -238,14 +491,14 @@ paths:
           schema:
             type: object
             required:
-              - errorCode
-              - reason
+              - code
+              - message
               - result
             properties:
-              errorCode:
+              code:
                 type: integer
                 example: 0
-              reason:
+              message:
                 type: string
                 example: ok
               result:
@@ -259,10 +512,10 @@ definitions:
   JsonResult:
     type: object
     properties:
-      errorCode:
+      code:
         type: integer
         example: 0
-      reason:
+      message:
         type: string
         example: ok
       result:
@@ -271,13 +524,13 @@ definitions:
   ErrorJsonResult:
     type: object
     required:
-      - errorCode
-      - reason
+      - code
+      - message
     properties:
-      errorCode:
+      code:
         type: integer
         example: 1
-      reason:
+      message:
         type: string
         example: fail
       result:
@@ -297,8 +550,8 @@ definitions:
         type: integer
         example: 20
         default: 20
-        
   UserVO:
+    type: object
     properties:
       userId:
         type: integer
@@ -381,6 +634,83 @@ definitions:
       isDelete:
         type: string
         description: 删除状态
+  UserRoleVO:
+    type: object
+    properties:
+      roleId:
+        type: integer
+        description: 角色ID
+      userRoleId:
+        type: string
+        description: 角色编码
+      roleLevel:
+        type: string
+        description: 角色等级
+      roleName:
+        type: string
+        description: 角色名称
+      roleStatus:
+        type: string
+        description: 角色状态
+      createUserId:
+        type: string
+        description: 创建角色的用户
+      updateUserId:
+        type: string
+        description: 更新角色的用户
+      createDate:
+        type: string
+        description: 创建时间
+      updateDate:
+        type: string
+        description: 更新时间
+      createUser:
+        type: string
+        description: 创建人
+      createTime:
+        type: string
+        description: 创建时间
+      lastUpdateUser:
+        type: string
+        description: 最后修改人
+      lastUpdateTime:
+        type: string
+        description: 最后修改时间
+      isDelete:
+        type: string
+        description: 删除状态
+  UpcRightVO:
+    type: object
+    properties:
+      upcId:
+        type: integer
+        description: 权限表主键
+      upcRight:
+        type: string
+        description: 权限对应的页面
+      upcRightName:
+        type: string
+        description: 权限说明
+      fatherId:
+        type: integer
+        description: 父ID
+      createUser:
+        type: string
+        description: 创建人
+      createTime:
+        type: string
+        description: 创建时间
+      lastUpdateUser:
+        type: string
+        description: 最后修改人
+      lastUpdateTime:
+        type: string
+        description: 最后修改时间
+      isDelete:
+        type: string
+        description: 删除状态0代表已删除 1代表未删除
+
+
 # Added by API Auto Mocking Plugin
 # host: www.fn1.top
 # basePath: /api
