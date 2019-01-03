@@ -2,7 +2,13 @@ swagger: '2.0'
 info:
   description: 相关 API
   version: 1.0.0
-  title: 安全审批系统
+  title: 安全业务审批系统
+
+schemes:
+ - http
+#host: virtserver.swaggerhub.com
+#basePath: /
+
 
 # tags are used for organizing operations
 tags:
@@ -711,11 +717,3 @@ definitions:
         description: 删除状态0代表已删除 1代表未删除
 
 
-# Added by API Auto Mocking Plugin
-# host: www.fn1.top
-# basePath: /api
-schemes:
- - https
-# Added by API Auto Mocking Plugin
-host: virtserver.swaggerhub.com
-basePath: /forwardNow/sys/1.0.0
