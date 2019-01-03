@@ -42,10 +42,13 @@ Vue.use(Router);
 const router = new Router({
   routes: [
     // 根
-    { path: '/', component: HomeView },
+    { path: '/', redirect: '/home' },
 
     // 登陆
     { name: 'login', path: '/login', component: Login },
+
+    // 主页
+    { path: '/home', component: HomeView, meta: { requiresAuth: true } },
 
     // 系统
     {

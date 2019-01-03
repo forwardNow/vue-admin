@@ -24,6 +24,7 @@
   color: darken($color: #fff, $amount: 20%);
 }
 
+.el-cascader .el-input__inner,
 .el-select .el-input__inner {
   padding-right: 15px;
 }

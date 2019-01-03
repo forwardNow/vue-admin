@@ -6,6 +6,7 @@ import axiosInstance from '../plugins/axios';
 import store from '../../store';
 import router from '../../router';
 import SessionService from '../../session/SessionService';
+import responseBodyAdapter from '../adapters/ResponseBodyAdapter';
 
 function handleStatus(url, status) {
   let desc;
@@ -71,18 +72,8 @@ axiosInstance.interceptors.response.use(
   // HTTP 状态码：2xx
   (res) => {
     const { data } = res;
-    let errorCode;
-    let reason;
-    let result;
-
-    /*
-     * 针对 { code: 0, message: '', result: null } 做适配
-     */
-    if ('code' in data) {
-      ({ code: errorCode, message: reason, result } = data);
-    } else {
-      ({ errorCode, reason, result } = data);
-    }
+    const fmtRes = responseBodyAdapter(data);
+    const { errorCode, reason, result } = fmtRes;
 
     console.log('响应：', res);
 

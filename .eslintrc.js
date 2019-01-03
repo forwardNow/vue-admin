@@ -1,5 +1,3 @@
-const IS_DEV_MODE = process.env.NODE_ENV === 'development';
-
 module.exports = {
   root: true,
   extends: [
@@ -8,10 +6,11 @@ module.exports = {
   env: {
     'browser': true,
     'node': true,
+    'mocha': true,
   },
   rules: {
-    'no-console': IS_DEV_MODE ? 'warn' : 'error',
-    'no-debugger': IS_DEV_MODE ? 'warn' : 'error',
+    'no-console': 'warn',
+    'no-debugger': 'warn',
 
     // 修复使用 webpack 路径别名引起的问题
     'import/no-unresolved': 'warn',

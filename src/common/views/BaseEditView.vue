@@ -53,6 +53,8 @@ export default {
             duration: 2000,
           });
         }
+
+        this.$emit('created');
       });
     },
     submit() {

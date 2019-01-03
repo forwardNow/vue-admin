@@ -1,13 +1,19 @@
 const path = require('path');
 const notifier = require('node-notifier');
+const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
+const { dev, prod } = require('./env');
 
-const IS_DEV_MODE = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'dev';
+
+console.log('isDev：', isDev);
+
+const env = isDev ? dev : prod;
 
 module.exports = {
 
@@ -44,14 +50,14 @@ module.exports = {
          * loader 从右到左调用，以管道的方式
          */
         use: [
-          IS_DEV_MODE ? 'style-loader' : MiniCssExtractPlugin.loader,
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
         ],
       },
       {
         test: /\.less$/,
         use: [
-          IS_DEV_MODE ? 'style-loader' : MiniCssExtractPlugin.loader,
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           'less-loader',
         ],
@@ -59,7 +65,7 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          IS_DEV_MODE ? 'style-loader' : MiniCssExtractPlugin.loader,
+          isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           'sass-loader',
         ],
@@ -119,6 +125,8 @@ module.exports = {
   },
   // 配置插件
   plugins: [
+    new webpack.DefinePlugin(env),
+
     new VueLoaderPlugin(),
 
     new FriendlyErrorsWebpackPlugin({

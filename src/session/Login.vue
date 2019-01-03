@@ -63,28 +63,41 @@ export default {
         const { loginName, password } = this.userForm;
 
         return SessionService.login(loginName, password).then((res) => {
-          if (res.errorCode === 0) {
-            this.$message({
-              type: 'success',
-              message: '登录成功！',
-              showClose: true,
-              duration: 1000,
-            });
-            SessionService.store(res.result);
-            // 如果是 401 过来的，则退一步
-            if (this.$route.query.status === 401) {
-              this.$router.go(-1);
-            } else {
-              this.$router.push({ path: '/' });
+          const { errorCode, reason, result } = res;
+          let msg = null;
+
+          switch (errorCode) {
+            case 0: {
+              this.$message({
+                type: 'success',
+                message: '登录成功！',
+                showClose: true,
+                duration: 1000,
+              });
+
+              SessionService.store(result);
+
+              // 如果是 401 过来的，则退一步
+              if (this.$route.query.status === 401) {
+                this.$router.go(-1);
+              } else {
+                this.$router.push({ path: '/' });
+              }
+
+              break;
             }
-          } else {
-            this.$message({
-              type: 'error',
-              message: '用户名或密码错误！',
-              showClose: true,
-              duration: 1000,
-            });
+            case 1:
+            case 2:
+            case 3: {
+              this.$message({
+                type: 'error',
+                message: reason,
+                showClose: true,
+                duration: 1000,
+              });
+            }
           }
+
           this.isLoading = false;
         }).catch(() => {
           this.isLoading = false;

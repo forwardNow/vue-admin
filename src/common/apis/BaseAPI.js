@@ -1,11 +1,11 @@
-export default path => ({
-  GET_ONE: `/api/${path}/get`,
+export default module => ({
+  GET_ONE: `/api/${module}/get`,
 
-  GET_LIST: `/api/${path}/list`,
+  GET_LIST: `/api/${module}/list`,
 
-  INSERT: `/api/${path}/insert`,
+  INSERT: `/api/${module}/insert`,
 
-  DELETE: `/api/${path}/delete`,
+  DELETE: `/api/${module}/delete`,
 
-  UPDATE: `/api/${path}/update`,
+  UPDATE: `/api/${module}/update`,
 });

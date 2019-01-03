@@ -4,6 +4,7 @@
 
 import axiosInstance from '../plugins/axios';
 import store from '../../store';
+import { API_PREFIX } from '../configs/Var';
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -11,6 +12,9 @@ axiosInstance.interceptors.request.use(
 
     // eslint-disable-next-line
     // config.headers.token = SessionService.getToken();
+
+    // eslint-disable-next-line
+    config.url = API_PREFIX + config.url;
 
     store.commit('showLoading');
     store.commit('setCurrentUrl', config.url);

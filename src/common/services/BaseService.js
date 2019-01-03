@@ -1,5 +1,21 @@
 import merge from 'lodash.merge';
 import axios from '../plugins/axios';
+import paginationResultAdapter from '../adapters/PaginationResultAdapter';
+
+/**
+ * 去掉以 “$_” 打头的表单字段
+ */
+function fmtBean(bean) {
+  const newBean = merge({}, bean);
+
+  Reflect.ownKeys(bean).forEach((key) => {
+    if (key.startsWith('$_')) {
+      delete newBean[key];
+    }
+  });
+
+  return newBean;
+}
 
 class BaseService {
   /**
@@ -17,7 +33,7 @@ class BaseService {
    * @return {AxiosPromise<any>}
    */
   insert(bean) {
-    return axios.post(this.API.INSERT, bean);
+    return axios.post(this.API.INSERT, fmtBean(bean));
   }
 
   /**
@@ -26,7 +42,7 @@ class BaseService {
    * @return {AxiosPromise<any> | * | void}
    */
   delete(bean) {
-    return axios.post(this.API.DELETE, bean);
+    return axios.post(this.API.DELETE, fmtBean(bean));
   }
 
   /**
@@ -35,7 +51,7 @@ class BaseService {
    * @return {AxiosPromise<any> | * | void}
    */
   update(bean) {
-    return axios.post(this.API.UPDATE, bean);
+    return axios.post(this.API.UPDATE, fmtBean(bean));
   }
 
   /**
@@ -47,7 +63,7 @@ class BaseService {
     if (Reflect.ownKeys(bean).length === 0) {
       throw new Error('bean prop is required!');
     }
-    return axios.post(this.API.GET_ONE, bean);
+    return axios.post(this.API.GET_ONE, fmtBean(bean));
   }
 
   /**
@@ -58,9 +74,16 @@ class BaseService {
    */
   getList(bean, pager) {
     const param = { condition: {}, pager };
-    merge(param.condition, bean);
-    merge(param, bean);
-    return axios.post(this.API.GET_LIST, param);
+    const newBean = fmtBean(bean);
+    merge(param.condition, newBean);
+    merge(param, newBean);
+    return axios.post(this.API.GET_LIST, param).then((res) => {
+      const newRes = merge({}, res);
+
+      newRes.result = paginationResultAdapter(newRes.result);
+
+      return newRes;
+    });
   }
 }
 

@@ -75,7 +75,7 @@
     </el-row>
 
     <el-form-item>
-      <el-button type="primary" @click="$refs.edit.submit()">保存</el-button>
+      <el-button type="primary" @click="$refs.add.submit()">保存</el-button>
     </el-form-item>
   </base-add-view>
 </template>

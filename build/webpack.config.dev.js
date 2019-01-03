@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const FlowWebpackPlugin = require('flow-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
+const { dev } = require('./env');
 
 module.exports = merge(baseConfig, {
   mode: 'development',
@@ -26,9 +27,7 @@ module.exports = merge(baseConfig, {
     // 代理
     proxy: {
       '/api': 'http://localhost:3000',
-      '/systemManage': 'http://127.0.0.1:8083',
-      // '/systemManage': 'http://192.168.1.55:8083', // 黄威
-      // '/systemManage': 'http://192.168.1.44:8083', // dev
+      '/systemManage': dev['process.env.apiHost'],
     },
   },
 

@@ -33,8 +33,8 @@ export default {
 
 .loading {
   position: absolute;
-  bottom: -1px;
-  left: -1px;
+  bottom: 0;
+  left: 0;
   z-index: 100;
   width: 400px;
   height: 20px;

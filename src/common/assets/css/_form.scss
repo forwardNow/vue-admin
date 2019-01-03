@@ -1,4 +1,9 @@
 
 .form_edit {
   //width: 600px;
+
+  .el-select,
+  .el-cascader {
+    width: 100%;
+  }
 }
