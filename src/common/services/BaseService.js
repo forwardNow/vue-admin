@@ -1,6 +1,5 @@
 import merge from 'lodash.merge';
 import axios from '../plugins/axios';
-import paginationResultAdapter from '../adapters/PaginationResultAdapter';
 
 /**
  * 去掉以 “$_” 打头的表单字段
@@ -72,18 +71,12 @@ class BaseService {
    * @param pager
    * @return {AxiosPromise<any> | * | void}
    */
-  getList(bean, pager) {
+  getList(bean, pager = { currentPage: 1, pageSize: 20 }) {
     const param = { condition: {}, pager };
     const newBean = fmtBean(bean);
     merge(param.condition, newBean);
     merge(param, newBean);
-    return axios.post(this.API.GET_LIST, param).then((res) => {
-      const newRes = merge({}, res);
-
-      newRes.result = paginationResultAdapter(newRes.result);
-
-      return newRes;
-    });
+    return axios.post(this.API.GET_LIST, param);
   }
 }
 

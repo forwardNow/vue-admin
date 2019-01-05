@@ -1,6 +1,11 @@
 const env = {
   dev: {
     /**
+     * 程序运行的环境：开发、生成。
+     */
+    'process.env.runMode': JSON.stringify('dev'),
+
+    /**
      * @description 所有 API 的前缀。在业务代码里使用
      */
     'process.env.apiPrefix': JSON.stringify(''),
@@ -15,6 +20,7 @@ const env = {
     'process.env.apiHost': 'http://127.0.0.1:8083',
   },
   prod: {
+    'process.env.mode': JSON.stringify('prod'),
     'process.env.apiPrefix': JSON.stringify(''),
   },
 };

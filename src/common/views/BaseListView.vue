@@ -73,7 +73,7 @@
         pager: {
           pageSizes: [10, 20, 50, 100],
           pageSize: 10,
-          total: null,
+          total: 0,
           currentPage: 1,
         },
         search: this.search,
@@ -103,35 +103,22 @@
         let tableData;
 
         await this.service.getList( this.searchFormModel, { pageSize, currentPage }).then((res) => {
-          let items = null;
-          let newPageSize = 20;
-          let newCurrentPage = 1;
-          let total = 0;
-
-          const { errorCode, reason } = res;
+          const {
+            errorCode,
+            reason,
+            result: {
+              pager: {
+                currentPage: newCurrentPage = 1,
+                pageSize: newPageSize = 20,
+                total
+              },
+              items,
+            }
+          } = res;
 
           if (errorCode === 0) {
-            if (Array.isArray(res.result)) {
-              console.warn('【reload】数据不符合要求');
-
-              items = res.result;
-              total = items.length;
-            } else {
-              ({
-                result: {
-                  items,
-                  pager: {
-                    pageSize: newPageSize,
-                    currentPage: newCurrentPage,
-                    total,
-                  },
-                },
-              } = res);
-            }
-
-
-
             tableData = items;
+
             this.pager.pageSize = newPageSize;
             this.pager.currentPage = newCurrentPage;
             this.pager.total = total;
@@ -144,7 +131,8 @@
             });
           }
           this.loading = false;
-        }).catch(() => {
+        }).catch((e) => {
+          console.error(e);
           this.loading = false;
         });
 

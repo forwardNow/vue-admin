@@ -54,6 +54,9 @@ export default {
           });
         }
 
+        /**
+         * @event 获取 bean 对象后，发射 created 事件。
+         */
         this.$emit('created');
       });
     },

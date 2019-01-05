@@ -15,7 +15,7 @@
 
       <el-form :inline="true" class="search-group">
         <el-form-item label="部门名称">
-          <el-input placeholder="" size="small" v-model="searchFormModel.organName">
+          <el-input placeholder="" size="small" v-model="searchFormModel.deptName">
           </el-input>
         </el-form-item>
         <el-form-item>
@@ -28,16 +28,20 @@
     <template slot="dategrid">
 
       <el-table-column label="部门名">
+        <template slot-scope="scope">{{ scope.row.deptName }}</template>
+      </el-table-column>
+
+      <el-table-column label="所属机构">
         <template slot-scope="scope">{{ scope.row.organName }}</template>
       </el-table-column>
 
 
       <el-table-column label="创建用户" >
-        <template slot-scope="scope">{{ scope.row.createOrganUser }}</template>
+        <template slot-scope="scope">{{ scope.row.createDepartUser }}</template>
       </el-table-column>
 
       <el-table-column label="创建时间">
-        <template slot-scope="scope">{{ scope.row.createOrganTime }}</template>
+        <template slot-scope="scope">{{ scope.row.createDepartTime }}</template>
       </el-table-column>
 
       <el-table-column label="状态">
@@ -74,7 +78,7 @@
         service,
         selectedRecords: [],
         searchFormModel: {
-          organName: '',
+          deptName: '',
         }
       }
     },

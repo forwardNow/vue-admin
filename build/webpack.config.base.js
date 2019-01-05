@@ -121,6 +121,10 @@ module.exports = {
         test: /\.vue$/,
         use: 'vue-loader',
       },
+      {
+        test: /\.yaml$/,
+        loader: 'raw-loader',
+      },
     ],
   },
   // 配置插件

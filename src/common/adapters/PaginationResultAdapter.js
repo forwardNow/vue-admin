@@ -1,7 +1,7 @@
 /**
- * @fileOverview 格式化分页数据
+ * @fileOverview 对分页数据进行处理
  * @example
- * { code: 0, message: 'ok', data: null } => { errorCode: 0, reason: 'ok', result: null }
+ * { pager:  }
  */
 
 const isWellFormatted = (result) => {
@@ -13,7 +13,11 @@ const isWellFormatted = (result) => {
     return false;
   }
 
-  if (!('items' in result)) {
+  if (!('currentPage' in result.pager)) {
+    return false;
+  }
+
+  if (!('pageSize' in result.pager)) {
     return false;
   }
 
@@ -25,7 +29,11 @@ export default (result) => {
     return result;
   }
 
-  const { pageNum: currentPage, total, list: items } = result;
+  const {
+    pageNum: currentPage,
+    total,
+    list: items,
+  } = result;
 
   return { pager: { currentPage, total }, items };
 };

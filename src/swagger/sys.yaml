@@ -6,6 +6,7 @@ info:
 
 schemes:
  - http
+
 #host: virtserver.swaggerhub.com
 #basePath: /
 
@@ -29,7 +30,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -76,7 +77,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody String json` 接收参数，并对其进行解析
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -137,7 +138,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -165,7 +166,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -193,7 +194,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -225,7 +226,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserRoleVO userRoleVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -272,7 +273,7 @@ paths:
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody String json` 接收参数，并对其进行解析
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
         3. 当 `pager.total` 足够大时（如 10000），则约等于查所有角色
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -333,7 +334,7 @@ paths:
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody String json` 接收参数，并对其进行解析
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
         3. 当 `pager.total` 足够大时（如 10000），则约等于查所有角色
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -393,7 +394,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserRoleVO userRoleVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -420,7 +421,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserRoleVO userRoleVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -447,7 +448,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -470,7 +471,7 @@ paths:
           description: 失败（此处 HTTP 状态码应该为 200）
           schema:
             $ref: '#/definitions/ErrorJsonResult'
-            
+
   /profile/account:
     post:
       tags:
@@ -480,7 +481,7 @@ paths:
       description: |
         1. HTTP 请求体是 JSON 字符串，在 Controller 中请使用 `@RequestBody UserVO userVO` 接收参数
         2. HTTP 响应的状态码都为 `200`，通过响应体中 JSON 的 `code` 属性描述业务处理结果（`0` 为成功，`1` 为失败）
-      consumes: 
+      consumes:
       - application/json
       produces:
       - application/json
@@ -513,7 +514,7 @@ paths:
           description: 失败（此处 HTTP 状态码应该为 200）
           schema:
             $ref: '#/definitions/ErrorJsonResult'
-    
+
 definitions:
   JsonResult:
     type: object

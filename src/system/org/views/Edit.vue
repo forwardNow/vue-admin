@@ -23,7 +23,7 @@
             <el-option
                 v-for="item in orgLevelDic"
                 :key="item.code"
-                :label="item.text"
+                :label="item.value"
                 :value="item.code">
             </el-option>
           </el-select>
@@ -69,6 +69,8 @@ import DicService from '../../../common/services/DicService';
 
 export default {
   created() {
+    DicService.getDicListByName('ORG_LEVEL').then(res => this.orgLevelDic = res);
+
     service.getAreaTree().then((res) => {
       const { errorCode, result } = res;
 
@@ -98,7 +100,7 @@ export default {
       options: [],
 
       allOrgList: [],
-      orgLevelDic: DicService.ORG_LEVEL,
+      orgLevelDic: null,
 
       service,
 

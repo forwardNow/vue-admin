@@ -31,6 +31,7 @@
 
 <script>
 import SessionService from './SessionService';
+import test from '../common/tests/index';
 
 export default {
   data() {
@@ -64,7 +65,6 @@ export default {
 
         return SessionService.login(loginName, password).then((res) => {
           const { errorCode, reason, result } = res;
-          let msg = null;
 
           switch (errorCode) {
             case 0: {
@@ -74,6 +74,11 @@ export default {
                 showClose: true,
                 duration: 1000,
               });
+
+              // 如果登陆成功 且是开发环境则进行测试
+              if (process.env.runMode === 'dev') {
+                window.apiTest = test;
+              }
 
               SessionService.store(result);
 
@@ -93,7 +98,7 @@ export default {
                 type: 'error',
                 message: reason,
                 showClose: true,
-                duration: 1000,
+                duration: 1000
               });
             }
           }
