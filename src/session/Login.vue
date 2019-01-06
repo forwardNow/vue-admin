@@ -31,7 +31,7 @@
 
 <script>
 import SessionService from './SessionService';
-import test from '../common/tests/index';
+// import test from '../common/tests/index';
 
 export default {
   data() {
@@ -76,9 +76,9 @@ export default {
               });
 
               // 如果登陆成功 且是开发环境则进行测试
-              if (process.env.runMode === 'dev') {
-                window.apiTest = test;
-              }
+              // if (process.env.runMode === 'dev') {
+              //   window.apiTest = test;
+              // }
 
               SessionService.store(result);
 

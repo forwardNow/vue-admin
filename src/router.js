@@ -48,7 +48,7 @@ const router = new Router({
     { name: 'login', path: '/login', component: Login },
 
     // swagger ui
-    { path: '/api', component: () => import('./swagger/SwaggerUI.vue') },
+    // { path: '/api', component: () => import('./swagger/SwaggerUI.vue') },
 
     // 主页
     { path: '/home', component: HomeView, meta: { requiresAuth: true } },
