@@ -1,7 +1,7 @@
 const ORG_LEVEL = [
-  { code: 1, value: '省级' },
-  { code: 2, value: '市级' },
-  { code: 3, value: '区/县级' },
+  { code: '1', value: '省级' },
+  { code: '2', value: '市级' },
+  { code: '3', value: '区/县级' },
 ];
 
 const DIC_SET = {
@@ -35,19 +35,27 @@ service.getDicListByName = dicName => new Promise((resolve, reject) => {
  * @return {Promise<string>}
  */
 service.getDicItemValue = (dicName, code) => new Promise((resolve, reject) => {
-  if (!dicName) {
-    return reject(new Error('DicService.getDicItemValue(): dicName is a empty string !'));
+  if (!dicName || code == null) {
+    return null;
   }
 
   if (!(dicName in DIC_SET)) {
     return reject(new Error(`DicService.getDicItemValue(): ${dicName} is not exist !`));
   }
 
-  if (!(code in DIC_SET[dicName])) {
-    return reject(new Error(`DicService.getDicItemValue(): ${code} is not exist in ${dicName} !`));
-  }
+  let value = null;
 
-  return resolve(DIC_SET[dicName][code]);
+  DIC_SET[dicName].some((item) => {
+    if (item.code === code) {
+      ({ value } = item);
+      return true;
+    }
+
+    return false;
+  });
+
+
+  return resolve(value);
 });
 
 export default service;

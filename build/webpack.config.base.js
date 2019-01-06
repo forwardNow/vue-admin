@@ -7,13 +7,31 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
-const { dev, prod } = require('./env');
+const { dev, mock, prod } = require('./env');
 
-const isDev = process.env.NODE_ENV === 'dev';
+const { NODE_ENV } = process.env;
 
-console.log('isDev：', isDev);
+const isDev = NODE_ENV !== 'prod';
 
-const env = isDev ? dev : prod;
+let env;
+
+switch (NODE_ENV) {
+  case 'dev': {
+    env = dev;
+    break;
+  }
+  case 'mock': {
+    env = mock;
+    break;
+  }
+  case 'prod': {
+    env = prod;
+    break;
+  }
+  default: {
+    env = mock;
+  }
+}
 
 module.exports = {
 

@@ -38,10 +38,10 @@ export default {
             this.detailFormModel[key] = user[key];
           });
 
+
           /**
            * @event 获取 bean 对象后，发射 created 事件。
            */
-          this.$emit('created');
 
         } else if (res.errorCode === 1) {
           this.$message({
@@ -51,6 +51,8 @@ export default {
             duration: 2000,
           });
         }
+
+        this.$emit('created');
       });
     },
     closePopup() {

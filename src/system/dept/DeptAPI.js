@@ -1,5 +1,14 @@
+import merge from 'lodash.merge';
 
-const API = {
+import setBaseAPI from '../../common/apis/BaseAPI';
+
+const API = {};
+
+const mockAPI = merge(setBaseAPI('system/dept'), {
+
+});
+
+const prodAPI = {
   GET_ONE: '/systemManage/department/',
 
   GET_LIST: '/systemManage/department/selectAllSection',
@@ -9,7 +18,13 @@ const API = {
   DELETE: '/systemManage/department/',
 
   UPDATE: '/systemManage/department/',
-
 };
+
+
+if (process.env.runMode === 'mock') {
+  merge(API, mockAPI);
+} else {
+  merge(API, prodAPI);
+}
 
 export default API;

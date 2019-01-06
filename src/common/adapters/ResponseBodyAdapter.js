@@ -6,7 +6,15 @@
 
 import { RESPONSE_BODY_FORMAT } from '../configs/Var';
 
+function isWellFormatBody(body) {
+  return typeof body.errorCode === 'number';
+}
+
 export default (res) => {
+  if (isWellFormatBody(res)) {
+    return res;
+  }
+
   const { ERROR_CODE_NAME, REASON_NAME, RESULT_NAME } = RESPONSE_BODY_FORMAT;
 
   return {

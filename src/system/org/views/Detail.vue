@@ -54,8 +54,9 @@
         this.$emit('finish-detail');
       },
       created() {
-        DicService.getDicItemValue('ORG_LEVEL', this.formModel.organLevel).then((code) => {
-          this.formModel.organLevel = code;
+        DicService.getDicItemValue('ORG_LEVEL', this.formModel.organLevel).then((value) => {
+          console.log('value', value);
+          this.formModel.organLevel = value;
         });
 
         service.get({ id: Number(this.formModel.fatherId) }).then((res) => {
@@ -63,7 +64,9 @@
 
           if (errorCode === 0) {
             this.formModel.fatherId = bean.organName;
-          } else {
+          } else if (errorCode === 1) {
+            this.formModel.fatherId = 'not exist !';
+
             console.warn(`【${errorCode}】${reason}`);
           }
         });

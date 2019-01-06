@@ -4,7 +4,7 @@ const FlowWebpackPlugin = require('flow-webpack-plugin');
 
 const baseConfig = require('./webpack.config.base');
 const {
-  dev: {
+  mock: {
     'process.env.apiPrefix': apiPrefix,
     'process.env.apiHost': apiHost,
   },
@@ -31,13 +31,7 @@ module.exports = merge(baseConfig, {
 
     // 代理
     proxy: {
-      // 代理
-      proxy: {
-        [`/${apiPrefix}`]: {
-          target: apiHost,
-          pathRewrite: { [`^/${apiPrefix}`]: '' },
-        },
-      },
+      [JSON.parse(apiPrefix)]: apiHost,
     },
   },
 

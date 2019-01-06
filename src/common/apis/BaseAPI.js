@@ -1,11 +1,11 @@
 export default module => ({
-  GET_ONE: `/api/${module}/get`,
+  GET_ONE: `/${module}/get`,
 
-  GET_LIST: `/api/${module}/list`,
+  GET_LIST: `/${module}/list`,
 
-  INSERT: `/api/${module}/insert`,
+  INSERT: `/${module}/insert`,
 
-  DELETE: `/api/${module}/delete`,
+  DELETE: `/${module}/delete`,
 
-  UPDATE: `/api/${module}/update`,
+  UPDATE: `/${module}/update`,
 });

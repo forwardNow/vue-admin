@@ -5,10 +5,6 @@
  */
 
 const isWellFormatted = (result) => {
-  if (!result) {
-    return false;
-  }
-
   if (!('pager' in result)) {
     return false;
   }
@@ -25,6 +21,12 @@ const isWellFormatted = (result) => {
 };
 
 export default (result) => {
+  // 不存在
+  if (!result) {
+    return result;
+  }
+
+  // 格式良好
   if (isWellFormatted(result)) {
     return result;
   }
@@ -35,5 +37,11 @@ export default (result) => {
     list: items,
   } = result;
 
-  return { pager: { currentPage, total }, items };
+  // 分页数据
+  if (currentPage != null && total != null && items != null) {
+    return { pager: { currentPage, total }, items };
+  }
+
+  // 普通数据
+  return result;
 };

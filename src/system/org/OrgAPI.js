@@ -1,5 +1,14 @@
+import merge from 'lodash.merge';
 
-const API = {
+import setBaseAPI from '../../common/apis/BaseAPI';
+
+const API = {};
+
+const mockAPI = merge(setBaseAPI('system/org'), {
+
+});
+
+const prodAPI = {
   GET_ONE: '/systemManage/OrganController/organDetails',
 
   GET_LIST: '/systemManage/OrganController/organSelectAlls',
@@ -15,7 +24,13 @@ const API = {
 
   /** 获取所有的记录 */
   GET_ALL: '/systemManage/OrganController/selectOrgan',
-
 };
+
+
+if (process.env.runMode === 'mock') {
+  merge(API, mockAPI);
+} else {
+  merge(API, prodAPI);
+}
 
 export default API;
