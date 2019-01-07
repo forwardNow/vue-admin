@@ -74,7 +74,7 @@ function createNestedTree(items = [], rootIds, options) {
   function createTreeItems(roots) {
     const list = [];
     if (!roots) {
-      return [];
+      return null;
     }
     roots.forEach((rootItem) => {
       const newItem = Object.assign({}, rootItem);

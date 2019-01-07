@@ -59,7 +59,7 @@
           this.formModel.organLevel = value;
         });
 
-        service.get({ id: Number(this.formModel.fatherId) }).then((res) => {
+        service.get({ id: this.formModel.fatherId }).then((res) => {
           const { errorCode, reason, result: bean } = res;
 
           if (errorCode === 0) {

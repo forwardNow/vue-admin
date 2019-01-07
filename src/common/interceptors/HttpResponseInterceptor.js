@@ -134,10 +134,18 @@ axiosInstance.interceptors.response.use(
     const fmtRes = formatResponse(res.data);
     const { errorCode, reason, result } = fmtRes;
 
-    console.log('响应：', res);
+
+    if (process.env.runMode === 'mock') {
+      // 设置 Token
+      SessionService.setToken(res.headers.token);
+    }
 
     // 隐藏全局 loading
     store.commit('hideLoading');
+
+    // console.log('响应体：', res.data);
+    console.log('格式化后的响应体：', fmtRes);
+
 
     handleGlobalErrorCode(res.config.url, errorCode);
     // 处理数据部分 res.data

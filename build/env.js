@@ -15,12 +15,13 @@ const env = {
      * @description API 服务器主机。在构建脚本中使用。
      * @example
      * http://127.0.0.1:8083,    // 本机
-     * http://192.168.1.44:8083' // dev
-     * http://192.168.1.43:8083' // test
+     * http://192.168.2.44:8083' // dev
+     * http://192.168.2.43:8083' // test
      */
-    'process.env.apiHost': 'http://127.0.0.1:8083',
+    'process.env.apiHost': 'http://192.168.2.44:8083',
   },
   mock: {
+    'process.env.devPort': 8001,
     'process.env.runMode': JSON.stringify('mock'),
     'process.env.apiPrefix': JSON.stringify('/api'),
     'process.env.apiHost': 'http://127.0.0.1:3000',

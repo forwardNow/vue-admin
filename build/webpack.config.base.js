@@ -153,7 +153,7 @@ module.exports = {
 
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
-        messages: ['You application is running here http://localhost:8000'],
+        messages: ['You application is running'],
         notes: ['Some additionnal notes to be displayed unpon successful compilation'],
       },
       onErrors: (severity, errors) => {

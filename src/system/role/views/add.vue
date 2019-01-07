@@ -55,7 +55,6 @@
 </template>
 <script>
 import service from '../RoleService';
-import MenuService from '../../../system/services/MenuService';
 import TreeUtils from '../../../common/utils/TreeUtils';
 
 export default {

@@ -26,10 +26,6 @@
     </template>
 
     <template slot="dategrid">
-      <el-table-column label="角色编码">
-        <template slot-scope="scope">{{ scope.row.userRoleId }}</template>
-      </el-table-column>
-
       <el-table-column label="角色名称">
         <template slot-scope="scope">{{ scope.row.roleName}}</template>
       </el-table-column>

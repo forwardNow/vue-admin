@@ -34,9 +34,9 @@
           <el-select v-model="formModel.fatherId" placeholder="请选择">
             <el-option
                 v-for="item in allOrgList"
-                :key="item.organId"
+                :key="item.id"
                 :label="item.organName"
-                :value="item.organId">
+                :value="String(item.id)">
             </el-option>
           </el-select>
         </el-form-item>
@@ -49,8 +49,8 @@
           <el-cascader
               v-model="formModel.$_areaList"
               expand-trigger="hover"
-              :options="options"
-              :props="props"
+              :options="areaTree"
+              :props="{ label: 'value', value: 'code' }"
               @change="handleChange">
           </el-cascader>
         </el-form-item>
@@ -64,39 +64,32 @@
 </template>
 <script>
 import service from '../OrgService';
+import AreaService from '../../area/AreaService';
 import DicService from '../../../common/services/DicService';
 
 export default {
   created() {
     DicService.getDicListByName('ORG_LEVEL').then(res => this.orgLevelDic = res);
 
-    service.getAreaTree().then((res) => {
+    service.getList({}, { currentPage: 1, pageSize: 10000 }).then((res) => {
       const { errorCode, result } = res;
 
-      if (errorCode === 0) {
-        this.options = result;
-      } else {
-        console.error('service.getAreaTree() 获取区域树失败');
+      if (errorCode !== 0) {
+        console.error('【机构管理 / 创建】所有机构失败');
+        return;
       }
+
+      this.allOrgList = result.items;
     });
 
-    service.getAll().then((res) => {
-      const { errorCode, result } = res;
-
-      if (errorCode === 0) {
-        this.allOrgList = result;
-      } else {
-        console.error('service.getAll() 获取所有失败');
-      }
+    AreaService.getAreaTree().then(areaTree => {
+      // console.log(areaTree);
+      this.areaTree = areaTree
     });
   },
   data() {
     return {
-      props: {
-        label: 'toponym',
-        value: 'toponym',
-      },
-      options: [],
+      areaTree: [],
 
       allOrgList: [],
       orgLevelDic: null,
@@ -121,9 +114,9 @@ export default {
         organName: '',
         organLevel: '',
         fatherId: '',
-        provinceName: '',
-        cityName: '',
-        townName: '',
+        provinceCode: '',
+        cityCode: '',
+        townCode: '',
         $_areaList: [],
       },
     };
@@ -132,26 +125,27 @@ export default {
     finish() {
       this.$emit('finish-add');
     },
-    handleChange(value) {
-      console.log(value);
+    handleChange() {
+      console.log(arguments);
     },
     submit() {
       this.formModel.$_areaList.forEach((item, index) => {
         switch (index) {
           case 0: {
-            this.formModel.provinceName = item;
+            this.formModel.provinceCode = item;
             break;
           }
           case 1: {
-            this.formModel.cityName = item;
+            this.formModel.cityCode = item;
             break;
           }
           case 2: {
-            this.formModel.townName = item;
+            this.formModel.townCode = item;
             break;
           }
         }
       });
+      this.formModel.fatherId = String(this.formModel.fatherId);
       this.$refs.add.submit();
     }
   },

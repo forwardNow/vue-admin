@@ -31,12 +31,9 @@ module.exports = merge(baseConfig, {
 
     // 代理
     proxy: {
-      // 代理
-      proxy: {
-        [`/${apiPrefix}`]: {
-          target: apiHost,
-          pathRewrite: { [`^/${apiPrefix}`]: '' },
-        },
+      [JSON.parse(apiPrefix)]: {
+        target: apiHost,
+        pathRewrite: { [`^${JSON.parse(apiPrefix)}`]: '' },
       },
     },
   },

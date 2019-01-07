@@ -75,7 +75,7 @@ export default {
                 duration: 1000,
               });
 
-              // 如果登陆成功 且是开发环境则进行测试
+              // // 如果登陆成功 且是开发环境则进行测试
               // if (process.env.runMode === 'dev') {
               //   window.apiTest = test;
               // }

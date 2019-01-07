@@ -39,9 +39,6 @@ export default {
           });
 
 
-          /**
-           * @event 获取 bean 对象后，发射 created 事件。
-           */
 
         } else if (res.errorCode === 1) {
           this.$message({
@@ -52,6 +49,9 @@ export default {
           });
         }
 
+        /**
+         * @event 获取 bean 对象后，发射 created 事件。
+         */
         this.$emit('created');
       });
     },

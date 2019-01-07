@@ -5,10 +5,12 @@ const FlowWebpackPlugin = require('flow-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 const {
   mock: {
+    'process.env.devPort': devPort,
     'process.env.apiPrefix': apiPrefix,
     'process.env.apiHost': apiHost,
   },
 } = require('./env');
+
 
 module.exports = merge(baseConfig, {
   mode: 'development',
@@ -21,7 +23,7 @@ module.exports = merge(baseConfig, {
     open: true,
 
     // 端口号
-    port: 8000,
+    port: devPort,
 
     // 设置根目录
     contentBase: 'src',
