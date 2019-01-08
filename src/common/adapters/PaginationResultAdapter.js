@@ -26,6 +26,11 @@ export default (result) => {
     return result;
   }
 
+  // 不是对象
+  if (!(result instanceof Object)) {
+    return result;
+  }
+
   // 格式良好
   if (isWellFormatted(result)) {
     return result;

@@ -1,13 +1,15 @@
 <template>
   <!-- .content__body -->
   <el-container class="content__body">
+    <!--
     <el-header class="heading">{{ title }}
+    </el-header>
+    -->
+    <el-main class="content">
+
       <div class="fn clearfix">
         <slot name="fn"></slot>
       </div>
-    </el-header>
-    <el-main class="content">
-
       <!-- 操作 -->
       <div class="ope clearfix">
         <slot name="ope"></slot>

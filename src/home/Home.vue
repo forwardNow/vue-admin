@@ -1,15 +1,9 @@
 <template>
   <!-- page -->
-  <el-container class="page">
+  <section class="page clearfix">
 
     <!-- header  -->
-    <el-header class="page__header">
-
-      <!-- logo -->
-      <router-link to="/" class="logo">
-        <div class="title"><!-- 安全业务审批系统 --><img src="../common/assets/images/logo.png" alt=""></div>
-      </router-link>
-      <!-- /logo -->
+    <header class="page__header">
 
       <!-- top-menu -->
       <el-menu class="header__top-menu"
@@ -23,45 +17,23 @@
       </el-menu>
       <!-- top-menu -->
 
-    </el-header>
+    </header>
     <!-- /header  -->
 
     <!-- main -->
-    <el-main class="page__main">
-
-      <el-container class="page__main-inner">
+    <main class="page__main">
 
         <!-- aside -->
-        <el-aside class="main__aside" width="200px">
+        <aside class="main__aside">
 
-          <!--
-          <el-menu class="aside__menu" :router="true" :default-active="activeIndex" ref="menuTree"
-                   background-color="#373e58"
-                   text-color="#f1f1f1"
-                    >
-            <template v-for="menu in menuTreeItems">
-              <template v-if="menu.children && menu.children.length > 0">
-                <el-submenu :index="menu.url">
-                  <template slot="title">
-                    <i :class="menu.icon"></i><span>{{ menu.upcRightName }}</span>
-                  </template>
-                  <template v-for="submenu in menu.children">
-                    <el-menu-item :index="submenu.url">
-                      <i :class="submenu.icon"></i><span slot="title">{{ submenu.upcRightName }}</span>
-                    </el-menu-item>
-                  </template>
-                </el-submenu>
-              </template>
-              <template v-else>
-                <el-menu-item :index="menu.url">
-                  <i :class="menu.icon"></i><span slot="title">{{ menu.upcRightName }}</span>
-                </el-menu-item>
-              </template>
-            </template>
-          </el-menu>
-          -->
+          <!-- logo -->
+          <router-link to="/" class="logo">
+            <div class="title">安全业务审批系统</div>
+          </router-link>
+          <!-- /logo -->
 
           <el-tree
+              class="aside__menu"
               :data="menuTreeItems"
               :show-checkbox="false"
               :default-expand-all="false"
@@ -77,22 +49,23 @@
             </span>
           </el-tree>
 
-        </el-aside>
+        </aside>
         <!-- /aside -->
 
         <!-- content -->
-        <el-main class="main__content">
+        <main class="main__content">
 
-
-          <!-- breadcrumb  -->
-          <el-breadcrumb separator="/" class="content__breadcrumb">
-            <el-breadcrumb-item
-                v-for="item in breadcrumbRouteList" :key="item.path"
-                :to="{ path: item.path }">
-              {{ item.meta.title }}
-            </el-breadcrumb-item>
-          </el-breadcrumb>
-          <!-- /breadcrumb  -->
+          <div class="content__breadcrumb">
+            <!-- breadcrumb  -->
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item
+                  v-for="item in breadcrumbRouteList" :key="item.path"
+                  :to="{ path: item.path }">
+                {{ item.meta.title }}
+              </el-breadcrumb-item>
+            </el-breadcrumb>
+            <!-- /breadcrumb  -->
+          </div>
 
           <!-- body -->
           <transition mode="out-in" name="admin">
@@ -100,16 +73,14 @@
           </transition>
           <!-- /body -->
 
-        </el-main>
+        </main>
         <!-- /content -->
 
-      </el-container>
 
-
-    </el-main>
+    </main>
     <!-- /main -->
 
-  </el-container>
+  </section>
   <!-- /page -->
 </template>
 <script>
@@ -161,17 +132,26 @@
           { upcId: 1, upcRightName: '机构管理', fatherId: 0, url: '/system/org', icon: '', },
           { upcId: 2, upcRightName: '部门管理', fatherId: 0, url: '/system/dept', icon: '', },
           { upcId: 3, upcRightName: '角色管理', fatherId: 0, url: '/system/role', icon: '', },
-          { upcId: 4, upcRightName: '菜单管理', fatherId: 0, url: '/system/menu', icon: '', },
+          // { upcId: 4, upcRightName: '菜单管理', fatherId: 0, url: '/system/menu', icon: '', },
           { upcId: 5, upcRightName: '用户管理', fatherId: 0, url: '/system/user', icon: '', },
           { upcId: 6, upcRightName: '证书管理', fatherId: 0, url: '/system/license', icon: '', expand: false },
-          { upcId: 7, upcRightName: '我的证书', fatherId: 5, url: '/system/license/my', icon: '', },
-          { upcId: 8, upcRightName: '生成证书', fatherId: 5, url: '/system/license/gen', icon: '', },
+          { upcId: 7, upcRightName: '我的证书', fatherId: 6, url: '/system/license/my', icon: '', },
+          { upcId: 8, upcRightName: '生成证书', fatherId: 6, url: '/system/license/gen', icon: '', },
           { upcId: 9, upcRightName: '系统日志', fatherId: 0, url: '/system/sysLog', icon: '', },
           { upcId: 10, upcRightName: '业务日志', fatherId: 0, url: '/system/bizLog', icon: '', },
           { upcId: 11, upcRightName: '系统状态', fatherId: 0, url: '/system/sysStatus', icon: '', },
+
+          { upcId: 15, upcRightName: '业务审批', fatherId: null, url: '/bizAudit', icon: '', },
+          { upcId: 16, upcRightName: '业务申请', fatherId: 15, url: '/bizAudit/apply', icon: '', },
+          { upcId: 17, upcRightName: '业务审核', fatherId: 15, url: '/bizAudit/verify', icon: '', },
+          { upcId: 18, upcRightName: '业务审批', fatherId: 15, url: '/bizAudit/audit', icon: '', },
+          { upcId: 19, upcRightName: '业务配置', fatherId: 15, url: '/bizAudit/config', icon: '', },
+          { upcId: 20, upcRightName: '业务调试', fatherId: 15, url: '/bizAudit/debug', icon: '', },
+          { upcId: 21, upcRightName: '模板管理', fatherId: 15, url: '/bizAudit/template', icon: '', },
+
           { upcId: 12, upcRightName: '个人中心', fatherId: null, url: '/profile', icon: '', },
-          { upcId: 13, upcRightName: '我的账户', fatherId: 11, url: '/profile/account', icon: '', },
-          { upcId: 14, upcRightName: '我的任务', fatherId: 11, url: '/profile/task', icon: '', },
+          { upcId: 13, upcRightName: '我的账户', fatherId: 12, url: '/profile/account', icon: '', },
+          { upcId: 14, upcRightName: '我的任务', fatherId: 12, url: '/profile/task', icon: '', },
         ];
 
         this.menuItems = menuItems;
@@ -270,62 +250,4 @@
     }
   };
 </script>
-<style lang="scss">
-  .page {
-    .el-tree {
-      color: #fff;
-      background: #373e58;
-    }
-
-    .el-tree-node__label {
-      font-size: 16px;
-    }
-
-    .el-tree-node__content {
-      height: auto;
-      padding: 0.5em 0;
-      user-select:none;
-    }
-    .el-tree-node:focus > .el-tree-node__content,
-    .el-tree-node__content:hover {
-      background-color: rgba(255,255,255, 0.2);
-    }
-
-    .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
-      color: #fff;
-      background: #1b2131!important;
-      border-left: solid 4px #216bff;
-    }
-
-    .el-breadcrumb {
-      margin: 20px 0 20px 0;
-      padding-left: 10px;
-      line-height: 20px;
-      border-left: solid 4px #216bff;
-    }
-
-
-    .el-breadcrumb__inner a,
-    .el-breadcrumb__inner.is-link {
-      color: #000;
-    }
-    .el-breadcrumb__inner a:hover,
-    .el-breadcrumb__inner.is-link:hover {
-      color: #409EFF;
-      cursor: pointer;
-    }
-    .el-breadcrumb__item:last-child .el-breadcrumb__inner,
-    .el-breadcrumb__item:last-child .el-breadcrumb__inner a,
-    .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover,
-    .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
-      font-weight: 400;
-      color: #606266;
-      cursor: text;
-    }
-
-    .el-breadcrumb__item:last-child .el-breadcrumb__inner {
-      color: #333;
-    }
-  }
-</style>
 
