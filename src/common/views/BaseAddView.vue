@@ -29,6 +29,12 @@ export default {
     formClassName: { type: String, default: '' },
     labelWidth: { type: String, default: '120px' },
   },
+  created() {
+    this.$store.commit('hideFnSlot');
+  },
+  destroyed() {
+    this.$store.commit('showFnSlot');
+  },
   data() {
     return {
     };

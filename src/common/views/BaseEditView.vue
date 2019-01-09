@@ -31,6 +31,10 @@ export default {
   },
   created() {
     this.init();
+    this.$store.commit('hideFnSlot');
+  },
+  destroyed() {
+    this.$store.commit('showFnSlot');
   },
   data() {
     return {

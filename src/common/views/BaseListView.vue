@@ -7,7 +7,7 @@
     -->
     <el-main class="content">
 
-      <div class="fn clearfix">
+      <div class="fn clearfix" v-if="isShowFnSlot">
         <slot name="fn"></slot>
       </div>
       <!-- 操作 -->
@@ -68,6 +68,10 @@
     created() {
       this.pager.pageSize = this.pageSize;
       this.reload();
+      this.$store.commit('hideFnSlot');
+    },
+    destroyed() {
+      this.$store.commit('showFnSlot');
     },
     data() {
       return {
@@ -81,6 +85,11 @@
         search: this.search,
         tableData: [],
       };
+    },
+    computed: {
+      isShowFnSlot() {
+        return this.$store.state.isShowFnSlot;
+      },
     },
     methods: {
       afterEnter() {
